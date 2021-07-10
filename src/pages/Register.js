@@ -1,6 +1,5 @@
 import React from "react";
-import Input from "../elements/Input";
-import Button from "../elements/Button";
+import { Input, Button } from "../elements";
 
 const Register = (props) => {
   return (

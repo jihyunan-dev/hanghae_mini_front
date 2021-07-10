@@ -1,7 +1,11 @@
 import React from "react";
 import { Input, Button } from "../elements";
 
+import { useDispatch } from "react-redux";
+import { actionCreators as resiterAction } from "../redux/modules/user";
+
 const Register = (props) => {
+  const dispatch = useDispatch();
   const [id, setId] = React.useState("");
   const [nickname, setNickName] = React.useState("");
   const [pwd, setPwd] = React.useState("");
@@ -9,11 +13,14 @@ const Register = (props) => {
 
   const signUp = () => {
     if (id === "" || pwd === "" || nickname === "") {
+      window.alert("아이디, 패스워드, 닉네임을 모두 입력해주세요!");
       return;
     }
     if (pwd !== pwd_check) {
+      window.alert("패스워드와 패스워드 확인이 일치하지 않습니다!");
       return;
     }
+    dispatch(resiterAction.registerDB);
   };
 
   return (
@@ -48,6 +55,7 @@ const Register = (props) => {
           }}
         ></Input>
         <Button _onClick={signUp} width="auto" text="회원가입하기"></Button>
+        <Button width="auto" text="로그인"></Button>
       </div>
     </>
   );

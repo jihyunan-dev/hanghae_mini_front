@@ -8,9 +8,9 @@ const Input = (props) => {
       <div>
         {label}
         <ElInput
+          onChange={_onChange}
           placeholder={placeholder}
           type={type}
-          onChange={_onChange}
         ></ElInput>
       </div>
     </>
@@ -21,6 +21,7 @@ Input.defaultProps = {
   label: false,
   placeholder: "텍스트를 입력해주세요",
   type: "text",
+  _onChange: () => {},
 };
 
 const ElInput = styled.input`

@@ -23,7 +23,7 @@ Button.defaultProps = {
   text: false,
   margin: false,
   padding: false,
-  onClick: null,
+  _onClick: () => {},
 };
 
 const ElButton = styled.button`

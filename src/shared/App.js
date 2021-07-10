@@ -1,6 +1,10 @@
 import React from "react";
 import Header from "../components/Header";
+
 import Register from "../pages/Register";
+import Login from "../pages/Login";
+import Upload from "../pages/Upload";
+
 import GlobalStyles from "./GlobalStyles";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
@@ -15,9 +19,9 @@ const App = () => {
         <Switch>
           <Route path="/" exact component={Main} />
           <Route path="/register" component={Register} />
-          {/* <Route path="/login" component={LOGIN} /> */}
+          <Route path="/login" component={Login} />
           {/* <Route path="/result/:menuId" coponent={Result} /> */}
-          {/* <Route path="/upload" component={Upload} /> */}
+          <Route path="/upload" component={Upload} />
           {/* <Route path="/edit/:postId" component={Edit}/> */}
           {/* <Route path="/posts/userId" component={MyPosts} /> */}
           {/* <Route component={ErrorPage} /> */}

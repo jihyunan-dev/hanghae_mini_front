@@ -2,16 +2,18 @@ import React from "react";
 import styled from "styled-components";
 
 const Button = (props) => {
-  const { text, width, margin, padding } = props;
+  const { text, width, margin, padding, _onClick } = props;
 
-  const stlyes = {
+  const styles = {
     width: width,
     margin: margin,
     padding: padding,
   };
   return (
     <>
-      <ElButton {...stlyes}>{text}</ElButton>
+      <ElButton {...styles} onClick={_onClick}>
+        {text}
+      </ElButton>
     </>
   );
 };
@@ -21,6 +23,7 @@ Button.defaultProps = {
   text: false,
   margin: false,
   padding: false,
+  onClick: null,
 };
 
 const ElButton = styled.button`

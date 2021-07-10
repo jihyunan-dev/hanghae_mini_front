@@ -28,7 +28,13 @@ const getCommentDB =
 
 const addCommentDB =
   (comment) =>
-  (dispatch, getState, { history }) => {};
+  (dispatch, getState, { history }) => {
+    // const { nickname } = getState.user; // user가 있으면
+    let nickname = "jihyun"; // 가짜 데이터
+
+    const new_comment = { ...comment, nickname };
+    dispatch(addComment(new_comment));
+  };
 
 const editCommentDB =
   (comment) =>
@@ -56,7 +62,9 @@ export default handleActions(
     [ADD_COMMENT]: (state, action) =>
       produce(state, (draft) => {
         const { menuId } = action.payload.comment;
-        draft.list[menuId].push(action.payload.comment);
+        draft.list[menuId]
+          ? draft.list[menuId].push(action.payload.comment)
+          : (draft.list[menuId] = [action.payload.comment]);
       }),
     [EDIT_COMMENT]: (state, action) =>
       produce(state, (draft) => {

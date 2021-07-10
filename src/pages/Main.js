@@ -1,11 +1,13 @@
-import React from "react";
-import Button from "../elements/Button";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 
-import Rank from "../components/Rank";
-import { Input } from "../elements";
+import { actionCreator as CommentActions } from "../redux/modules/comment";
 import { RESP } from "../shared/response";
+import Rank from "../components/Rank";
+import { Button, Input } from "../elements";
 
 const Main = () => {
+  const dispatch = useDispatch();
   // 카테고리 정리 필요
   const category1 = ["채식", "육식 + 채식"];
   const category2 = ["한식", "중식", "양식", "일식"];
@@ -17,6 +19,17 @@ const Main = () => {
   } = RESP.LOGIN_SUCCESS;
   const { menuList } = RESP.MENU_SUCCESS;
   const { result: commentList } = RESP.COMMENT_SUCCESS;
+
+  const [currentComment, setCurrentComment] = useState("");
+
+  const submitComment = () => {
+    const commentObj = {
+      comment: currentComment,
+      menuId: "4", // 나중에 받아온 menu의 Id를 파악해서 넣어주면 됨
+    };
+    console.log(commentObj);
+    dispatch(CommentActions.addCommentDB(commentObj));
+  };
 
   return (
     <>
@@ -58,10 +71,15 @@ const Main = () => {
         })}
       </div>
       <Rank />
-      <form>
-        <Input type="text" placeholder="댓글을 입력해주세요" />
-        <Button text={"제출"} />
-      </form>
+      <div>
+        <Input
+          type="text"
+          placeholder="댓글을 입력해주세요"
+          value={currentComment}
+          _onChange={(e) => setCurrentComment(e.target.value)}
+        />
+        <Button text={"제출"} _onClick={submitComment} />
+      </div>
       <ul>
         {commentList.map((comment, idx) => {
           return (

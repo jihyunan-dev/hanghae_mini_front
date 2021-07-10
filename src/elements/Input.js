@@ -2,12 +2,16 @@ import React from "react";
 import styled from "styled-components";
 
 const Input = (props) => {
-  const { label, placeholder, type } = props;
+  const { label, placeholder, type, _onChange } = props;
   return (
     <>
       <div>
         {label}
-        <ElInput placeholder={placeholder} type={type}></ElInput>
+        <ElInput
+          placeholder={placeholder}
+          type={type}
+          onChange={_onChange}
+        ></ElInput>
       </div>
     </>
   );

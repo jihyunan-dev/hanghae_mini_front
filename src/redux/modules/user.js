@@ -1,8 +1,6 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
-import { RESP } from "../../shared/response";
-
-const resp = RESP.LOGIN;
+import axios from "axios";
 
 // action type
 const SET_USER = "SET_USER";
@@ -31,7 +29,24 @@ const loginDB = () => {
 };
 
 const registerDB = (id, pwd, userId) => {
-  return function (dispatch, getState, { history }) {};
+  return function (dispatch, getState, { history }) {
+    axios({
+      method: "post",
+      url: "http://localhost:3001/register",
+      data: {
+        userId: id,
+        password: pwd,
+        passwordConfirm: pwd,
+        nickname: userId,
+      },
+    })
+      .then((res) => {
+        window.alert(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 };
 
 const logOutDB = () => {

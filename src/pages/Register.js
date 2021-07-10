@@ -3,17 +3,13 @@ import { Input, Button } from "../elements";
 
 import { useDispatch } from "react-redux";
 import { actionCreators as resiterAction } from "../redux/modules/user";
-import { RESP } from "../shared/response";
 
 const Register = (props) => {
-  const resp = RESP.REGISTER_SUCCESS;
   const dispatch = useDispatch();
   const [id, setId] = React.useState("");
   const [nickname, setNickName] = React.useState("");
   const [pwd, setPwd] = React.useState("");
   const [pwd_check, setPwdCheck] = React.useState("");
-
-  console.log(resp);
 
   const signUp = () => {
     if (id === "" || pwd === "" || nickname === "") {

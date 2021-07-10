@@ -1,29 +1,66 @@
 {
-  "REGISTER_SUCCESS":[
-    { "ok": true, "message": "회원가입 성공!"}
+  "register": [
+    {
+      "userId": "재밌는리액트",
+      "password": "1234",
+      "passwordConfirm": "1234",
+      "id": 1
+    },
+    {
+      "userId": "재밌는리액트",
+      "password": "1234",
+      "passwordConfirm": "1234",
+      "id": 2
+    },
+    {
+      "userId": "qqq",
+      "password": "qq",
+      "passwordConfirm": "qq",
+      "id": 3
+    },
+    {
+      "userId": "qwe",
+      "password": "123456",
+      "passwordConfirm": "123456",
+      "id": 4
+    },
+    {
+      "userId": "ㅂㅈㄷ",
+      "password": "ㅂㅈㄷ",
+      "passwordConfirm": "ㅂㅈㄷ",
+      "id": 5
+    }
   ],
-
+  "REGISTER_SUCCESS": [
+    {
+      "ok": true,
+      "message": "회원가입 성공!"
+    }
+  ],
   "REGISTER_FAIL": [
-    {"ok": false, "message": "회원가입 실패!"}
+    {
+      "ok": false,
+      "message": "회원가입 실패!"
+    }
   ],
-
   "LOGIN_SUCCESS": [
     {
       "ok": true,
-    "result": {
-      "token": "sg4$sfdsahsh",
-      "user": {
-        "name": "admin",
-        "userId": 4
+      "result": {
+        "token": "sg4$sfdsahsh",
+        "user": {
+          "name": "admin",
+          "userId": 4
+        }
       }
     }
+  ],
+  "LOGIN_FAIL": [
+    {
+      "ok": false,
+      "message": "로그인 정보가 틀렸습니다!"
     }
   ],
-
-  "LOGIN_FAIL": [
-    { "ok": false, "message": "로그인 정보가 틀렸습니다!" }
-  ],
-
   "MENU_SUCCESS": [
     {
       "ok": true,
@@ -136,20 +173,25 @@
       ]
     }
   ],
-
-  "MENU_FAIL":[
-    { "ok": false, "message": "메뉴 가져오기 실패!" }
+  "MENU_FAIL": [
+    {
+      "ok": false,
+      "message": "메뉴 가져오기 실패!"
+    }
   ],
-
   "LIKE_SUCCESS": [
-    { "ok": true, "message": "좋아요 성공!" }
+    {
+      "ok": true,
+      "message": "좋아요 성공!"
+    }
   ],
-
   "LIKE_FAIL": [
-    { "ok": false, "message": "좋아요 실패!" }
+    {
+      "ok": false,
+      "message": "좋아요 실패!"
+    }
   ],
-
-  "RANKLIST_SUCCESS":[
+  "RANKLIST_SUCCESS": [
     {
       "ok": true,
       "rank": [
@@ -186,12 +228,13 @@
       ]
     }
   ],
-
-  "RANKLIST_FAIL":[
-    { "ok": false, "message": "순위 불러오기 실패!" }
+  "RANKLIST_FAIL": [
+    {
+      "ok": false,
+      "message": "순위 불러오기 실패!"
+    }
   ],
-
-  "MENU_DETAIL_SUCCESS":[
+  "MENU_DETAIL_SUCCESS": [
     {
       "ok": true,
       "message": "메뉴 상세 가져오기 성공!",
@@ -208,36 +251,49 @@
       }
     }
   ],
-
-  "MENU_DETAIL_FAIL":[
-    { "ok": false, "message": "메뉴 상세 가져오기 실패!" }
+  "MENU_DETAIL_FAIL": [
+    {
+      "ok": false,
+      "message": "메뉴 상세 가져오기 실패!"
+    }
   ],
-
   "MENU_UPLOAD": [
-    { "ok": true, "message": "메뉴등록 성공!" }
+    {
+      "ok": true,
+      "message": "메뉴등록 성공!"
+    }
   ],
-
   "MENU_UPLOAD_FAIL": [
-    { "ok": false, "message": "메뉴등록 실패!" }
+    {
+      "ok": false,
+      "message": "메뉴등록 실패!"
+    }
   ],
-
-  "MENU_CHANGE_SUCCESS":[
-    { "ok": true, "message": "메뉴수정 성공!" }
+  "MENU_CHANGE_SUCCESS": [
+    {
+      "ok": true,
+      "message": "메뉴수정 성공!"
+    }
   ],
-
   "MENU_CHANGE_FAIL": [
-    { "ok": false, "message": "메뉴수정 실패!" }
+    {
+      "ok": false,
+      "message": "메뉴수정 실패!"
+    }
   ],
-
   "MENU_DELETE_SUCCESS": [
-    { "ok": true, "message": "메뉴삭제 성공!" }
+    {
+      "ok": true,
+      "message": "메뉴삭제 성공!"
+    }
   ],
-
-  "MENU_DELETE_FAIL":[
-    { "ok": false, "message": "메뉴삭제 실패!" }
+  "MENU_DELETE_FAIL": [
+    {
+      "ok": false,
+      "message": "메뉴삭제 실패!"
+    }
   ],
-
-  "COMMENT_SUCCESS":[
+  "COMMENT_SUCCESS": [
     {
       "ok": true,
       "result": [
@@ -259,9 +315,10 @@
       ]
     }
   ],
-
-  "COMMENT_FAIL":[
-    { "ok": false, "message": "댓글을 불러오기 실패!" }
+  "COMMENT_FAIL": [
+    {
+      "ok": false,
+      "message": "댓글을 불러오기 실패!"
+    }
   ]
-
 }

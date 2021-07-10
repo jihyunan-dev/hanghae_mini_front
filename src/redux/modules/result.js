@@ -30,7 +30,7 @@ const addMenu = createAction(ADD_MENU, (post_id, comment_list) => ({
 
 // 내 게시글 page
 const editMenu = createAction(EDIT_MENU, () => ({}));
-const deleteMenu = createAction(DELETE_MENU, () => {()});
+const deleteMenu = createAction(DELETE_MENU, () => ({}));
 
 // initialState
 

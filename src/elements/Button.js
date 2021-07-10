@@ -11,7 +11,7 @@ const Button = (props) => {
   };
   return (
     <>
-      <ElButton>{text}</ElButton>
+      <ElButton {...stlyes}>{text}</ElButton>
     </>
   );
 };
@@ -26,7 +26,7 @@ Button.defaultProps = {
 const ElButton = styled.button`
   width: ${(props) => props.width};
   background-color: #eee;
-  color: #fff;
+  color: black;
   border: none;
 `;
 

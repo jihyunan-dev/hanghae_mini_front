@@ -1,5 +1,8 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
+import { RESP } from "../../shared/response";
+
+const resp = RESP.LOGIN;
 
 // action type
 const SET_USER = "SET_USER";

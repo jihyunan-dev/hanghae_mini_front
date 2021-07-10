@@ -1,15 +1,17 @@
 export const RESP = {
+  // 회원가입
   REGISTER: [
     { ok: true, message: "회원가입 성공!" },
     { ok: false, message: "회원가입 실패!" },
   ],
 
+  // 로그인
   LOGIN: [
     {
       ok: true,
       result: {
+        token: "sg4$sfdsahsh",
         user: {
-          token: "sg4$sfdsahsh",
           name: "admin",
           userId: 4,
         },
@@ -18,6 +20,7 @@ export const RESP = {
     { ok: false, message: "로그인 정보가 틀렸습니다!" },
   ],
 
+  // 메뉴 카테고리 보내서, 추천 음식 가져오기
   MENU: [
     {
       ok: true,
@@ -132,11 +135,13 @@ export const RESP = {
     { ok: false, message: "메뉴 가져오기 실패!" },
   ],
 
-  RANKUPDATE: [
-    { ok: true, message: "메뉴 인기순위 업데이트 성공!" },
-    { ok: false, message: "메뉴 인기순위 업데이트 실패!" },
+  // 선택된 메뉴 인기순위 업데이트
+  LIKE: [
+    { ok: true, message: "좋아요 성공!" },
+    { ok: false, message: "좋아요 실패!" },
   ],
 
+  // 인기순위 보여주기
   RANKLIST: [
     {
       ok: true,
@@ -176,21 +181,45 @@ export const RESP = {
     { ok: false, message: "순위 불러오기 실패!" },
   ],
 
+  // 메뉴 상세 가져오기
+  MENUDETAIL: [
+    {
+      ok: true,
+      message: "메뉴 상세 가져오기 성공!",
+      result: {
+        name: "메뉴이름",
+        img: "메뉴이미지",
+        category1: "카테고리",
+        category2: "카테고리",
+        category3: "카테고리",
+        user: {
+          id: 1,
+          nickName: "배달의 민족",
+        },
+      },
+    },
+    { ok: false, message: "메뉴 상세 가져오기 실패!" },
+  ],
+
+  // 메뉴 등록하기
   MENUUPLOAD: [
     { ok: true, message: "메뉴등록 성공!" },
     { ok: false, message: "메뉴등록 실패!" },
   ],
 
+  // 메뉴 수정하기
   MENUCHANGE: [
     { ok: true, message: "메뉴수정 성공!" },
     { ok: false, message: "메뉴수정 실패!" },
   ],
 
+  // 메뉴 삭제하기
   MENUDELETE: [
     { ok: true, message: "메뉴삭제 성공!" },
     { ok: false, message: "메뉴삭제 실패!" },
   ],
 
+  // 댓글
   COMMENT: [
     {
       ok: true,

@@ -6,6 +6,7 @@ const Upload = () => {
     <>
       <div>
         <div>Menu 업로드</div>
+        {/* {edit모드 ? "Menu 수정" : "Menu 업로드"} */}
         <input />
       </div>
 
@@ -19,6 +20,7 @@ const Upload = () => {
       </div>
 
       <div>
+        {/* {edit모드 ? "Menu 수정" : "Menu 업로드"} */}
         <Button text="Menu 업로드"></Button>
       </div>
     </>

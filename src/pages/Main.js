@@ -1,5 +1,5 @@
-import React from "react";
-import Button from "../elements/Button";
+import React, { useState } from "react";
+import { Button } from "../elements";
 
 import Rank from "../components/Rank";
 import Comment from "../components/Comment";

@@ -9,19 +9,22 @@ import { RESP } from "../shared/response";
 
 const Main = (props) => {
   const dispatch = useDispatch();
-  // const menu_list = useSelector((state) => state.result.list);
+  const menu_list = useSelector((state) => state.result.list);
   // 카테고리 정리 필요
   const category1 = ["채식", "육식 + 채식"];
   const category2 = ["한식", "중식", "양식", "일식"];
   const category3 = ["혼밥", "친구", "연인", "가족", "모임"];
   const count = ["1가지", "2가지", "3가지"];
 
+  // 유저 불러오기
   const {
     result: { user },
   } = RESP.LOGIN_SUCCESS;
-  const { menuList } = RESP.MENU_SUCCESS;
+
+  // 코멘트 불러오기
   const { result: commentList } = RESP.COMMENT_SUCCESS;
 
+  // 메뉴 추천받기!
   const result = () => {
     dispatch(resultAction.getMenuDB());
   };
@@ -57,7 +60,7 @@ const Main = (props) => {
         </div>
         <hr />
         <Button _onClick={result} text="메뉴 추천받기" />
-        {menuList.map((result, idx) => {
+        {menu_list.map((result, idx) => {
           return (
             <div key={idx}>
               <img src={result.img} alt={result.name} />

@@ -19,7 +19,7 @@ const getMenu = createAction(GET_MENU, (menu_list) => ({
 // main page
 const updateRank = createAction(UPDATE_RANK, () => ({}));
 // main page
-const getRank = createAction(GET_RANK, () => ({}));
+const getRank = createAction(GET_RANK, (menu_like) => ({ menu_like }));
 // main page
 const getMenuDetail = createAction(GET_MENU_DETAIL, () => ({}));
 // upload page
@@ -36,6 +36,7 @@ const deleteMenu = createAction(DELETE_MENU, () => ({}));
 
 const initialState = {
   list: [],
+  rank_list: [],
 };
 
 // middleware
@@ -51,8 +52,14 @@ const deleteMenuDB = () => {
   return function (dispatch, getState, { history }) {};
 };
 
-const getRankDB = () => {
-  return function (dispatch, getState, { history }) {};
+const getRankDB = (name, img) => {
+  return function (dispatch, getState, { history }) {
+    axios.get("http://localhost:3001/menu_like").then((res) => {
+      console.log(res.data);
+      const menu_like = res.data.result;
+      dispatch(getRank(menu_like));
+    });
+  };
 };
 
 const updateRankDB = () => {
@@ -62,11 +69,10 @@ const updateRankDB = () => {
 const getMenuDB = (name, img) => {
   return function (dispatch, getState, { history }) {
     axios
-      .get("http://localhost:3001/MENU_SUCCESS")
+      .get("http://localhost:3001/menu")
       .then((res) => {
-        console.log(res.data);
-        // const menu_list = res.data.result[1];
-        // dispatch(getMenu(menu_list));
+        const menu_list = res.data.menu_list[1];
+        dispatch(getMenu(menu_list));
       })
       .catch((err) => {
         console.log(err);
@@ -83,13 +89,16 @@ export default handleActions(
   {
     [GET_MENU]: (state, action) =>
       produce(state, (draft) => {
-        draft.list.push(...action.payload.menu_list);
+        draft.list.push(action.payload.menu_list);
       }),
     [GET_MENU_DETAIL]: (state, action) => produce(state, (draft) => {}),
     [EDIT_MENU]: (state, action) => produce(state, (draft) => {}),
     [DELETE_MENU]: (state, action) => produce(state, (draft) => {}),
     [UPDATE_RANK]: (state, action) => produce(state, (draft) => {}),
-    [GET_RANK]: (state, action) => produce(state, (draft) => {}),
+    [GET_RANK]: (state, action) =>
+      produce(state, (draft) => {
+        draft.rank_list.push(action.payload.menu_like);
+      }),
   },
   initialState
 );

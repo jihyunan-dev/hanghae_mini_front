@@ -3,9 +3,13 @@ import Button from "../elements/Button";
 
 import Rank from "../components/Rank";
 import { Input } from "../elements";
+import { useSelector, useDispatch } from "react-redux";
+import { actionCreators as resultAction } from "../redux/modules/result.js";
 import { RESP } from "../shared/response";
 
-const Main = () => {
+const Main = (props) => {
+  const dispatch = useDispatch();
+  // const menu_list = useSelector((state) => state.result.list);
   // 카테고리 정리 필요
   const category1 = ["채식", "육식 + 채식"];
   const category2 = ["한식", "중식", "양식", "일식"];
@@ -17,6 +21,10 @@ const Main = () => {
   } = RESP.LOGIN_SUCCESS;
   const { menuList } = RESP.MENU_SUCCESS;
   const { result: commentList } = RESP.COMMENT_SUCCESS;
+
+  const result = () => {
+    dispatch(resultAction.getMenuDB());
+  };
 
   return (
     <>
@@ -48,7 +56,7 @@ const Main = () => {
           ))}
         </div>
         <hr />
-        <Button text="메뉴 추천받기" />
+        <Button _onClick={result} text="메뉴 추천받기" />
         {menuList.map((result, idx) => {
           return (
             <div key={idx}>

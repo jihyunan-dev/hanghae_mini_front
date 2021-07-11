@@ -35,7 +35,7 @@ const deleteMenu = createAction(DELETE_MENU, () => ({}));
 // initialState
 
 const initialState = {
-  list: {},
+  list: [],
 };
 
 // middleware
@@ -44,33 +44,47 @@ const addMenuDB = (post_id, contents) => {
 };
 
 const editMenuDB = () => {
-    return function (dispatch, getState, {history}){};
-}
-
-const deleteMenuDB = () => {
-    return function (dispatch, getState, {history}){};
-}
-
-const getRankDB = () => {
-    return function (dispatch, getState, {history}){};
-}
-
-const updateRankDB = () => {
-    return function (dispatch, getState, {history}){};
-}
-
-const getMenuDB = (post_id) => {
   return function (dispatch, getState, { history }) {};
 };
 
-const getMenuDetailDB = (post_id) => {
-    return function (dispatch, getState, { history }) {};
+const deleteMenuDB = () => {
+  return function (dispatch, getState, { history }) {};
+};
+
+const getRankDB = () => {
+  return function (dispatch, getState, { history }) {};
+};
+
+const updateRankDB = () => {
+  return function (dispatch, getState, { history }) {};
+};
+
+const getMenuDB = (name, img) => {
+  return function (dispatch, getState, { history }) {
+    axios
+      .get("http://localhost:3001/MENU_SUCCESS")
+      .then((res) => {
+        console.log(res.data);
+        // const menu_list = res.data.result[1];
+        // dispatch(getMenu(menu_list));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
+};
+
+const getMenuDetailDB = (post_id) => {
+  return function (dispatch, getState, { history }) {};
+};
 
 //reducer
 export default handleActions(
   {
-    [GET_MENU]: (state, action) => produce(state, (draft) => {}),
+    [GET_MENU]: (state, action) =>
+      produce(state, (draft) => {
+        draft.list.push(...action.payload.menu_list);
+      }),
     [GET_MENU_DETAIL]: (state, action) => produce(state, (draft) => {}),
     [EDIT_MENU]: (state, action) => produce(state, (draft) => {}),
     [DELETE_MENU]: (state, action) => produce(state, (draft) => {}),
@@ -81,20 +95,20 @@ export default handleActions(
 );
 
 const actionCreators = {
-    getMenu,
-    getMenuDetail,
-    addMenu,
-    editMenu,
-    deleteMenu,
-    updateRank,
-    getRank,
-    addMenuDB,
-    editMenuDB,
-    deleteMenuDB,
-    getMenuDB,
-    getMenuDetailDB,
-    updateRankDB,
-    getRankDB,
+  getMenu,
+  getMenuDetail,
+  addMenu,
+  editMenu,
+  deleteMenu,
+  updateRank,
+  getRank,
+  addMenuDB,
+  editMenuDB,
+  deleteMenuDB,
+  getMenuDB,
+  getMenuDetailDB,
+  updateRankDB,
+  getRankDB,
 };
 
 export { actionCreators };

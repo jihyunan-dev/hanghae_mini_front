@@ -1,6 +1,8 @@
 import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
 
+import { api } from "../../shared/api";
+
 // action type
 const SET_COMMENT = "comment/SET_COMMENT";
 const ADD_COMMENT = "comment/ADD_COMMENT";
@@ -28,12 +30,16 @@ const getCommentDB =
 
 const addCommentDB =
   (comment) =>
-  (dispatch, getState, { history }) => {
+  async (dispatch, getState, { history }) => {
     // const { nickname } = getState.user; // user가 있으면
     let nickname = "jihyun"; // 가짜 데이터
 
-    const new_comment = { ...comment, nickname };
-    dispatch(addComment(new_comment));
+    const { data } = await api.post("/comments", {
+      ...comment,
+      nickname,
+    });
+
+    dispatch(addComment(data));
   };
 
 const editCommentDB =

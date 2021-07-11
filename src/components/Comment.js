@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { actionCreator as CommentActions } from "../redux/modules/comment";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreator as commentActions } from "../redux/modules/comment";
 
 import TextForm from "./TextForm";
 import CommentList from "./CommentList";
@@ -8,16 +8,23 @@ import CommentList from "./CommentList";
 const Comment = (props) => {
   const dispatch = useDispatch();
 
+  // menuId에 따라서 comment로드, 저장이 달라짐
+  const [menuId, setMenuId] = useState(null);
   const [currentComment, setCurrentComment] = useState("");
+
+  useEffect(() => dispatch(commentActions.getCommentDB(menuId)), []);
+
+  const commentList = useSelector((state) => state.comment.list[menuId]) || [];
+  console.log(commentList);
 
   const submitComment = (e) => {
     e.preventDefault();
 
     const commentObj = {
       comment: currentComment,
-      menuId: "13", // 나중에 받아온 menu의 Id를 파악해서 넣어주면 됨
+      menuId: menuId,
     };
-    dispatch(CommentActions.addCommentDB(commentObj));
+    dispatch(commentActions.addCommentDB(commentObj));
   };
 
   return (
@@ -27,7 +34,7 @@ const Comment = (props) => {
         _onSubmit={submitComment}
         _onChange={(e) => setCurrentComment(e.target.value)}
       />
-      <CommentList />
+      <CommentList menuId={menuId} list={commentList} />
     </>
   );
 };

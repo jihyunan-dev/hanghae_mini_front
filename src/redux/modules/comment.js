@@ -25,8 +25,11 @@ const deleteComment = createAction(DELETE_COMMENT, (menuId, commentId) => ({
 
 // thunk
 const getCommentDB =
-  () =>
-  (dispatch, getState, { history }) => {};
+  (menuId) =>
+  async (dispatch, getState, { history }) => {
+    const { data } = await api.get(`/comments?menuId=${menuId}`);
+    dispatch(setComment(data));
+  };
 
 const addCommentDB =
   (comment) =>
@@ -61,8 +64,10 @@ export default handleActions(
     [SET_COMMENT]: (state, action) =>
       produce(state, (draft) => {
         action.payload.comments.forEach((item) => {
-          const id = item.id;
-          draft.list[id].push(item);
+          const menuId = item.menuId;
+          draft.list[menuId]
+            ? draft.list[menuId].push(item)
+            : (draft.list[menuId] = [item]);
         });
       }),
     [ADD_COMMENT]: (state, action) =>

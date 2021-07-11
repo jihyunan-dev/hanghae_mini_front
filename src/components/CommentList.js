@@ -2,11 +2,10 @@ import React from "react";
 import { Button } from "../elements";
 
 const CommentList = (props) => {
-  const commentList = [];
-
+  const { list } = props;
   return (
     <ul>
-      {commentList.map((comment, idx) => {
+      {list.map((comment, idx) => {
         return (
           <li key={idx}>
             <h6>{comment.nickname}</h6>
@@ -19,6 +18,10 @@ const CommentList = (props) => {
       })}
     </ul>
   );
+};
+
+CommentList.defaultProps = {
+  list: [],
 };
 
 export default CommentList;

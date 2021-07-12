@@ -9,7 +9,7 @@ const Comment = (props) => {
   const dispatch = useDispatch();
 
   // menuId에 따라서 comment로드, 저장이 달라짐
-  const [menuId, setMenuId] = useState(null);
+  const [menuId, setMenuId] = useState(1);
   const [currentComment, setCurrentComment] = useState("");
 
   useEffect(() => dispatch(commentActions.getCommentDB(menuId)), []);

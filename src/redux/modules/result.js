@@ -1,6 +1,6 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
-import axios from "axios";
+import { api } from "../../shared/api";
 
 //action type
 const GET_MENU = "GET_MENU";
@@ -39,7 +39,7 @@ const initialState = {
   rank_list: [],
 };
 
-// middleware
+// thunk
 const addMenuDB = (post_id, contents) => {
   return function (dispatch, getState, { history }) {};
 };
@@ -52,33 +52,27 @@ const deleteMenuDB = () => {
   return function (dispatch, getState, { history }) {};
 };
 
-const getRankDB = (name, img) => {
-  return function (dispatch, getState, { history }) {
-    axios.get("http://localhost:3001/menu_like").then((res) => {
-      console.log(res.data);
-      const menu_like = res.data.result;
-      dispatch(getRank(menu_like));
-    });
-  };
-};
+// const getRankDB = (name, img) => {
+//   return function (dispatch, getState, { history }) {
+//     api.get(`/menu?name=`).then((res) => {
+//       console.log(res.data);
+//       const menu_like = res.data.result;
+//       dispatch(getRank(menu_like));
+//     });
+//   };
+// };
 
 const updateRankDB = () => {
   return function (dispatch, getState, { history }) {};
 };
 
-const getMenuDB = (name, img) => {
-  return function (dispatch, getState, { history }) {
-    axios
-      .get("http://localhost:3001/menu")
-      .then((res) => {
-        const menu_list = res.data.menu_list[1];
-        dispatch(getMenu(menu_list));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+const getMenuDB =
+  (menu_list) =>
+  async (dispatch, getState, { history }) => {
+    const menu_list = await api.get("/menu");
+    console.log(menu_list.data);
+    dispatch(getMenu(menu_list.data));
   };
-};
 
 const getMenuDetailDB = (post_id) => {
   return function (dispatch, getState, { history }) {};
@@ -89,7 +83,7 @@ export default handleActions(
   {
     [GET_MENU]: (state, action) =>
       produce(state, (draft) => {
-        draft.list.push(action.payload.menu_list);
+        draft.list.push(...action.payload.menu_list);
       }),
     [GET_MENU_DETAIL]: (state, action) => produce(state, (draft) => {}),
     [EDIT_MENU]: (state, action) => produce(state, (draft) => {}),
@@ -117,7 +111,7 @@ const actionCreators = {
   getMenuDB,
   getMenuDetailDB,
   updateRankDB,
-  getRankDB,
+  //   getRankDB,
 };
 
 export { actionCreators };

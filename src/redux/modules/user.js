@@ -15,7 +15,12 @@ const getUser = createAction(GET_USER, (user) => ({ user }));
 
 // initialState
 const initialState = {
-  user: null,
+  user: {
+    userId: 3, // 서버에서 받아온 ID(DB에서 사용)
+    loginId: "", // 유저가 가입할 때 사용한 아이디
+    nickname: "",
+    postList: [], // 내 게시물에 보여질 포스트
+  },
   is_login: false,
 };
 

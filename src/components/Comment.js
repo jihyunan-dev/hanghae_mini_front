@@ -15,7 +15,6 @@ const Comment = (props) => {
   useEffect(() => dispatch(commentActions.getCommentDB(menuId)), []);
 
   const commentList = useSelector((state) => state.comment.list[menuId]) || [];
-  console.log(commentList);
 
   const submitComment = (e) => {
     e.preventDefault();
@@ -31,6 +30,7 @@ const Comment = (props) => {
     <>
       <TextForm
         placeholder="댓글을 입력해주세요."
+        value={currentComment}
         _onSubmit={submitComment}
         _onChange={(e) => setCurrentComment(e.target.value)}
       />

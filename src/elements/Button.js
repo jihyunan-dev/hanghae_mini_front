@@ -4,14 +4,14 @@ import styled from "styled-components";
 const Button = (props) => {
   const { text, width, margin, padding, _onClick } = props;
 
-  const stlyes = {
+  const styles = {
     width: width,
     margin: margin,
     padding: padding,
   };
   return (
     <>
-      <ElButton {...stlyes} onClick={_onClick}>
+      <ElButton {...styles} onClick={_onClick}>
         {text}
       </ElButton>
     </>

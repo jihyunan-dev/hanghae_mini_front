@@ -23,9 +23,9 @@ const getRank = createAction(GET_RANK, (menu_like) => ({ menu_like }));
 // main page
 const getMenuDetail = createAction(GET_MENU_DETAIL, () => ({}));
 // upload page
-const addMenu = createAction(ADD_MENU, (post_id, comment_list) => ({
-  post_id,
-  comment_list,
+const addMenu = createAction(ADD_MENU, (postId, commentList) => ({
+  postId,
+  commentList,
 }));
 
 // 내 게시글 page
@@ -40,13 +40,14 @@ const initialState = {
 };
 
 // thunk
-const addMenuDB = (post_id, contents) => {
-  return function (dispatch, getState, { history }) {};
-};
-
-const editMenuDB = () => {
-  return function (dispatch, getState, { history }) {};
-};
+const addMenuDB =
+  (formData) =>
+  async (dispatch, getState, { history }) => {
+    const response = await api.post("/menu", {
+      data: formData,
+      header: { "Content-Type": "multipart/form-data" },
+    });
+  };
 
 const deleteMenuDB = () => {
   return function (dispatch, getState, { history }) {};
@@ -106,7 +107,7 @@ const actionCreators = {
   updateRank,
   getRank,
   addMenuDB,
-  editMenuDB,
+  // editMenuDB,
   deleteMenuDB,
   getMenuDB,
   getMenuDetailDB,

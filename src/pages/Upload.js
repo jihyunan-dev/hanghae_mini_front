@@ -20,17 +20,24 @@ const Upload = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!menuName && !description && !img) return;
+    if (
+      !menuName ||
+      !description ||
+      !img ||
+      !category.category1 ||
+      !category.category2 ||
+      !category.category3
+    )
+      return;
 
-    const formData = new FormData();
-    formData.append("name", menuName);
-    formData.append("description", description);
-    formData.append("img", img);
-    for (let entry of Object.entries(category)) {
-      formData.append(entry[0], entry[1]);
-    }
+    const dataObj = {
+      ...category,
+      name: menuName,
+      description,
+      img,
+    };
 
-    dispatch(resultActions.addMenuDB(formData));
+    dispatch(resultActions.addMenuDB(dataObj));
   };
 
   return (
@@ -53,11 +60,11 @@ const Upload = () => {
             onChange={(e) => setImg(e.target.files[0])}
           />
         </div>
-
+        {/* 
         <div>
           <span>미리보기</span>
           <img src="" alt="" />
-        </div>
+        </div> */}
 
         <div>
           <span>메뉴 추천 이유</span>

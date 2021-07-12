@@ -30,7 +30,7 @@ const Rank = (props) => {
       <h3>인기 점심 메뉴</h3>
 
       <div>
-        <Button _onClick={reload} text="새로고침" />
+        <Button width="50%" _onClick={reload} text="새로고침" />
         {rankList.map((reload, idx) => {
           console.log(reload);
           return (

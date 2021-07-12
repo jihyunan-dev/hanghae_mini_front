@@ -8,6 +8,7 @@ const Header = (props) => {
       <Container>
         <div>오늘 점심 뭐먹냐?</div>
         <Info>
+          <Button width="auto" text="메뉴추천하기"></Button>
           <Button width="auto" text="내정보"></Button>
           <Button width="auto" text="로그아웃"></Button>
         </Info>
@@ -27,7 +28,7 @@ const Container = styled.div`
 `;
 
 const Info = styled.div`
-  width: 20%;
+  width: 30%;
   height: 100%;
   display: flex;
   justify-content: space-around;

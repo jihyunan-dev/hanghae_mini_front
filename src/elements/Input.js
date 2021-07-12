@@ -19,7 +19,7 @@ const Input = (props) => {
 
 Input.defaultProps = {
   label: false,
-  placeholder: "텍스트를 입력해주세요",
+  placeholder: "",
   type: "text",
   _onChange: () => {},
 };

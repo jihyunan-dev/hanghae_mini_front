@@ -1,28 +1,77 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import CategoryBtns from "../components/CategoryBtns";
 import { Button, Input } from "../elements";
+import { actionCreators as resultActions } from "../redux/modules/result";
 
 const Upload = () => {
+  const dispatch = useDispatch();
+  const [editMode, setEditMode] = useState(false);
+
+  const [menuName, setMenuName] = useState("");
+  const [img, setImg] = useState(null);
+  const [description, setDescription] = useState("");
+  const [category, setCategory] = useState({
+    category1: null,
+    category2: null,
+    category3: null,
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!menuName && !description && !img) return;
+
+    const formData = new FormData();
+    formData.append("name", menuName);
+    formData.append("description", description);
+    formData.append("img", img);
+    for (let entry of Object.entries(category)) {
+      formData.append(entry[0], entry[1]);
+    }
+
+    dispatch(resultActions.addMenuDB(formData));
+  };
+
   return (
     <>
-      <div>
-        <div>Menu 업로드</div>
-        {/* {edit모드 ? "Menu 수정" : "Menu 업로드"} */}
-        <input />
-      </div>
+      <h2>{editMode ? "추천 메뉴 수정" : "추천 메뉴 등록"}</h2>
+      <form encType="multipart/form-data" onSubmit={handleSubmit}>
+        <CategoryBtns setCategory={setCategory} />
+        <div>
+          <span>추천 메뉴 이름</span>
+          <Input
+            value={menuName}
+            _onChange={(e) => setMenuName(e.target.value)}
+          />
+        </div>
+        <div>
+          <span>추천 메뉴 이미지 업로드</span>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => setImg(e.target.files[0])}
+          />
+        </div>
 
-      <div>
-        <h2>미리보기</h2>
-        <image />
-      </div>
+        <div>
+          <span>미리보기</span>
+          <img src="" alt="" />
+        </div>
 
-      <div>
-        <Input label="Menu" placeholder="Menu를 소개해주세요!"></Input>
-      </div>
+        <div>
+          <span>메뉴 추천 이유</span>
+          <textarea
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          ></textarea>
+        </div>
 
-      <div>
-        {/* {edit모드 ? "Menu 수정" : "Menu 업로드"} */}
-        <Button text="Menu 업로드"></Button>
-      </div>
+        <Button
+          text={editMode ? "Menu 수정" : "Menu 업로드"}
+          _onSubmit={handleSubmit}
+        />
+      </form>
     </>
   );
 };

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../elements/Button";
 
@@ -6,10 +7,12 @@ const Header = (props) => {
   return (
     <>
       <Container>
-        <div>오늘 점심 뭐먹냐?</div>
+        <Link to="/">
+          <h1>오늘 점심 뭐먹냐?</h1>
+        </Link>
         <Info>
-          <Button width="auto" text="메뉴추천하기"></Button>
-          <Button width="auto" text="내정보"></Button>
+          <Link to="/upload">메뉴 추천하기</Link>
+          <Link to="/posts/:id">내 게시물</Link>
           <Button width="auto" text="로그아웃"></Button>
         </Info>
       </Container>

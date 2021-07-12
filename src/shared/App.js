@@ -14,8 +14,8 @@ const App = () => {
   return (
     <>
       <GlobalStyles />
-      <Header />
       <BrowserRouter>
+        <Header />
         <Switch>
           <Route path="/" exact component={Main} />
           <Route path="/register" component={Register} />

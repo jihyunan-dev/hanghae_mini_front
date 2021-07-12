@@ -28,7 +28,7 @@ const Container = styled.div`
 `;
 
 const Info = styled.div`
-  width: 25%;
+  width: 30%;
   height: 100%;
   display: flex;
   justify-content: space-around;

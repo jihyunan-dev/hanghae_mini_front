@@ -46,6 +46,10 @@ const Container = styled.div`
 // 이름 바꿔야함..
 const Div = styled.div`
   width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 export default Main;

@@ -26,7 +26,7 @@ TextForm.defaultProps = {
   btnName: "제출",
 };
 
-const Form = styled.div`
+const Form = styled.form`
   width: 100%;
   height: 100%;
   display: flex;

@@ -5,14 +5,11 @@ const Input = (props) => {
   const { label, placeholder, type, _onChange } = props;
   return (
     <>
-      <div>
-        {label}
-        <ElInput
-          onChange={_onChange}
-          placeholder={placeholder}
-          type={type}
-        ></ElInput>
-      </div>
+      <ElInput
+        onChange={_onChange}
+        placeholder={placeholder}
+        type={type}
+      ></ElInput>
     </>
   );
 };

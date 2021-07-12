@@ -36,19 +36,22 @@ const addCommentDB =
   async (dispatch, getState, { history }) => {
     const { nickname, userId } = getState().user.user;
     const body = { ...comment, nickname, userId };
+    const { data: result } = await api.post("/comments", body);
 
-    const { data } = await api.post("/comments", body);
-
-    dispatch(addComment({ ...body, commentId: data.id }));
+    dispatch(addComment({ ...body, commentId: result.id }));
   };
 
 const editCommentDB =
-  (comment) =>
+  (commentId, comment) =>
   (dispatch, getState, { history }) => {};
 
 const deleteCommentDB =
-  (id) =>
-  (dispatch, getState, { history }) => {};
+  (menuId, commentId) =>
+  (dispatch, getState, { history }) => {
+    api
+      .delete(`/comments/${commentId}`)
+      .then((res) => dispatch(deleteComment(menuId, commentId)));
+  };
 
 // initialState
 const initialState = {
@@ -87,7 +90,9 @@ export default handleActions(
     [DELETE_COMMENT]: (state, action) =>
       produce(state, (draft) => {
         const { menuId, commentId } = action.payload;
-        draft.list[menuId].filter((comment) => comment.id !== commentId);
+        draft.list[menuId] = draft.list[menuId].filter(
+          (comment) => comment.id !== commentId
+        );
       }),
   },
   initialState

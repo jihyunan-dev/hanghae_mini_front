@@ -12,7 +12,7 @@ const TextForm = (props) => {
         value={value}
         _onChange={_onChange}
       />
-      <Button text={btnName} />
+      <Button width="20%" text={btnName} />
     </form>
   );
 };

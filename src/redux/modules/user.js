@@ -1,6 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import axios from "axios";
+import { api } from "../../shared/api";
 
 // action type
 const SET_USER = "SET_USER";
@@ -32,7 +33,7 @@ const registerDB = (id, pwd, userId) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "post",
-      url: "http://localhost:3001/register",
+      url: "http://localhost:3001/login",
       data: {
         userId: id,
         password: pwd,

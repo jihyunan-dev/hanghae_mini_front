@@ -1,4 +1,5 @@
 import React from "react";
+import styled from "styled-components";
 import { Input, Button } from "../elements";
 
 import { useDispatch } from "react-redux";
@@ -25,7 +26,7 @@ const Register = (props) => {
 
   return (
     <>
-      <div>
+      <Container>
         <Input
           label="아이디"
           placeholder="아이디를 입력해주세요"
@@ -56,9 +57,11 @@ const Register = (props) => {
         ></Input>
         <Button _onClick={signUp} width="auto" text="회원가입하기"></Button>
         <Button width="auto" text="로그인"></Button>
-      </div>
+      </Container>
     </>
   );
 };
+
+const Container = styled.div``;
 
 export default Register;

@@ -5,8 +5,8 @@
   },
   "register": {
     "userId": "admin",
-    "password": "1234",
-    "passwordConfirm": "1234",
+    "pwd": "4321",
+    "pwdConfirm": "4321",
     "nickname": "admin"
   },
   "category": [

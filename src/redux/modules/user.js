@@ -1,6 +1,6 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
-import axios from "axios";
+import { getCookie, setCookie, deleteCookie } from "../../shared/Cookie";
 import { api } from "../../shared/api";
 
 // action type
@@ -25,39 +25,52 @@ const initialState = {
 };
 
 // middleware actions
-const loginDB = (id, pwd) => {
-  return function (dispatch, getState, { history }) {
-    axios({
-      method: "post",
-      url: "http://localhost:3001/login",
-      data: {
+const loginDB =
+  (id, pwd) =>
+  async (dispatch, getState, { history }) => {
+    const login_user = await api
+      .post(`/login`, {
         id: id,
         pwd: pwd,
-      },
-    }).then((res) => {
-      console.log(res);
-      dispatch(
-        setUser({
-          id: res.data.id,
-          nickname: res.data.nickname,
-        })
-      );
-    });
-  };
-};
+      })
+      .then((res) => {
+        console.log(res);
+        dispatch(
+          setUser({
+            token: "",
+            id: res.data.id,
+            userId: res.data.userId,
+            nickname: res.data.nickname,
+            postList: [
+              {
+                menuId: "",
+                name: "",
+                description: "",
+                img: "",
+                like: "",
+              },
+            ],
+          })
+        );
+        const accessToken = res.data.token;
 
-const registerDB = (id, pwd, nickname) => {
-  return function (dispatch, getState, { history }) {
-    axios({
-      method: "post",
-      url: "http://localhost:3001/register",
-      data: {
+        setCookie("is_login", `${accessToken}`);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+const registerDB =
+  (id, pwd, nickname) =>
+  async (dispatch, getState, { history }) => {
+    const regist_user = await api
+      .post(`/register`, {
         userId: id,
-        password: pwd,
-        passwordConfirm: pwd,
+        pwd: pwd,
+        pwdConfirm: pwd,
         nickname: nickname,
-      },
-    })
+      })
       .then((res) => {
         window.alert(`${res.data.userId}님 환영합니다`);
       })
@@ -65,10 +78,51 @@ const registerDB = (id, pwd, nickname) => {
         console.log(err);
       });
   };
-};
+
+// loginCheck api 필요함
+// 어떤걸 받아와야하는지 알아야함
+
+const loginCheckDB =
+  () =>
+  async (dispatch, getState, { history }) => {
+    const token = getCookie("is_login");
+    console.log(token);
+    const check_user = await api
+      .post(`/check`, {
+        headers: {
+          authorization: "Bearer ${token}",
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        dispatch(
+          setUser({
+            token: "",
+            id: res.data.id,
+            userId: res.data.userId,
+            nickname: res.data.nickname,
+            postList: [
+              {
+                menuId: "",
+                name: "",
+                description: "",
+                img: "",
+                like: "",
+              },
+            ],
+          })
+        );
+      })
+      .catch((err) => {
+        console.log(err.code, err.message);
+      });
+  };
 
 const logOutDB = () => {
-  return function (dispatch, getState, { history }) {};
+  return function (dispatch, getState, { history }) {
+    dispatch(logOut());
+    history.replace("/");
+  };
 };
 
 // reducer
@@ -80,7 +134,12 @@ export default handleActions(
         draft.is_login = true;
       }),
     [GET_USER]: (state, action) => produce(state, (draft) => {}),
-    [LOG_OUT]: (state, action) => produce(state, (draft) => {}),
+    [LOG_OUT]: (state, action) =>
+      produce(state, (draft) => {
+        deleteCookie("is_login");
+        draft.user = null;
+        draft.is_login = false;
+      }),
   },
   initialState
 );
@@ -91,6 +150,7 @@ const actionCreators = {
   loginDB,
   registerDB,
   logOutDB,
+  loginCheckDB,
 };
 
 export { actionCreators };

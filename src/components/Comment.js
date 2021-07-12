@@ -30,6 +30,7 @@ const Comment = (props) => {
     <>
       <TextForm
         placeholder="댓글을 입력해주세요."
+        value={currentComment}
         _onSubmit={submitComment}
         _onChange={(e) => setCurrentComment(e.target.value)}
       />

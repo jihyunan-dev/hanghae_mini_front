@@ -23,9 +23,8 @@ const getRank = createAction(GET_RANK, (menu_like) => ({ menu_like }));
 // main page
 const getMenuDetail = createAction(GET_MENU_DETAIL, () => ({}));
 // upload page
-const addMenu = createAction(ADD_MENU, (postId, commentList) => ({
-  postId,
-  commentList,
+const addMenu = createAction(ADD_MENU, (newMenu) => ({
+  newMenu,
 }));
 
 // 내 게시글 page
@@ -41,12 +40,40 @@ const initialState = {
 
 // thunk
 const addMenuDB =
-  (formData) =>
+  (dataObj) =>
   async (dispatch, getState, { history }) => {
-    const response = await api.post("/menu", {
-      data: formData,
-      header: { "Content-Type": "multipart/form-data" },
-    });
+    const { userId } = getState().user.user;
+    const newObj = { id: userId, ...dataObj };
+
+    const formData = new FormData();
+    for (let entry of Object.entries(newObj)) {
+      formData.append(entry[0], entry[1]);
+    }
+
+    try {
+      // 서버가 있을 때는 주석 풀기
+      // const {
+      //   data: {
+      //     result: { id: menuId, img, description },
+      //   },
+      // } = await api.post("/menu", formData, {
+      //   headers: { "Content-Type": "multipart/form-data" },
+      // });
+      // const stateObj = { ...newObj, img, menuId, description };
+
+      // 가짜 데이터🙋🏻‍♀️
+      const stateObj = {
+        menuId: 5,
+        img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRk8TgzcEGvR9rAOG8unUUaLnKWwyzRgIl5ew&usqp=CAU",
+        description: "하하하",
+        name: "비빔밥",
+        userId,
+      };
+
+      dispatch(addMenu(stateObj));
+    } catch (err) {
+      console.log("메뉴 등록 실패", err);
+    }
   };
 
 const deleteMenuDB = () => {
@@ -87,6 +114,10 @@ export default handleActions(
         draft.list.push(...action.payload.menu_list);
       }),
     [GET_MENU_DETAIL]: (state, action) => produce(state, (draft) => {}),
+    [ADD_MENU]: (state, action) =>
+      produce(state, (draft) => {
+        draft.list.push(action.payload.newMenu);
+      }),
     [EDIT_MENU]: (state, action) => produce(state, (draft) => {}),
     [DELETE_MENU]: (state, action) => produce(state, (draft) => {}),
     [UPDATE_RANK]: (state, action) => produce(state, (draft) => {}),

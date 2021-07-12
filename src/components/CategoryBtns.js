@@ -18,21 +18,25 @@ const CategoryBtns = (props) => {
     [category1, category2, category3]
   );
 
+
   return (
     <div>
       <div>
         {btns1.map((item, idx) => (
           <Button key={idx} text={item} _onClick={() => setCategory1(item)} />
+
         ))}
       </div>
       <div>
         {btns2.map((item, idx) => (
           <Button key={idx} text={item} _onClick={() => setCategory2(item)} />
+
         ))}
       </div>
       <div>
         {btns3.map((item, idx) => (
           <Button key={idx} text={item} _onClick={() => setCategory3(item)} />
+
         ))}
       </div>
     </div>

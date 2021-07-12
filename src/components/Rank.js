@@ -1,4 +1,5 @@
 import React from "react";
+import styled from "styled-components";
 import { Button } from "../elements";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as reloadAction } from "../redux/modules/result";
@@ -25,7 +26,7 @@ const Rank = (props) => {
   ];
 
   return (
-    <div>
+    <Container>
       <h3>인기 점심 메뉴</h3>
 
       <div>
@@ -40,8 +41,13 @@ const Rank = (props) => {
           );
         })}
       </div>
-    </div>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  width: 100%;
+  height: 100%;
+`;
 
 export default Rank;

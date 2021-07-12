@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { actionCreators as resultAction } from "../redux/modules/result";
 import { Button } from "../elements";
@@ -19,15 +20,28 @@ const Main = () => {
   };
 
   return (
-    <div>
-      <p>{user.name}님의 오늘 점심 추천</p>
-      <CategoryBtns />
-      <Button _onClick={result} text="메뉴 추천받기" />
-      <ResultBtns />
-      <Comment />
-      <Rank />
-    </div>
+    <Container>
+      <div>
+        <p>{user.name}님의 오늘 점심 추천</p>
+        <CategoryBtns />
+        <Button _onClick={result} text="메뉴 추천받기" />
+        <ResultBtns />
+        <Comment />
+      </div>
+      <div>
+        <Rank />
+      </div>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px;
+`;
 
 export default Main;

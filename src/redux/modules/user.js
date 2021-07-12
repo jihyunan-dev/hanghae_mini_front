@@ -1,6 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import axios from "axios";
+import { api } from "../../shared/api";
 
 // action type
 const SET_USER = "SET_USER";
@@ -14,21 +15,33 @@ const getUser = createAction(GET_USER, (user) => ({ user }));
 
 // initialState
 const initialState = {
-  user: {
-    userId: 3, // 서버에서 받아온 ID(DB에서 사용)
-    loginId: "", // 유저가 가입할 때 사용한 아이디
-    nickname: "",
-    postList: [], // 내 게시물에 보여질 포스트
-  },
+  user: null,
   is_login: false,
 };
 
 // middleware actions
-const loginDB = () => {
-  return function (dispatch, getState, { history }) {};
+const loginDB = (id, pwd) => {
+  return function (dispatch, getState, { history }) {
+    axios({
+      method: "post",
+      url: "http://localhost:3001/login",
+      data: {
+        id: id,
+        pwd: pwd,
+      },
+    }).then((res) => {
+      console.log(res);
+      dispatch(
+        setUser({
+          id: res.data.id,
+          nickname: res.data.nickname,
+        })
+      );
+    });
+  };
 };
 
-const registerDB = (id, pwd, userId) => {
+const registerDB = (id, pwd, nickname) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "post",
@@ -37,11 +50,11 @@ const registerDB = (id, pwd, userId) => {
         userId: id,
         password: pwd,
         passwordConfirm: pwd,
-        nickname: userId,
+        nickname: nickname,
       },
     })
       .then((res) => {
-        window.alert(res);
+        window.alert(`${res.data.userId}님 환영합니다`);
       })
       .catch((err) => {
         console.log(err);

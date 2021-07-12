@@ -1,20 +1,35 @@
 {
   "login": {
-    "user": {
-      "userId": 1,
-      "nickname": "랄라"
-    }
+    "id": "1",
+    "pwd": "1"
   },
-  "category" : [
+  "register": {
+    "userId": "admin",
+    "password": "1234",
+    "passwordConfirm": "1234",
+    "nickname": "admin"
+  },
+  "category": [
     {
-      "category1" : ["채식", "채식+육식"]
-
+      "category1": [
+        "채식",
+        "채식+육식"
+      ]
     },
     {
-      "category2" : ["식사", "요리"]
+      "category2": [
+        "식사",
+        "요리"
+      ]
     },
     {
-      "category3" : ["한식", "중식", "일식", "양식", "그 외"]
+      "category3": [
+        "한식",
+        "중식",
+        "일식",
+        "양식",
+        "그 외"
+      ]
     }
   ],
   "menu": [

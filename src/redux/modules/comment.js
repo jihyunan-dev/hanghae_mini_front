@@ -34,15 +34,12 @@ const getCommentDB =
 const addCommentDB =
   (comment) =>
   async (dispatch, getState, { history }) => {
-    // const { nickname } = getState.user; // user가 있으면
-    let nickname = "jihyun"; // 가짜 데이터
+    const { nickname, userId } = getState().user.user;
+    const body = { ...comment, nickname, userId };
 
-    const { data } = await api.post("/comments", {
-      ...comment,
-      nickname,
-    });
+    const { data } = await api.post("/comments", body);
 
-    dispatch(addComment(data));
+    dispatch(addComment({ ...body, commentId: data.id }));
   };
 
 const editCommentDB =

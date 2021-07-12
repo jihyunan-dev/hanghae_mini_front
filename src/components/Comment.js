@@ -15,7 +15,6 @@ const Comment = (props) => {
   useEffect(() => dispatch(commentActions.getCommentDB(menuId)), []);
 
   const commentList = useSelector((state) => state.comment.list[menuId]) || [];
-  console.log(commentList);
 
   const submitComment = (e) => {
     e.preventDefault();

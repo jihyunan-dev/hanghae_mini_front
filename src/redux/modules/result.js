@@ -4,53 +4,43 @@ import { api } from "../../shared/api";
 
 //action type
 const GET_MENU = "GET_MENU";
-const GET_MENU_DETAIL = "GET_MENU_DETAIL";
+const GET_DETAIL = "GET_DETAIL";
 const ADD_MENU = "ADD_MENU";
 const GET_RANK = "GET_RANK";
 const UPDATE_RANK = "UPDATE_RANK";
 
 // action create function
-// main page
-const getMenu = createAction(GET_MENU, (menu_list) => ({
-  menu_list,
-}));
-
-// main page
-const getMenuDetail = createAction(GET_MENU_DETAIL, () => ({}));
-
-// upload page
-const addMenu = createAction(ADD_MENU, (newMenu) => ({
-  newMenu,
-}));
-
-// main page
+const getMenu = createAction(GET_MENU, (randomList) => ({ randomList }));
+const getDetail = createAction(GET_DETAIL, (menu) => ({ menu }));
+const addMenu = createAction(ADD_MENU, (newMenu) => ({ newMenu }));
 const getRank = createAction(GET_RANK, (menu_like) => ({ menu_like }));
-
-// main page
 const updateRank = createAction(UPDATE_RANK, () => ({}));
 
 // initialState
 
 const initialState = {
-  list: [],
-  rank_list: [],
+  randomList: [],
+  rankList: [],
+  currentMenu: null,
 };
 
 // thunk
 const getMenuDB =
-  (menu_list) =>
+  (category) =>
   async (dispatch, getState, { history }) => {
-    const menu_list = await api.get("/menu");
-    console.log(menu_list.data);
-    dispatch(getMenu(menu_list.data));
+    const option = {
+      params: {
+        ...category, // 카테고리 한글 인코딩/디코딩 혹은 다른 규칙 필요
+      },
+    };
+    const { data: menuList } = await api.get("/menu", option);
+    dispatch(getMenu(menuList));
   };
 
-const getMenuDetailDB =
-  (id) =>
-  async (dispatch, getState, { history }) => {
-    const menu_detail = await api.get(`/menu/${id}`);
-    console.log(menu_detail);
-    dispatch(getMenuDetail());
+const getDetailDB =
+  (menuId) =>
+  (dispatch, getState, { history }) => {
+    api.get(`menu/${menuId}`).then((res) => dispatch(getDetail(res.data)));
   };
 
 const addMenuDB =
@@ -90,35 +80,36 @@ const addMenuDB =
     }
   };
 
-// const getRankDB = (name, img) => {
-//   return function (dispatch, getState, { history }) {
-//     api.get(`/menu?name=`).then((res) => {
-//       console.log(res.data);
-//       const menu_like = res.data.result;
-//       dispatch(getRank(menu_like));
-//     });
-//   };
-// };
+const getRankDB =
+  () =>
+  (dispatch, getState, { history }) => {};
 
-const updateRankDB = () => {
-  return function (dispatch, getState, { history }) {};
-};
+const likeMenuDB =
+  (menuId) =>
+  (dispatch, getState, { history }) => {
+    api
+      .patch(`/menu/${menuId}/like`, { id: menuId })
+      .catch((err) => console.log("좋아요 실패", err));
+  };
 
 //reducer
 export default handleActions(
   {
     [GET_MENU]: (state, action) =>
       produce(state, (draft) => {
-        draft.list.push(...action.payload.menu_list);
+        draft.randomList = action.payload.randomList;
       }),
-    [GET_MENU_DETAIL]: (state, action) => produce(state, (draft) => {}),
+    [GET_DETAIL]: (state, action) =>
+      produce(state, (draft) => {
+        draft.currentMenu = action.payload.menu;
+      }),
     [ADD_MENU]: (state, action) =>
       produce(state, (draft) => {
-        draft.list.push(action.payload.newMenu);
+        draft.randomList.push(action.payload.newMenu);
       }),
     [GET_RANK]: (state, action) =>
       produce(state, (draft) => {
-        draft.rank_list.push(action.payload.menu_like);
+        draft.rankList.push(action.payload.menu_like);
       }),
     [UPDATE_RANK]: (state, action) => produce(state, (draft) => {}),
   },
@@ -127,15 +118,13 @@ export default handleActions(
 
 const actionCreators = {
   getMenu,
-  getMenuDetail,
   addMenu,
   updateRank,
   getRank,
-  addMenuDB,
   getMenuDB,
-  getMenuDetailDB,
-  updateRankDB,
-  //   getRankDB,
+  getDetailDB,
+  addMenuDB,
+  likeMenuDB,
 };
 
 export { actionCreators };

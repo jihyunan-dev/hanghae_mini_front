@@ -24,6 +24,7 @@ const Comment = (props) => {
       menuId: menuId,
     };
     dispatch(commentActions.addCommentDB(commentObj));
+    setCurrentComment("");
   };
 
   return (

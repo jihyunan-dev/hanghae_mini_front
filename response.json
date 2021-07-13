@@ -1,7 +1,7 @@
 {
   "login": {
-    "id": "1",
-    "pwd": "1"
+    "id": "admin",
+    "pwd": "admin"
   },
   "register": {
     "userId": "admin",

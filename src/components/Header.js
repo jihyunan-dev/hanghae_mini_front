@@ -2,8 +2,37 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../elements/Button";
+import { useSelector, useDispatch } from "react-redux";
+import { actionCreators as userAction } from "../redux/modules/user";
+import { deleteCookie, getCookie } from "../shared/Cookie";
 
 const Header = (props) => {
+  const dispatch = useDispatch();
+  const is_login = useSelector((state) => state.user.is_login);
+  console.log(is_login);
+
+  if (is_login) {
+    return (
+      <>
+        <Container>
+          <Link to="/">
+            <h1>오늘 점심 뭐먹냐?</h1>
+          </Link>
+          <Info>
+            <Link to="/upload">메뉴 추천하기</Link>
+            <Link to="/posts/:id">내 게시물</Link>
+            <Button
+              _onClick={() => {
+                dispatch(userAction.logOutDB());
+              }}
+              width="auto"
+              text="로그아웃"
+            ></Button>
+          </Info>
+        </Container>
+      </>
+    );
+  }
   return (
     <>
       <Container>
@@ -11,9 +40,8 @@ const Header = (props) => {
           <h1>오늘 점심 뭐먹냐?</h1>
         </Link>
         <Info>
-          <Link to="/upload">메뉴 추천하기</Link>
-          <Link to="/posts/:id">내 게시물</Link>
-          <Button width="auto" text="로그아웃"></Button>
+          <Link to="/register">회원가입</Link>
+          <Link to="/login">로그인</Link>
         </Info>
       </Container>
     </>

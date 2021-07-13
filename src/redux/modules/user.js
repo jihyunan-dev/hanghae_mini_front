@@ -7,11 +7,16 @@ import { api } from "../../shared/api";
 const SET_USER = "SET_USER";
 const LOG_OUT = "LOG_OUT";
 const GET_USER = "GET_USER";
+const EDIT_MENU = "EDIT_MENU";
+const DELETE_MENU = "DELETE_MENU";
 
 // action creat function
 const setUser = createAction(SET_USER, (user) => ({ user }));
 const logOut = createAction(LOG_OUT, (user) => ({ user }));
 const getUser = createAction(GET_USER, (user) => ({ user }));
+// 내 게시글 page
+const editMenu = createAction(EDIT_MENU, (menuId) => ({ menuId }));
+const deleteMenu = createAction(DELETE_MENU, (menuId) => ({ menuId }));
 
 // initialState
 const initialState = {
@@ -54,14 +59,14 @@ const initialState = {
       },
     ], // 내 게시물에 보여질 포스트
   },
-  is_login: true,
+  is_login: false,
 };
 
 // middleware actions
 const loginDB =
   (id, pwd) =>
   async (dispatch, getState, { history }) => {
-    const login_user = await api
+    await api
       .post(`/login`, {
         id: id,
         pwd: pwd,
@@ -88,11 +93,14 @@ const loginDB =
         const accessToken = res.data.token;
 
         setCookie("is_login", `${accessToken}`);
+        history.replace("/");
       })
       .catch((err) => {
         console.log(err);
       });
   };
+
+// const getUserDB =
 
 const registerDB =
   (id, pwd, nickname) =>
@@ -105,6 +113,23 @@ const registerDB =
         nickname: nickname,
       })
       .then((res) => {
+        dispatch(
+          setUser({
+            token: "",
+            id: res.data.id,
+            userId: res.data.userId,
+            nickname: res.data.nickname,
+            postList: [
+              {
+                menuId: "",
+                name: "",
+                description: "",
+                imgUrl: "",
+                like: "",
+              },
+            ],
+          })
+        );
         window.alert(`${res.data.userId}님 환영합니다`);
       })
       .catch((err) => {
@@ -158,6 +183,27 @@ const logOutDB = () => {
   };
 };
 
+// api를 어디로 잡아야할지?
+const deleteMenuDB =
+  (menuId) =>
+  (dispatch, getState, { history }) => {
+    api
+      .delete(`/`)
+      .then((res) => dispatch(deleteMenu(menuId)))
+      .cathch((err) => console.log("게시글 삭제 실패!", err));
+  };
+
+const editMenuDB =
+  (menuId) =>
+  (dispatch, getState, { history }) => {
+    if (!menuId) {
+      console.log("게시글 정보가 없습니다!");
+      return;
+    }
+    const menuId = getState().user.postList;
+    console.log(menuId);
+  };
+
 // reducer
 export default handleActions(
   {
@@ -173,6 +219,11 @@ export default handleActions(
         draft.user = null;
         draft.is_login = false;
       }),
+    [EDIT_MENU]: (state, action) => produce(state, (draft) => {}),
+    [DELETE_MENU]: (state, action) =>
+      produce(state, (draft) => {
+        // const deleteList = state.list.filter(())
+      }),
   },
   initialState
 );
@@ -184,6 +235,10 @@ const actionCreators = {
   registerDB,
   logOutDB,
   loginCheckDB,
+  editMenu,
+  editMenuDB,
+  deleteMenu,
+  deleteMenuDB,
 };
 
 export { actionCreators };

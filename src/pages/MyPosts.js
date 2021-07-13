@@ -1,14 +1,24 @@
 import React from "react";
 import styled from "styled-components";
 import { Button } from "../elements";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { actionCreators as PostActions } from "../redux/modules/result";
 
 const MyPost = (props) => {
+  const dispatch = useDispatch();
   // 유저가 작성한 게시글 리스트 불러오기
   const user_info = useSelector((state) => state.user.user);
   console.log(user_info.postList);
 
   const myPostList = user_info.postList;
+  // 삭제 기능
+  const deleteMenu = () => {
+    dispatch(PostActions.deleteMenuDB());
+  };
+  // 수정 기능
+  const editMenu = () => {
+    dispatch(PostActions.getMenuDB());
+  };
 
   return (
     <Container>
@@ -21,8 +31,8 @@ const MyPost = (props) => {
             <p>{item.description}</p>
             <p>{item.like}</p>
             <div>
-              <Button text="수정" />
-              <Button text="삭제" />
+              <Button _onClick={editMenu} text="수정" />
+              <Button _onClick={deleteMenu} text="삭제" />
             </div>
           </div>
         </Card>

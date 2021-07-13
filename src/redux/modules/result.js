@@ -6,8 +6,6 @@ import { api } from "../../shared/api";
 const GET_MENU = "GET_MENU";
 const GET_MENU_DETAIL = "GET_MENU_DETAIL";
 const ADD_MENU = "ADD_MENU";
-const EDIT_MENU = "EDIT_MENU";
-const DELETE_MENU = "DELETE_MENU";
 const GET_RANK = "GET_RANK";
 const UPDATE_RANK = "UPDATE_RANK";
 
@@ -30,10 +28,6 @@ const getRank = createAction(GET_RANK, (menu_like) => ({ menu_like }));
 
 // main page
 const updateRank = createAction(UPDATE_RANK, () => ({}));
-
-// 내 게시글 page
-const editMenu = createAction(EDIT_MENU, () => ({}));
-const deleteMenu = createAction(DELETE_MENU, () => ({}));
 
 // initialState
 
@@ -96,10 +90,6 @@ const addMenuDB =
     }
   };
 
-const deleteMenuDB = () => {
-  return function (dispatch, getState, { history }) {};
-};
-
 // const getRankDB = (name, img) => {
 //   return function (dispatch, getState, { history }) {
 //     api.get(`/menu?name=`).then((res) => {
@@ -126,9 +116,6 @@ export default handleActions(
       produce(state, (draft) => {
         draft.list.push(action.payload.newMenu);
       }),
-
-    [EDIT_MENU]: (state, action) => produce(state, (draft) => {}),
-    [DELETE_MENU]: (state, action) => produce(state, (draft) => {}),
     [GET_RANK]: (state, action) =>
       produce(state, (draft) => {
         draft.rank_list.push(action.payload.menu_like);
@@ -142,13 +129,9 @@ const actionCreators = {
   getMenu,
   getMenuDetail,
   addMenu,
-  editMenu,
-  deleteMenu,
   updateRank,
   getRank,
   addMenuDB,
-  // editMenuDB,
-  deleteMenuDB,
   getMenuDB,
   getMenuDetailDB,
   updateRankDB,

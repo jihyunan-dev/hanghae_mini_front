@@ -8,21 +8,34 @@ import Rank from "../components/Rank";
 import Comment from "../components/Comment";
 import CategoryBtns from "../components/CategoryBtns";
 import ResultBtns from "../components/ResultBtns";
+import { api } from "../shared/api";
 
 const Main = () => {
   const dispatch = useDispatch();
   const user = { name: "지현" };
 
+  const [category, setCategory] = useState({
+    category1: null,
+    category2: null,
+    category3: null,
+  });
+
   // 메뉴 추천받기!
   const result = () => {
-    dispatch(resultAction.getMenuDB());
+    const { category1, category2, category3 } = category;
+    if (!category1 || !category2 || !category3) {
+      alert("카테고리를 모두 선택해 주세요.");
+      return;
+    }
+    dispatch(resultAction.getMenuDB(category));
   };
 
+  api.get("menu/");
   return (
     <Container>
       <Div>
         <p>{user.name}님의 오늘 점심 추천</p>
-        <CategoryBtns />
+        <CategoryBtns setCategory={setCategory} />
         <Button width="40%" _onClick={result} text="메뉴 추천받기" />
         <ResultBtns />
         <Comment />

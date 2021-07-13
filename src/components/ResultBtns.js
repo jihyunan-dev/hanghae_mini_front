@@ -1,22 +1,33 @@
 import React from "react";
+import styled from "styled-components";
 import { useSelector } from "react-redux";
+import Image from "../elements/Image";
 
 const ResultBtns = (props) => {
-  // const menuList = useSelector((state) => state.result);
-  // console.log(menuList);
+  const menuList = useSelector((state) => state.result.list) || [];
+  console.log(menuList);
 
-  const menuList = [];
   return (
-    <>
+    <Container>
       {menuList.map((result, idx) => {
+        console.log(result);
         return (
-          <div key={idx}>
-            <img src={result.img} alt={result.name} />
-          </div>
+          <MenuBtn key={idx}>
+            <Image imgUrl={result.img} />
+            <p>{result.name}</p>
+          </MenuBtn>
         );
       })}
-    </>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, minmax(150px, 1fr));
+  width: 100%;
+`;
+
+const MenuBtn = styled.div``;
 
 export default ResultBtns;

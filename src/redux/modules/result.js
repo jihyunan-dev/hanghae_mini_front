@@ -13,8 +13,8 @@ const UPDATE_RANK = "UPDATE_RANK";
 
 // action create function
 // main page
-const getMenu = createAction(GET_MENU, (menu_list) => ({
-  menu_list,
+const getMenu = createAction(GET_MENU, (menuList) => ({
+  menuList,
 }));
 
 // main page
@@ -44,11 +44,15 @@ const initialState = {
 
 // thunk
 const getMenuDB =
-  (menu_list) =>
+  (category) =>
   async (dispatch, getState, { history }) => {
-    const menu_list = await api.get("/menu");
-    console.log(menu_list.data);
-    dispatch(getMenu(menu_list.data));
+    const option = {
+      params: {
+        ...category, // 카테고리 한글 인코딩/디코딩 혹은 다른 규칙 필요
+      },
+    };
+    const { data: menuList } = await api.get("/menu", option);
+    dispatch(getMenu(menuList));
   };
 
 const getMenuDetailDB =
@@ -119,7 +123,7 @@ export default handleActions(
   {
     [GET_MENU]: (state, action) =>
       produce(state, (draft) => {
-        draft.list.push(...action.payload.menu_list);
+        draft.list = action.payload.menuList;
       }),
     [GET_MENU_DETAIL]: (state, action) => produce(state, (draft) => {}),
     [ADD_MENU]: (state, action) =>

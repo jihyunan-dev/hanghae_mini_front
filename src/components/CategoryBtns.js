@@ -14,10 +14,10 @@ const CategoryBtns = (props) => {
   const [category2, setCategory2] = useState(null);
   const [category3, setCategory3] = useState(null);
 
-  // useEffect(
-  //   () => setCategory({ category1, category2, category3 }),
-  //   [category1, category2, category3]
-  // );
+  useEffect(
+    () => setCategory({ category1, category2, category3 }),
+    [category1, category2, category3]
+  );
 
   return (
     <Container>

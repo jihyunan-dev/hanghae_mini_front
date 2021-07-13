@@ -9,23 +9,24 @@ import MyPosts from "../pages/MyPosts";
 
 import GlobalStyles from "./GlobalStyles";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { ConnectedRouter } from "connected-react-router";
+import { history } from "../redux/configureStore";
 
 const App = () => {
   return (
     <>
       <GlobalStyles />
-      <BrowserRouter>
+
+      <ConnectedRouter history={history}>
         <Header />
-        <Switch>
-          <Route path="/" exact component={Main} />
-          <Route path="/register" component={Register} />
-          <Route path="/login" component={Login} />
-          <Route path="/upload" component={Upload} />
-          {/* <Route path="/edit/:postId" component={Edit}/> */}
-          <Route path="/posts/:userId" component={MyPosts} />
-          {/* <Route component={ErrorPage} /> */}
-        </Switch>
-      </BrowserRouter>
+        <Route path="/" exact component={Main} />
+        <Route path="/register" component={Register} />
+        <Route path="/login" component={Login} />
+        <Route path="/upload" component={Upload} />
+        <Route path="/upload/:id" component={Upload} />
+        <Route path="/mypost" component={MyPosts} />
+        {/* <Route component={ErrorPage} /> */}
+      </ConnectedRouter>
     </>
   );
 };

@@ -11,6 +11,9 @@ import Result from "../components/Result";
 const Main = () => {
   const dispatch = useDispatch();
 
+  const is_login = useSelector((state) => state.user.is_login);
+  console.log(is_login);
+
   // user name 받아오기
   const user = useSelector((state) => state.user.user);
   console.log(user.nickname);
@@ -31,10 +34,26 @@ const Main = () => {
     dispatch(resultAction.getMenuDB(category));
   };
 
+  if (is_login) {
+    return (
+      <Container>
+        <Div>
+          <p>{user.nickname}님의 오늘 점심 추천</p>
+          <CategoryBtns setCategory={setCategory} />
+          <Button width="40%" _onClick={getResults} text="메뉴 추천받기" />
+          <Result category={category} />
+        </Div>
+        <div>
+          <Rank />
+        </div>
+      </Container>
+    );
+  }
   return (
     <Container>
       <Div>
-        <p>{user.nickname}님의 오늘 점심 추천</p>
+        {/* 적당한 멘트 추가 바람 */}
+        <p>로그인해주세요</p>
         <CategoryBtns setCategory={setCategory} />
         <Button width="40%" _onClick={getResults} text="메뉴 추천받기" />
         <Result category={category} />

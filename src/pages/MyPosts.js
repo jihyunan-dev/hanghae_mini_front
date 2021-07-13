@@ -4,6 +4,7 @@ import { Button } from "../elements";
 import { history } from "../redux/configureStore";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as PostActions } from "../redux/modules/user";
+import { actionCreators as userAction } from "../redux/modules/user";
 import Image from "../elements/Image";
 
 const MyPost = (props) => {
@@ -12,7 +13,7 @@ const MyPost = (props) => {
   const user_info = useSelector((state) => state.user.user);
   console.log(user_info.postList);
 
-  const myPostList = user_info.postList;
+  const myPostList = user_info.postList || [];
   // 삭제 기능
   const deleteMenu = () => {
     dispatch(PostActions.deleteMenuDB());
@@ -22,14 +23,15 @@ const MyPost = (props) => {
     <Container>
       {myPostList.map((item) => (
         <Card key={item.postId}>
-          <Image imgUrl={item.imgUrl} />
+          <Image imgUrl={item.img} />
           <div>
             <p>{item.description}</p>
             <p>{item.like}</p>
             <div>
               <Button
+                param={dispatch(userAction.getUserListDB())}
                 _onClick={() => {
-                  history.push(`/upload${myPostList.id}`);
+                  history.push(`/upload/${item.id}`);
                 }}
                 text="수정"
               />

@@ -5,6 +5,7 @@ import Button from "../elements/Button";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as userAction } from "../redux/modules/user";
 import { deleteCookie, getCookie } from "../shared/Cookie";
+import { history } from "../redux/configureStore";
 
 const Header = (props) => {
   const dispatch = useDispatch();
@@ -20,7 +21,16 @@ const Header = (props) => {
           </Link>
           <Info>
             <Link to="/upload">메뉴 추천하기</Link>
-            <Link to="/posts/:id">내 게시물</Link>
+            <Button
+              width="auto"
+              text="내 게시물"
+              _onClick={() => {
+                dispatch(userAction.getUserListDB());
+                history.push("/mypost");
+              }}
+            >
+              내 게시물
+            </Button>
             <Button
               _onClick={() => {
                 dispatch(userAction.logOutDB());

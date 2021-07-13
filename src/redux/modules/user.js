@@ -6,14 +6,14 @@ import { api, api_token } from "../../shared/api";
 // action type
 const SET_USER = "SET_USER";
 const LOG_OUT = "LOG_OUT";
-const GET_USER = "GET_USER";
+const GET_MYLIST = "GET_MYLIST";
 const EDIT_MENU = "EDIT_MENU";
 const DELETE_MENU = "DELETE_MENU";
 
 // action creat function
 const setUser = createAction(SET_USER, (user) => ({ user }));
 const logOut = createAction(LOG_OUT, (user) => ({ user }));
-const getUser = createAction(GET_USER, (user) => ({ user }));
+const getMyList = createAction(GET_MYLIST, (myList) => ({ myList }));
 // 내 게시글 page
 const editMenu = createAction(EDIT_MENU, (menuId) => ({ menuId }));
 const deleteMenu = createAction(DELETE_MENU, (menuId) => ({ menuId }));
@@ -76,19 +76,13 @@ const loginDB =
         dispatch(
           setUser({
             token: user.data.token,
-            id: user.data.id,
-            userId: user.data.userId,
-            nickname: user.data.nickname,
-            postList: [
-              {
-                menuId: 4,
-                imgUrl:
-                  "https://images.unsplash.com/photo-1625860633266-8707a63d6671?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-                description: "오늘 또 먹으러 갑니다:)",
-                name: "",
-                like: "1",
-              },
-            ],
+            id: 2,
+            userId: 12,
+            nickname: "펭귄",
+            // 서버 받으면 주석 해제
+            // nickname: user.data.nickname,
+            // userId: user.data.userId,
+            // id: user.data.id,
           })
         );
         const accessToken = user.data.token;
@@ -171,11 +165,28 @@ const loginCheckDB =
       });
   };
 
-const getUserList = () => {
-  return function (dispatch, getState, { history }) {
-    api.get("/entries");
+const getUserListDB =
+  () =>
+  (dispatch, getState, { history }) => {
+    api.get(`/entries`).then((res) => {
+      console.log(res);
+      dispatch(
+        getMyList([
+          {
+            category1: "sss",
+            category2: "aaa",
+            category3: "ccc",
+            description: "qwer",
+            id: 5,
+            img: "https://images.unsplash.com/photo-1625860633266-8707a63d6671?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+            like: 2,
+            name: "짜장면",
+            userId: 1,
+          },
+        ])
+      );
+    });
   };
-};
 
 const logOutDB = () => {
   return function (dispatch, getState, { history }) {
@@ -189,8 +200,8 @@ const deleteMenuDB =
   (dispatch, getState, { history }) => {
     api
       .delete(`/menu/${id}`)
-      .then((res) => console.log(res), dispatch(deleteMenu(id)))
-      .cathch((err) => console.log("게시글 삭제 실패!", err));
+      .then((res) => dispatch(deleteMenu(id)))
+      .catch((err) => console.log("게시글 삭제 실패!", err));
   };
 
 const editMenuDB =
@@ -212,7 +223,11 @@ export default handleActions(
         draft.user = action.payload.user;
         draft.is_login = true;
       }),
-    [GET_USER]: (state, action) => produce(state, (draft) => {}),
+    [GET_MYLIST]: (state, action) =>
+      produce(state, (draft) => {
+        draft.user.postList = action.payload.myList;
+        draft.is_login = true;
+      }),
     [LOG_OUT]: (state, action) =>
       produce(state, (draft) => {
         deleteCookie("is_login");
@@ -220,13 +235,12 @@ export default handleActions(
         draft.is_login = false;
       }),
     [EDIT_MENU]: (state, action) => produce(state, (draft) => {}),
-    // 리듀서 모르겠다~~~~
+
     [DELETE_MENU]: (state, action) =>
       produce(state, (draft) => {
-        let idx = state.list.findIndex((r) => r === action.payload);
-        if (idx !== -1) {
-          state.list.splice(idx, 1);
-        }
+        console.log(action.payload);
+        const menuId = action.payload;
+        console.log(menuId);
       }),
   },
   initialState
@@ -243,6 +257,7 @@ const actionCreators = {
   editMenuDB,
   deleteMenu,
   deleteMenuDB,
+  getUserListDB,
 };
 
 export { actionCreators };

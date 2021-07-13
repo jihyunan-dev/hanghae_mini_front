@@ -23,44 +23,32 @@ const CategoryBtns = (props) => {
     <Container>
       <Categorys>
         {btns1.map((item, idx) => (
-<<<<<<< HEAD
-          <Button key={idx} text={item} _onClick={() => setCategory1(item)} />
-=======
           <Button
             width="40%"
             key={idx}
             text={item}
             _onClick={() => setCategory1(item)}
           />
->>>>>>> 6c93afe595acbb4dcdb98dd3973bb7b4bd89af84
         ))}
       </Categorys>
       <Categorys>
         {btns2.map((item, idx) => (
-<<<<<<< HEAD
-          <Button key={idx} text={item} _onClick={() => setCategory2(item)} />
-=======
           <Button
             width="40%"
             key={idx}
             text={item}
             _onClick={() => setCategory2(item)}
           />
->>>>>>> 6c93afe595acbb4dcdb98dd3973bb7b4bd89af84
         ))}
       </Categorys>
       <Categorys>
         {btns3.map((item, idx) => (
-<<<<<<< HEAD
-          <Button key={idx} text={item} _onClick={() => setCategory3(item)} />
-=======
           <Button
             width="15%"
             key={idx}
             text={item}
             _onClick={() => setCategory3(item)}
           />
->>>>>>> 6c93afe595acbb4dcdb98dd3973bb7b4bd89af84
         ))}
       </Categorys>
     </Container>

@@ -34,21 +34,11 @@ const Login = () => {
     <>
       <Container>
         <h2>로그인</h2>
-<<<<<<< HEAD
         <Input _onChange={onChangeId} label="아이디"></Input>
         <Input _onChange={onChangePwd} label="비밀번호"></Input>
         <Button _onClick={login} width="auto" text="로그인"></Button>
         <Button width="auto" text="회원가입"></Button>
-      </div>
-=======
-        <Input label="아이디"></Input>
-        <Input label="비밀번호"></Input>
-        <BTN>
-          <Button width="auto" text="로그인"></Button>
-          <Button width="auto" text="회원가입"></Button>
-        </BTN>
       </Container>
->>>>>>> 6c93afe595acbb4dcdb98dd3973bb7b4bd89af84
     </>
   );
 };

@@ -1,10 +1,6 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
-<<<<<<< HEAD
 import { getCookie, setCookie, deleteCookie } from "../../shared/Cookie";
-=======
-import axios from "axios";
->>>>>>> 6c93afe595acbb4dcdb98dd3973bb7b4bd89af84
 import { api } from "../../shared/api";
 
 // action type
@@ -23,9 +19,42 @@ const initialState = {
     userId: 3, // 서버에서 받아온 ID(DB에서 사용)
     loginId: "hwiyu25", // 유저가 가입할 때 사용한 아이디
     nickname: "jihyun",
-    postList: [], // 내 게시물에 보여질 포스트
+    postList: [
+      {
+        menuId: 1,
+        imgUrl:
+          "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+        description: "맛있어요!",
+        name: "",
+        like: "3",
+      },
+      {
+        menuId: 2,
+        imgUrl:
+          "https://images.unsplash.com/photo-1432139509613-5c4255815697?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1232&q=80",
+        description: "오늘 또 먹으러 갑니다:)",
+        name: "",
+        like: "2",
+      },
+      {
+        menuId: 3,
+        imgUrl:
+          "https://images.unsplash.com/photo-1625860633266-8707a63d6671?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+        description: "오늘 또 먹으러 갑니다:)",
+        name: "",
+        like: "4",
+      },
+      {
+        menuId: 4,
+        imgUrl:
+          "https://images.unsplash.com/photo-1625860633266-8707a63d6671?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+        description: "오늘 또 먹으러 갑니다:)",
+        name: "",
+        like: "1",
+      },
+    ], // 내 게시물에 보여질 포스트
   },
-  is_login: false,
+  is_login: true,
 };
 
 // middleware actions
@@ -50,7 +79,7 @@ const loginDB =
                 menuId: "",
                 name: "",
                 description: "",
-                img: "",
+                imgUrl: "",
                 like: "",
               },
             ],
@@ -92,7 +121,7 @@ const loginCheckDB =
     const token = getCookie("is_login");
     console.log(token);
     const check_user = await api
-      .post(`/check`, {
+      .post(`/token`, {
         headers: {
           authorization: "Bearer ${token}",
         },
@@ -110,7 +139,7 @@ const loginCheckDB =
                 menuId: "",
                 name: "",
                 description: "",
-                img: "",
+                imgUrl: "",
                 like: "",
               },
             ],

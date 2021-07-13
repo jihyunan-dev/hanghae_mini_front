@@ -1,6 +1,5 @@
 {
   "login": {
-<<<<<<< HEAD
     "id": "1",
     "pwd": "1"
   },
@@ -9,11 +8,6 @@
     "pwd": "4321",
     "pwdConfirm": "4321",
     "nickname": "admin"
-=======
-    "userId": "admin",
-    "password": "1234",
-    "passwordConfirm": "1234"
->>>>>>> 6c93afe595acbb4dcdb98dd3973bb7b4bd89af84
   },
   "category": [
     {

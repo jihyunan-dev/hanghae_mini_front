@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as resultAction } from "../redux/modules/result";
 import { Button } from "../elements";
 
@@ -11,7 +11,10 @@ import ResultBtns from "../components/ResultBtns";
 
 const Main = () => {
   const dispatch = useDispatch();
-  const user = { name: "지현" };
+
+  // user name 받아오기
+  const user = useSelector((state) => state.user.user);
+  console.log(user.nickname);
 
   // 메뉴 추천받기!
   const result = () => {
@@ -21,7 +24,7 @@ const Main = () => {
   return (
     <Container>
       <Div>
-        <p>{user.name}님의 오늘 점심 추천</p>
+        <p>{user.nickname}님의 오늘 점심 추천</p>
         <CategoryBtns />
         <Button width="40%" _onClick={result} text="메뉴 추천받기" />
         <ResultBtns />

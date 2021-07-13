@@ -1,34 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 import { Button } from "../elements";
+import { useSelector } from "react-redux";
 
 const MyPost = (props) => {
-  const myPostList = [
-    {
-      postId: 1,
-      imgUrl:
-        "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
-      description: "맛있어요!",
-    },
-    {
-      postid: 2,
-      imgUrl:
-        "https://images.unsplash.com/photo-1432139509613-5c4255815697?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1232&q=80",
-      description: "오늘 또 먹으러 갑니다:)",
-    },
-    {
-      postid: 3,
-      imgUrl:
-        "https://images.unsplash.com/photo-1625860633266-8707a63d6671?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-      description: "오늘 또 먹으러 갑니다:)",
-    },
-    {
-      postid: 4,
-      imgUrl:
-        "https://images.unsplash.com/photo-1625860633266-8707a63d6671?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-      description: "오늘 또 먹으러 갑니다:)",
-    },
-  ];
+  // 유저가 작성한 게시글 리스트 불러오기
+  const user_info = useSelector((state) => state.user.user);
+  console.log(user_info.postList);
+
+  const myPostList = user_info.postList;
 
   return (
     <Container>
@@ -39,6 +19,7 @@ const MyPost = (props) => {
           </Outer>
           <div>
             <p>{item.description}</p>
+            <p>{item.like}</p>
             <div>
               <Button text="수정" />
               <Button text="삭제" />

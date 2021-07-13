@@ -6,40 +6,21 @@ import { api } from "../../shared/api";
 const GET_MENU = "GET_MENU";
 const GET_MENU_DETAIL = "GET_MENU_DETAIL";
 const ADD_MENU = "ADD_MENU";
-const EDIT_MENU = "EDIT_MENU";
-const DELETE_MENU = "DELETE_MENU";
 const GET_RANK = "GET_RANK";
 const UPDATE_RANK = "UPDATE_RANK";
 
 // action create function
-// main page
-const getMenu = createAction(GET_MENU, (menuList) => ({
-  menuList,
-}));
-
-// main page
-const getMenuDetail = createAction(GET_MENU_DETAIL, () => ({}));
-
-// upload page
-const addMenu = createAction(ADD_MENU, (newMenu) => ({
-  newMenu,
-}));
-
-// main page
+const getMenu = createAction(GET_MENU, (randomList) => ({ randomList }));
+const getMenuDetail = createAction(GET_MENU_DETAIL, (menu) => ({ menu }));
+const addMenu = createAction(ADD_MENU, (newMenu) => ({ newMenu }));
 const getRank = createAction(GET_RANK, (menu_like) => ({ menu_like }));
-
-// main page
 const updateRank = createAction(UPDATE_RANK, () => ({}));
-
-// 내 게시글 page
-const editMenu = createAction(EDIT_MENU, () => ({}));
-const deleteMenu = createAction(DELETE_MENU, () => ({}));
 
 // initialState
 
 const initialState = {
-  list: [],
-  rank_list: [],
+  randomList: [],
+  rankList: [],
 };
 
 // thunk
@@ -58,9 +39,8 @@ const getMenuDB =
 const getMenuDetailDB =
   (id) =>
   async (dispatch, getState, { history }) => {
-    const menu_detail = await api.get(`/menu/${id}`);
-    console.log(menu_detail);
-    dispatch(getMenuDetail());
+    const { data } = await api.get(`/menu/${id}`);
+    dispatch(getMenuDetail(data));
   };
 
 const addMenuDB =
@@ -100,42 +80,22 @@ const addMenuDB =
     }
   };
 
-const deleteMenuDB = () => {
-  return function (dispatch, getState, { history }) {};
-};
-
-// const getRankDB = (name, img) => {
-//   return function (dispatch, getState, { history }) {
-//     api.get(`/menu?name=`).then((res) => {
-//       console.log(res.data);
-//       const menu_like = res.data.result;
-//       dispatch(getRank(menu_like));
-//     });
-//   };
-// };
-
-const updateRankDB = () => {
-  return function (dispatch, getState, { history }) {};
-};
-
 //reducer
 export default handleActions(
   {
     [GET_MENU]: (state, action) =>
       produce(state, (draft) => {
-        draft.list = action.payload.menuList;
+        draft.randomList = action.payload.randomList;
       }),
     [GET_MENU_DETAIL]: (state, action) => produce(state, (draft) => {}),
     [ADD_MENU]: (state, action) =>
       produce(state, (draft) => {
-        draft.list.push(action.payload.newMenu);
+        draft.randomList.push(action.payload.newMenu);
       }),
 
-    [EDIT_MENU]: (state, action) => produce(state, (draft) => {}),
-    [DELETE_MENU]: (state, action) => produce(state, (draft) => {}),
     [GET_RANK]: (state, action) =>
       produce(state, (draft) => {
-        draft.rank_list.push(action.payload.menu_like);
+        draft.rankList.push(action.payload.menu_like);
       }),
     [UPDATE_RANK]: (state, action) => produce(state, (draft) => {}),
   },
@@ -146,17 +106,11 @@ const actionCreators = {
   getMenu,
   getMenuDetail,
   addMenu,
-  editMenu,
-  deleteMenu,
   updateRank,
   getRank,
   addMenuDB,
-  // editMenuDB,
-  deleteMenuDB,
   getMenuDB,
   getMenuDetailDB,
-  updateRankDB,
-  //   getRankDB,
 };
 
 export { actionCreators };

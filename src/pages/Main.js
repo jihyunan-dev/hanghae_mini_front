@@ -5,10 +5,8 @@ import { actionCreators as resultAction } from "../redux/modules/result";
 import { Button } from "../elements";
 
 import Rank from "../components/Rank";
-import Comment from "../components/Comment";
 import CategoryBtns from "../components/CategoryBtns";
-import ResultBtns from "../components/ResultBtns";
-import { api } from "../shared/api";
+import Result from "../components/Result";
 
 const Main = () => {
   const dispatch = useDispatch();
@@ -21,7 +19,7 @@ const Main = () => {
   });
 
   // 메뉴 추천받기!
-  const result = () => {
+  const getResults = () => {
     const { category1, category2, category3 } = category;
     if (!category1 || !category2 || !category3) {
       alert("카테고리를 모두 선택해 주세요.");
@@ -30,15 +28,13 @@ const Main = () => {
     dispatch(resultAction.getMenuDB(category));
   };
 
-  api.get("menu/");
   return (
     <Container>
       <Div>
         <p>{user.name}님의 오늘 점심 추천</p>
         <CategoryBtns setCategory={setCategory} />
-        <Button width="40%" _onClick={result} text="메뉴 추천받기" />
-        <ResultBtns />
-        <Comment />
+        <Button width="40%" _onClick={getResults} text="메뉴 추천받기" />
+        <Result category={category} />
       </Div>
       <div>
         <Rank />

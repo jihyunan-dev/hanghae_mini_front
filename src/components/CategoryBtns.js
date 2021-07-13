@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import styled from "styled-components";
 import { Button } from "../elements";
 
 const CategoryBtns = (props) => {
@@ -19,24 +20,64 @@ const CategoryBtns = (props) => {
   // );
 
   return (
-    <div>
-      <div>
+    <Container>
+      <Categorys>
         {btns1.map((item, idx) => (
+<<<<<<< HEAD
           <Button key={idx} text={item} _onClick={() => setCategory1(item)} />
+=======
+          <Button
+            width="40%"
+            key={idx}
+            text={item}
+            _onClick={() => setCategory1(item)}
+          />
+>>>>>>> 6c93afe595acbb4dcdb98dd3973bb7b4bd89af84
         ))}
-      </div>
-      <div>
+      </Categorys>
+      <Categorys>
         {btns2.map((item, idx) => (
+<<<<<<< HEAD
           <Button key={idx} text={item} _onClick={() => setCategory2(item)} />
+=======
+          <Button
+            width="40%"
+            key={idx}
+            text={item}
+            _onClick={() => setCategory2(item)}
+          />
+>>>>>>> 6c93afe595acbb4dcdb98dd3973bb7b4bd89af84
         ))}
-      </div>
-      <div>
+      </Categorys>
+      <Categorys>
         {btns3.map((item, idx) => (
+<<<<<<< HEAD
           <Button key={idx} text={item} _onClick={() => setCategory3(item)} />
+=======
+          <Button
+            width="15%"
+            key={idx}
+            text={item}
+            _onClick={() => setCategory3(item)}
+          />
+>>>>>>> 6c93afe595acbb4dcdb98dd3973bb7b4bd89af84
         ))}
-      </div>
-    </div>
+      </Categorys>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  width: 100%;
+  height: 100%;
+`;
+
+const Categorys = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+`;
 
 export default CategoryBtns;

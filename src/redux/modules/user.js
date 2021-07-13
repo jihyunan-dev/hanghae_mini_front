@@ -1,6 +1,10 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
+<<<<<<< HEAD
 import { getCookie, setCookie, deleteCookie } from "../../shared/Cookie";
+=======
+import axios from "axios";
+>>>>>>> 6c93afe595acbb4dcdb98dd3973bb7b4bd89af84
 import { api } from "../../shared/api";
 
 // action type
@@ -17,8 +21,8 @@ const getUser = createAction(GET_USER, (user) => ({ user }));
 const initialState = {
   user: {
     userId: 3, // 서버에서 받아온 ID(DB에서 사용)
-    loginId: "", // 유저가 가입할 때 사용한 아이디
-    nickname: "",
+    loginId: "hwiyu25", // 유저가 가입할 때 사용한 아이디
+    nickname: "jihyun",
     postList: [], // 내 게시물에 보여질 포스트
   },
   is_login: false,

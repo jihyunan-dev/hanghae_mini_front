@@ -55,13 +55,32 @@ const Register = (props) => {
             setPwdCheck(e.target.value);
           }}
         ></Input>
-        <Button _onClick={signUp} width="auto" text="회원가입하기"></Button>
-        <Button width="auto" text="로그인"></Button>
+        <BTN>
+          <Button _onClick={signUp} width="auto" text="회원가입하기"></Button>
+          <Button width="auto" text="로그인"></Button>
+        </BTN>
       </Container>
     </>
   );
 };
 
-const Container = styled.div``;
+const Container = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+`;
+
+const BTN = styled.div`
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px; ;
+`;
 
 export default Register;

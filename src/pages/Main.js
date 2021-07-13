@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { actionCreators as resultAction } from "../redux/modules/result";
@@ -11,7 +11,6 @@ import ResultBtns from "../components/ResultBtns";
 
 const Main = () => {
   const dispatch = useDispatch();
-
   const user = { name: "지현" };
 
   // 메뉴 추천받기!
@@ -21,13 +20,13 @@ const Main = () => {
 
   return (
     <Container>
-      <div>
+      <Div>
         <p>{user.name}님의 오늘 점심 추천</p>
         <CategoryBtns />
-        <Button _onClick={result} text="메뉴 추천받기" />
+        <Button width="40%" _onClick={result} text="메뉴 추천받기" />
         <ResultBtns />
         <Comment />
-      </div>
+      </Div>
       <div>
         <Rank />
       </div>
@@ -42,6 +41,15 @@ const Container = styled.div`
   justify-content: space-around;
   align-items: center;
   padding: 10px;
+`;
+
+// 이름 바꿔야함..
+const Div = styled.div`
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 export default Main;

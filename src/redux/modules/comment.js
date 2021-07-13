@@ -14,10 +14,14 @@ const setComment = createAction(SET_COMMENT, (comments) => ({
   comments,
 }));
 const addComment = createAction(ADD_COMMENT, (comment) => ({ comment }));
-const editComment = createAction(EDIT_COMMENT, (comment, menuId) => ({
-  comment,
-  menuId,
-}));
+const editComment = createAction(
+  EDIT_COMMENT,
+  (menuId, commentId, newComment) => ({
+    menuId,
+    commentId,
+    newComment,
+  })
+);
 const deleteComment = createAction(DELETE_COMMENT, (menuId, commentId) => ({
   menuId,
   commentId,
@@ -34,24 +38,34 @@ const getCommentDB =
 const addCommentDB =
   (comment) =>
   async (dispatch, getState, { history }) => {
-    // const { nickname } = getState.user; // user가 있으면
-    let nickname = "jihyun"; // 가짜 데이터
+    const { nickname, userId } = getState().user.user;
+    const body = { ...comment, nickname, userId };
+    const { data: result } = await api.post("/comments", body);
 
-    const { data } = await api.post("/comments", {
-      ...comment,
-      nickname,
-    });
-
-    dispatch(addComment(data));
+    dispatch(addComment({ ...body, commentId: result.id }));
   };
 
 const editCommentDB =
-  (comment) =>
-  (dispatch, getState, { history }) => {};
+  (menuId, commentId, newComment) =>
+  (dispatch, getState, { history }) => {
+    const { id: userId } = getState().user.user;
+    const obj = { description: newComment, userId };
+    api
+      .put(`comments/${commentId}`, obj) // json-server-에서는 patch로 작동. api 요청은 put이므로 put으로 전달
+      .then((res) => {
+        dispatch(editComment(menuId, commentId, newComment));
+      })
+      .catch((err) => console.log("댓글 수정 실패", err));
+  };
 
 const deleteCommentDB =
-  (id) =>
-  (dispatch, getState, { history }) => {};
+  (menuId, commentId) =>
+  (dispatch, getState, { history }) => {
+    api
+      .delete(`/comments/${commentId}`)
+      .then((res) => dispatch(deleteComment(menuId, commentId)))
+      .catch((err) => console.log("댓글 삭제 실패", err));
+  };
 
 // initialState
 const initialState = {
@@ -79,18 +93,19 @@ export default handleActions(
       }),
     [EDIT_COMMENT]: (state, action) =>
       produce(state, (draft) => {
-        const {
-          menuId,
-          comment: { id: commentId },
-        } = action.payload;
-        draft.list[menuId].map((comment) =>
-          comment.id === commentId ? action.payload.comment : comment
+        const { menuId, commentId, newComment } = action.payload;
+        draft.list[menuId] = draft.list[menuId].map((comment) =>
+          comment.id === commentId
+            ? { ...comment, comment: newComment }
+            : comment
         );
       }),
     [DELETE_COMMENT]: (state, action) =>
       produce(state, (draft) => {
         const { menuId, commentId } = action.payload;
-        draft.list[menuId].filter((comment) => comment.id !== commentId);
+        draft.list[menuId] = draft.list[menuId].filter(
+          (comment) => comment.id !== commentId
+        );
       }),
   },
   initialState

@@ -4,14 +4,14 @@ import { api } from "../../shared/api";
 
 //action type
 const GET_MENU = "GET_MENU";
-const GET_MENU_DETAIL = "GET_MENU_DETAIL";
+const GET_DETAIL = "GET_DETAIL";
 const ADD_MENU = "ADD_MENU";
 const GET_RANK = "GET_RANK";
 const UPDATE_RANK = "UPDATE_RANK";
 
 // action create function
 const getMenu = createAction(GET_MENU, (randomList) => ({ randomList }));
-const getMenuDetail = createAction(GET_MENU_DETAIL, (menu) => ({ menu }));
+const getDetail = createAction(GET_DETAIL, (menu) => ({ menu }));
 const addMenu = createAction(ADD_MENU, (newMenu) => ({ newMenu }));
 const getRank = createAction(GET_RANK, (menu_like) => ({ menu_like }));
 const updateRank = createAction(UPDATE_RANK, () => ({}));
@@ -21,6 +21,7 @@ const updateRank = createAction(UPDATE_RANK, () => ({}));
 const initialState = {
   randomList: [],
   rankList: [],
+  currentMenu: null,
 };
 
 // thunk
@@ -36,11 +37,10 @@ const getMenuDB =
     dispatch(getMenu(menuList));
   };
 
-const getMenuDetailDB =
-  (id) =>
-  async (dispatch, getState, { history }) => {
-    const { data } = await api.get(`/menu/${id}`);
-    dispatch(getMenuDetail(data));
+const getDetailDB =
+  (menuId) =>
+  (dispatch, getState, { history }) => {
+    api.get(`menu/${menuId}`).then((res) => dispatch(getDetail(res.data)));
   };
 
 const addMenuDB =
@@ -80,6 +80,18 @@ const addMenuDB =
     }
   };
 
+const getRankDB =
+  () =>
+  (dispatch, getState, { history }) => {};
+
+const likeMenuDB =
+  (menuId) =>
+  (dispatch, getState, { history }) => {
+    api
+      .patch(`/menu/${menuId}/like`, { id: menuId })
+      .catch((err) => console.log("좋아요 실패", err));
+  };
+
 //reducer
 export default handleActions(
   {
@@ -87,7 +99,10 @@ export default handleActions(
       produce(state, (draft) => {
         draft.randomList = action.payload.randomList;
       }),
-    [GET_MENU_DETAIL]: (state, action) => produce(state, (draft) => {}),
+    [GET_DETAIL]: (state, action) =>
+      produce(state, (draft) => {
+        draft.currentMenu = action.payload.menu;
+      }),
     [ADD_MENU]: (state, action) =>
       produce(state, (draft) => {
         draft.randomList.push(action.payload.newMenu);
@@ -104,13 +119,13 @@ export default handleActions(
 
 const actionCreators = {
   getMenu,
-  getMenuDetail,
   addMenu,
   updateRank,
   getRank,
-  addMenuDB,
   getMenuDB,
-  getMenuDetailDB,
+  getDetailDB,
+  addMenuDB,
+  likeMenuDB,
 };
 
 export { actionCreators };

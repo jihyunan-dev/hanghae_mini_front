@@ -12,8 +12,8 @@ const CommentBox = (props) => {
   const [editMode, setEditMode] = useState(false);
 
   const convertEditMode = () => {
-    setEditMode(!editMode);
     setNewComment(text);
+    setEditMode(!editMode);
   };
 
   const [newComment, setNewComment] = useState(text);

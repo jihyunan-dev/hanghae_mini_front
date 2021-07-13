@@ -1,23 +1,19 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as ResultActions } from "../redux/modules/result";
 
 import Comment from "./Comment";
-import { api } from "../shared/api";
 import Detail from "./Detail";
 
 const Result = (props) => {
-  const [menu, setMenu] = useState(null);
+  const dispatch = useDispatch();
+  const menu = useSelector((state) => state.result.currentMenu);
   const randomList = useSelector((state) => state.result.randomList) || [];
 
   const selectMenu = async (menuId) => {
-    const { data } = await api.get(`menu/${menuId}`);
-    setMenu(data);
+    dispatch(ResultActions.getDetailDB(menuId));
   };
-
-  useEffect(() => {
-    return () => setMenu(null);
-  }, []);
 
   return (
     <Container>

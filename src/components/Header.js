@@ -1,19 +1,34 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import { IoAdd, IoAppsSharp, IoLogOutOutline } from "react-icons/io5";
+import { onlyMobile } from "../mixin/displayNone";
+
 import Button from "../elements/Button";
+import logo from "../assets/mini_logo.svg";
 
 const Header = (props) => {
   return (
     <>
       <Container>
         <Link to="/">
-          <h1>오늘 점심 뭐먹냐?</h1>
+          <h1>
+            <Logo src={logo} alt="오늘 점심 뭐 먹냐?" />
+          </h1>
         </Link>
         <Info>
-          <Link to="/upload">메뉴 추천하기</Link>
-          <Link to="/posts/:id">내 게시물</Link>
-          <Button width="auto" text="로그아웃"></Button>
+          <IconBtn>
+            <IoAdd />
+          </IconBtn>
+          <Button btnName="header" text="메뉴 추천하기" />
+          <IconBtn>
+            <IoAppsSharp />
+          </IconBtn>
+          <Button btnName="header" text="내 게시물" />
+          <IconBtn>
+            <IoLogOutOutline />
+          </IconBtn>
+          <Button btnName="header" text="로그아웃" />
         </Info>
       </Container>
     </>
@@ -21,21 +36,43 @@ const Header = (props) => {
 };
 
 const Container = styled.div`
-  width: 100%;
-  height: 50px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border: 1px solid #eee;
-  padding: 10px;
+  ${({ theme }) => {
+    const { colors, paddings, device } = theme;
+    return css`
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 ${paddings.sm};
+      box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px,
+        rgba(0, 0, 0, 0.24) 0px 1px 2px;
+      background-color: ${colors.white};
+
+      ${device.tablet} {
+        height: 70px;
+        padding: 0 ${paddings.md};
+      }
+    `;
+  }}
 `;
 
 const Info = styled.div`
-  width: 30%;
-  height: 100%;
   display: flex;
-  justify-content: space-around;
-  align-items: center;
+  height: 100%;
+`;
+
+const Logo = styled.img`
+  height: 20px;
+`;
+
+const IconBtn = styled.button`
+  ${onlyMobile}
+  font-size: 24px;
+  padding: ${({ theme }) => theme.paddings.sm};
 `;
 
 export default Header;

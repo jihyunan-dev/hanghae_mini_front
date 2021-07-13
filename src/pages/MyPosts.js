@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Button } from "../elements";
+import Image from "../elements/Image";
 
 const MyPost = (props) => {
   const myPostList = [
@@ -34,9 +35,7 @@ const MyPost = (props) => {
     <Container>
       {myPostList.map((item) => (
         <Card key={item.postId}>
-          <Outer>
-            <Inner src={item.imgUrl} alt="" />
-          </Outer>
+          <Image imgUrl={item.imgUrl} />
           <div>
             <p>{item.description}</p>
             <div>
@@ -60,19 +59,6 @@ const Container = styled.section`
 
 const Card = styled.article`
   height: 300px;
-`;
-
-const Outer = styled.div`
-  width: 100%;
-  min-width: 250px;
-`;
-
-const Inner = styled.div`
-  position: relative;
-  padding-top: 75%;
-  overflow: hidden;
-  background-image: url("${(props) => props.src}");
-  background-size: cover;
 `;
 
 export default MyPost;

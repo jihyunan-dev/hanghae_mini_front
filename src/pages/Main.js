@@ -5,18 +5,28 @@ import { actionCreators as resultAction } from "../redux/modules/result";
 import { Button } from "../elements";
 
 import Rank from "../components/Rank";
-import Comment from "../components/Comment";
 import CategoryBtns from "../components/CategoryBtns";
-import ResultBtns from "../components/ResultBtns";
+import Result from "../components/Result";
 import { container } from "../mixin/container";
 
 const Main = () => {
   const dispatch = useDispatch();
   const user = { name: "지현" };
 
+  const [category, setCategory] = useState({
+    category1: null,
+    category2: null,
+    category3: null,
+  });
+
   // 메뉴 추천받기!
-  const result = () => {
-    dispatch(resultAction.getMenuDB());
+  const getResults = () => {
+    const { category1, category2, category3 } = category;
+    if (!category1 || !category2 || !category3) {
+      alert("카테고리를 모두 선택해 주세요.");
+      return;
+    }
+    dispatch(resultAction.getMenuDB(category));
   };
 
   return (
@@ -24,10 +34,9 @@ const Main = () => {
       <Rank />
       <Div>
         <Title>{user.name}님의 오늘 점심 추천</Title>
-        <CategoryBtns />
-        <Button _onClick={result} text="메뉴 추천받기" />
-        <ResultBtns />
-        <Comment />
+        <CategoryBtns setCategory={setCategory} />
+        <Button width="40%" _onClick={getResults} text="메뉴 추천받기" />
+        <Result category={category} />
       </Div>
     </Container>
   );
@@ -48,7 +57,7 @@ const Div = styled.div`
 const Title = styled.p`
   margin-bottom: ${({ theme }) => theme.paddings.md};
   color: ${({ theme }) => theme.colors.black};
-  font-size: ${({ theme }) => theme.fontSizes.xl};
+  font-size: ${({ theme }) => theme.fontSizes.lg};
   font-weight: 600;
 `;
 

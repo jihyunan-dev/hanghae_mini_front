@@ -1,13 +1,15 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import { hiddenMobile } from "../mixin/displayNone";
 
 const Button = (props) => {
-  const { text, width, margin, padding, _onClick } = props;
+  const { text, width, margin, padding, btnName, _onClick } = props;
 
   const styles = {
-    width: width,
-    margin: margin,
-    padding: padding,
+    width,
+    margin,
+    padding,
+    btnName,
   };
   return (
     <>
@@ -27,11 +29,33 @@ Button.defaultProps = {
 };
 
 const ElButton = styled.button`
-  width: ${(props) => props.width};
   margin: ${(props) => props.margin};
-  background-color: #eee;
-  color: black;
-  border: none;
+  width: ${(props) => props.width};
+
+  ${(props) => {
+    const { btnName } = props;
+    const { colors, fontSizes } = props.theme;
+    if (btnName === "header") {
+      return css`
+        ${hiddenMobile}
+        min-width: 120px;
+        padding: 5px;
+        background-color: transparent;
+        font-size: ${fontSizes.md};
+        font-weight: 600;
+        transition: color 100ms ease-in-out;
+
+        &:hover {
+          color: ${colors.mainBlue};
+        }
+      `;
+    } else {
+      return css`
+        color: black;
+        border: none;
+      `;
+    }
+  }}
 `;
 
 export default Button;

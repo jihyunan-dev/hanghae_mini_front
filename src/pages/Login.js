@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Input, Button } from "../elements";
 
+import { history } from "../redux/configureStore";
 import { useDispatch } from "react-redux";
 import { actionCreators as loginAction } from "../redux/modules/user";
 
@@ -29,13 +30,14 @@ const Login = () => {
       return;
     }
     dispatch(loginAction.loginDB(id, pwd));
+    history.replace("/");
   };
   return (
     <>
       <Container>
         <h2>로그인</h2>
         <Input _onChange={onChangeId} label="아이디"></Input>
-        <Input _onChange={onChangePwd} label="비밀번호"></Input>
+        <Input type="password" _onChange={onChangePwd} label="비밀번호"></Input>
         <Button _onClick={login} width="auto" text="로그인"></Button>
         <Button width="auto" text="회원가입"></Button>
       </Container>

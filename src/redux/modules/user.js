@@ -1,7 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import { getCookie, setCookie, deleteCookie } from "../../shared/Cookie";
-import { api } from "../../shared/api";
+import { api, api_token } from "../../shared/api";
 
 // action type
 const SET_USER = "SET_USER";
@@ -71,26 +71,28 @@ const loginDB =
         id: id,
         pwd: pwd,
       })
-      .then((res) => {
-        console.log(res);
+      .then((user) => {
+        console.log(user);
         dispatch(
           setUser({
-            token: "",
-            id: res.data.id,
-            userId: res.data.userId,
-            nickname: res.data.nickname,
+            token: user.data.token,
+            id: user.data.id,
+            userId: user.data.userId,
+            nickname: user.data.nickname,
             postList: [
               {
-                menuId: "",
+                menuId: 4,
+                imgUrl:
+                  "https://images.unsplash.com/photo-1625860633266-8707a63d6671?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                description: "오늘 또 먹으러 갑니다:)",
                 name: "",
-                description: "",
-                imgUrl: "",
-                like: "",
+                like: "1",
               },
             ],
           })
         );
-        const accessToken = res.data.token;
+        const accessToken = user.data.token;
+        console.log(accessToken);
 
         setCookie("is_login", `${accessToken}`);
         history.replace("/");
@@ -101,17 +103,17 @@ const loginDB =
   };
 
 // const getUserDB =
-
 const registerDB =
   (id, pwd, nickname) =>
   async (dispatch, getState, { history }) => {
-    const regist_user = await api
-      .post(`/register`, {
-        userId: id,
-        pwd: pwd,
-        pwdConfirm: pwd,
-        nickname: nickname,
-      })
+    const regist_user = await api.post(`/register`, {
+      userId: id,
+      pwd: pwd,
+      pwdConfirm: pwd,
+      nickname: nickname,
+    });
+    console
+      .log(regist_user)
       .then((res) => {
         dispatch(
           setUser({
@@ -137,20 +139,13 @@ const registerDB =
       });
   };
 
-// loginCheck api 필요함
-// 어떤걸 받아와야하는지 알아야함
-
 const loginCheckDB =
   () =>
   async (dispatch, getState, { history }) => {
     const token = getCookie("is_login");
     console.log(token);
-    const check_user = await api
-      .post(`/token`, {
-        headers: {
-          authorization: "Bearer ${token}",
-        },
-      })
+    await api_token
+      .get(`/`)
       .then((res) => {
         console.log(res.data);
         dispatch(
@@ -176,6 +171,12 @@ const loginCheckDB =
       });
   };
 
+const getUserList = () => {
+  return function (dispatch, getState, { history }) {
+    api.get("/entries");
+  };
+};
+
 const logOutDB = () => {
   return function (dispatch, getState, { history }) {
     dispatch(logOut());
@@ -183,13 +184,12 @@ const logOutDB = () => {
   };
 };
 
-// api를 어디로 잡아야할지?
 const deleteMenuDB =
-  (menuId) =>
+  (id) =>
   (dispatch, getState, { history }) => {
     api
-      .delete(`/`)
-      .then((res) => dispatch(deleteMenu(menuId)))
+      .delete(`/menu/${id}`)
+      .then((res) => console.log(res), dispatch(deleteMenu(id)))
       .cathch((err) => console.log("게시글 삭제 실패!", err));
   };
 
@@ -220,9 +220,13 @@ export default handleActions(
         draft.is_login = false;
       }),
     [EDIT_MENU]: (state, action) => produce(state, (draft) => {}),
+    // 리듀서 모르겠다~~~~
     [DELETE_MENU]: (state, action) =>
       produce(state, (draft) => {
-        // const deleteList = state.list.filter(())
+        let idx = state.list.findIndex((r) => r === action.payload);
+        if (idx !== -1) {
+          state.list.splice(idx, 1);
+        }
       }),
   },
   initialState

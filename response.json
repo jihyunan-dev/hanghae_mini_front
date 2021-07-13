@@ -9,6 +9,24 @@
     "pwdConfirm": "4321",
     "nickname": "admin"
   },
+  "token": {
+    "headers": {
+      "authorization": "BearerkpXVCJ9.eygd4MiL....."
+    }
+  },
+  "entries": [
+    {
+      "category1": "sss",
+      "category2": "aaa",
+      "category3": "ccc",
+      "description": "qwer",
+      "id": 5,
+      "img": "asdf.jpg",
+      "like": 2,
+      "name": "짜장면",
+      "userId": 1
+    }
+  ],
   "category": [
     {
       "category1": [

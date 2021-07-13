@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { Button } from "../elements";
+import { history } from "../redux/configureStore";
 import { useSelector, useDispatch } from "react-redux";
-import { actionCreators as PostActions } from "../redux/modules/result";
+import { actionCreators as PostActions } from "../redux/modules/user";
 
 const MyPost = (props) => {
   const dispatch = useDispatch();
@@ -14,10 +15,6 @@ const MyPost = (props) => {
   // 삭제 기능
   const deleteMenu = () => {
     dispatch(PostActions.deleteMenuDB());
-  };
-  // 수정 기능
-  const editMenu = () => {
-    dispatch(PostActions.getMenuDB());
   };
 
   return (
@@ -31,7 +28,12 @@ const MyPost = (props) => {
             <p>{item.description}</p>
             <p>{item.like}</p>
             <div>
-              <Button _onClick={editMenu} text="수정" />
+              <Button
+                _onClick={() => {
+                  history.push(`/upload${myPostList.id}`);
+                }}
+                text="수정"
+              />
               <Button _onClick={deleteMenu} text="삭제" />
             </div>
           </div>

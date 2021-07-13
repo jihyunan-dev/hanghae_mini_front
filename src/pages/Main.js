@@ -8,6 +8,7 @@ import Rank from "../components/Rank";
 import Comment from "../components/Comment";
 import CategoryBtns from "../components/CategoryBtns";
 import ResultBtns from "../components/ResultBtns";
+import { container } from "../mixin/container";
 
 const Main = () => {
   const dispatch = useDispatch();
@@ -20,36 +21,35 @@ const Main = () => {
 
   return (
     <Container>
+      <Rank />
       <Div>
-        <p>{user.name}님의 오늘 점심 추천</p>
+        <Title>{user.name}님의 오늘 점심 추천</Title>
         <CategoryBtns />
-        <Button width="40%" _onClick={result} text="메뉴 추천받기" />
+        <Button _onClick={result} text="메뉴 추천받기" />
         <ResultBtns />
         <Comment />
       </Div>
-      <div>
-        <Rank />
-      </div>
     </Container>
   );
 };
 
 const Container = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding: 10px;
+  ${container};
 `;
 
 // 이름 바꿔야함..
 const Div = styled.div`
-  width: 50%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+`;
+
+const Title = styled.p`
+  margin-bottom: ${({ theme }) => theme.paddings.md};
+  color: ${({ theme }) => theme.colors.black};
+  font-size: ${({ theme }) => theme.fontSizes.xl};
+  font-weight: 600;
 `;
 
 export default Main;

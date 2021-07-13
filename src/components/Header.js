@@ -6,11 +6,12 @@ import { onlyMobile } from "../mixin/displayNone";
 
 import Button from "../elements/Button";
 import logo from "../assets/mini_logo.svg";
+import { container } from "../mixin/container";
 
 const Header = (props) => {
   return (
-    <>
-      <Container>
+    <Container>
+      <Content>
         <Link to="/">
           <h1>
             <Logo src={logo} alt="오늘 점심 뭐 먹냐?" />
@@ -30,12 +31,17 @@ const Header = (props) => {
           </IconBtn>
           <Button btnName="header" text="로그아웃" />
         </Info>
-      </Container>
-    </>
+      </Content>
+    </Container>
   );
 };
 
 const Container = styled.div`
+  width: 100%;
+`;
+
+const Content = styled.div`
+  ${container}
   ${({ theme }) => {
     const { colors, paddings, device } = theme;
     return css`
@@ -47,14 +53,12 @@ const Container = styled.div`
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0 ${paddings.sm};
       box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px,
         rgba(0, 0, 0, 0.24) 0px 1px 2px;
       background-color: ${colors.white};
 
       ${device.tablet} {
         height: 70px;
-        padding: 0 ${paddings.md};
       }
     `;
   }}

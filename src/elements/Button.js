@@ -3,7 +3,16 @@ import styled, { css } from "styled-components";
 import { hiddenMobile } from "../mixin/displayNone";
 
 const Button = (props) => {
-  const { text, width, margin, padding, btnName, position, _onClick } = props;
+  const {
+    text,
+    width,
+    margin,
+    padding,
+    btnName,
+    position,
+    selected,
+    _onClick,
+  } = props;
 
   const styles = {
     width,
@@ -11,6 +20,7 @@ const Button = (props) => {
     padding,
     position,
     btnName,
+    selected,
   };
   return (
     <>
@@ -28,6 +38,7 @@ Button.defaultProps = {
   padding: false,
   btnName: "",
   position: false,
+  selected: false,
   _onClick: () => {},
 };
 
@@ -56,14 +67,17 @@ const ElButton = styled.button`
       return css`
         padding: 5px 0;
         margin: 5px;
-        color: ${colors.black};
+        color: ${({ selected }) => (selected ? colors.white : colors.black)};
         border: 2px solid ${colors.mainBlue};
+        background-color: ${({ selected }) =>
+          selected ? colors.mainBlue : colors.white};
       `;
     } else if (btnName === "submit") {
       return css`
         position: ${(props) => (props.position ? "absolute" : false)};
         right: ${(props) => props.position && 0};
         top: ${(props) => props.position && 0};
+        height: ${(props) => props.position && "100%"};
         padding: 10px;
         border: 1px solid ${colors.mainBlue};
         color: ${colors.white};

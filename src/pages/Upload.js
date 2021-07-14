@@ -91,11 +91,11 @@ const Upload = (props) => {
           ></Description>
         </RowBox>
         {is_edit ? (
-          <Button btnName="submit" text="Menu 수정" _onClick={editPost} />
+          <Button btnName="submit" text="메뉴 수정" _onClick={editPost} />
         ) : (
           <Button
             btnName="submit"
-            text="Menu 업로드"
+            text="메뉴 업로드"
             _onSubmit={handleSubmit}
           />
         )}
@@ -109,6 +109,10 @@ const Container = styled.div`
 
   ${({ theme }) => theme.device.tablet} {
     margin-top: 20px;
+  }
+
+  ${({ theme }) => theme.device.desktop} {
+    max-width: 1000px;
   }
 `;
 

@@ -11,16 +11,15 @@ import { container } from "../mixin/container";
 
 const Main = () => {
   const dispatch = useDispatch();
-
   const is_login = useSelector((state) => state.user.is_login);
 
   // user name 받아오기
   const user = useSelector((state) => state.user.user);
 
   const [category, setCategory] = useState({
-    category1: null,
-    category2: null,
-    category3: null,
+    category1: "채식",
+    category2: "식사",
+    category3: "한식",
   });
 
   // 메뉴 추천받기!

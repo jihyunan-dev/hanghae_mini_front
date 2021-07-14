@@ -67,14 +67,10 @@ const Register = (props) => {
           />
         </InputBox>
         <Btns>
-          <Button
-            btnName="submit"
-            _onClick={signUp}
-            text="회원가입하기"
-          ></Button>
+          <Button btnName="submit" _onClick={signUp} text="회원가입"></Button>
           <Button
             btnName="cancle"
-            text="로그인"
+            text="로그인으로 이동"
             _onClick={() => history.push("/login")}
           ></Button>
         </Btns>

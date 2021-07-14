@@ -10,9 +10,9 @@ const CategoryBtns = (props) => {
   const btns2 = ["식사", "요리"];
   const btns3 = ["한식", "중식", "일식", "양식", "그 외"];
 
-  const [category1, setCategory1] = useState(null);
-  const [category2, setCategory2] = useState(null);
-  const [category3, setCategory3] = useState(null);
+  const [category1, setCategory1] = useState("채식");
+  const [category2, setCategory2] = useState("식사");
+  const [category3, setCategory3] = useState("한식");
 
   useEffect(
     () => setCategory({ category1, category2, category3 }),
@@ -27,6 +27,7 @@ const CategoryBtns = (props) => {
             btnName="category"
             key={idx}
             text={item}
+            selected={category1 === item}
             _onClick={() => setCategory1(item)}
           />
         ))}
@@ -37,6 +38,7 @@ const CategoryBtns = (props) => {
             btnName="category"
             key={idx}
             text={item}
+            selected={category2 === item}
             _onClick={() => setCategory2(item)}
           />
         ))}
@@ -47,6 +49,7 @@ const CategoryBtns = (props) => {
             btnName="category"
             key={idx}
             text={item}
+            selected={category3 === item}
             _onClick={() => setCategory3(item)}
           />
         ))}

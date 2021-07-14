@@ -26,6 +26,7 @@ const Inner = styled.div`
   overflow: hidden;
   background-image: url("${(props) => props.url}");
   background-size: cover;
+  background-position: center center;
 `;
 
 export default Image;

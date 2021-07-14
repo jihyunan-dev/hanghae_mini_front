@@ -33,21 +33,29 @@ const getMenuDB =
         ...category, // 카테고리 한글 인코딩/디코딩 혹은 다른 규칙 필요
       },
     };
-    const { data: menuList } = await api.get("/menu", option);
+    const {
+      data: { menuList },
+    } = await api.get("/menu", option);
     dispatch(getMenu(menuList));
   };
 
 const getDetailDB =
   (menuId) =>
   (dispatch, getState, { history }) => {
-    api.get(`menu/${menuId}`).then((res) => dispatch(getDetail(res.data)));
+    console.log(menuId);
+    api.get(`menu/${menuId}`).then((res) => {
+      const {
+        data: { result },
+      } = res;
+      dispatch(getDetail(result));
+    });
   };
 
 const addMenuDB =
   (dataObj) =>
   async (dispatch, getState, { history }) => {
-    const { userId } = getState().user.user;
-    const newObj = { id: userId, ...dataObj };
+    const { id } = getState().user.user;
+    const newObj = { id: id, ...dataObj };
 
     const formData = new FormData();
     for (let entry of Object.entries(newObj)) {
@@ -63,8 +71,8 @@ const addMenuDB =
         headers: { "Content-Type": "multipart/form-data" },
       });
       const stateObj = { ...newObj, img, menuId, description };
-
       dispatch(addMenu(stateObj));
+      history.push("/mypost");
     } catch (err) {
       console.log("메뉴 등록 실패", err);
     }

@@ -71,6 +71,7 @@ const registerDB =
       })
       .then((res) => {
         window.alert("환영합니다");
+        history.push("/login");
       })
       .catch((err) => {
         console.log(err);
@@ -94,6 +95,7 @@ const loginCheckDB =
             nickname: res.data.user.nickname,
           })
         );
+        history.push("/");
       })
       .catch((err) => {
         console.log(err.code, err.message);
@@ -143,7 +145,7 @@ export default handleActions(
       }),
     [GET_MYLIST]: (state, action) =>
       produce(state, (draft) => {
-        draft.user.postList = action.payload.postList;
+        draft.postList = action.payload.postList;
         draft.is_login = true;
       }),
     [LOG_OUT]: (state, action) =>

@@ -17,10 +17,9 @@ const MyPost = (props) => {
   }, []);
 
   // 유저가 작성한 게시글 리스트 불러오기
-  const user_info = useSelector((state) => state.user.user);
-  const user_list = useSelector((state) => state.user.postList);
-  console.log(user_list);
-  const myPostList = user_info.user_list || [];
+  const myPostList = useSelector((state) => state.user.postList) || [];
+  console.log(myPostList);
+
   // 삭제 기능
   const deleteMenu = () => {
     dispatch(PostActions.deleteMenuDB());
@@ -31,7 +30,7 @@ const MyPost = (props) => {
       <Grid>
         {myPostList.map((item) => (
           <Card key={item.postId}>
-            <Image imgUrl={item.img} />
+            <Image imgUrl={`http://52.78.47.49${item.img}`} />
             <TextBox>
               <p>{item.description}</p>
               <p>{item.like}</p>

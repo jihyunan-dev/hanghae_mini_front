@@ -33,18 +33,21 @@ const Detail = (props) => {
     category2,
     category3,
     like,
-    User: { id: userId, nickName },
+    User: { id: userId, nickname },
+    description,
   } = menu;
+  console.log(img);
 
   return (
     <Card>
       <CardSection>
-        <Image imgUrl={img} />
+        <Image imgUrl={`http://52.78.47.49${img}`} />
       </CardSection>
       <TextSection>
         {/* category 라벨들 만들어주기*/}
         <Title>{name}</Title>
-        <Author>작성자: {nickName}</Author>
+        <Author>작성자: {nickname}</Author>
+        <p>{description}</p>
         <LikeBox>
           <HeartBtn isLike={isLike}>
             {isLike ? (

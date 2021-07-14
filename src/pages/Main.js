@@ -35,9 +35,11 @@ const Main = () => {
     <Container>
       <Rank />
       <Div>
-        <Title center={true}>
-          {is_login ? `${user.nickname}님의 오늘 점심 추천` : "오늘 점심 추천"}
-        </Title>
+        {/* <Title center={true}>
+          {user.nickname
+            ? `${user.nickname}님의 오늘 점심 추천`
+            : "오늘 점심 추천"}
+        </Title> */}
         <CategoryBtns setCategory={setCategory} />
         <Button btnName="submit" _onClick={getResults} text="메뉴 추천받기" />
         <Result category={category} />

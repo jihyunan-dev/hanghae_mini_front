@@ -21,7 +21,7 @@ const Register = (props) => {
       window.alert("패스워드와 패스워드 확인이 일치하지 않습니다!");
       return;
     }
-    dispatch(resiterAction.registerDB(id, pwd));
+    dispatch(resiterAction.registerDB(id, pwd, nickname));
   };
 
   return (
@@ -42,6 +42,7 @@ const Register = (props) => {
           }}
         ></Input>
         <Input
+          type="password"
           label="비밀번호"
           placeholder="비밀번호를 입력해주세요"
           _onChange={(e) => {
@@ -49,6 +50,7 @@ const Register = (props) => {
           }}
         ></Input>
         <Input
+          type="password"
           label="비밀번호 확인"
           placeholder="비밀번호를 확인해주세요"
           _onChange={(e) => {

@@ -1,9 +1,32 @@
 {
   "login": {
-    "userId": "admin",
-    "password": "1234",
-    "passwordConfirm": "1234"
+    "id": "a",
+    "pwd": "a"
   },
+  "register": {
+    "userId": "admin",
+    "pwd": "4321",
+    "pwdConfirm": "4321",
+    "nickname": "admin"
+  },
+  "token": {
+    "headers": {
+      "authorization": "BearerkpXVCJ9.eygd4MiL....."
+    }
+  },
+  "entries": [
+    {
+      "category1": "sss",
+      "category2": "aaa",
+      "category3": "ccc",
+      "description": "qwer",
+      "id": 5,
+      "img": "asdf.jpg",
+      "like": 2,
+      "name": "짜장면",
+      "userId": 1
+    }
+  ],
   "category": [
     {
       "category1": [
@@ -147,6 +170,13 @@
       "menuId": 3,
       "comment": "다음에 저랑 같이먹어요!",
       "nickname": "요기요"
+    },
+    {
+      "comment": "ㅠㅠ",
+      "menuId": 1,
+      "nickname": "jihyun",
+      "userId": 3,
+      "id": 4
     }
   ]
 }

@@ -102,6 +102,7 @@ export default handleActions(
       }),
     [DELETE_COMMENT]: (state, action) =>
       produce(state, (draft) => {
+        console.log(action.payload);
         const { menuId, commentId } = action.payload;
         draft.list[menuId] = draft.list[menuId].filter(
           (comment) => comment.id !== commentId

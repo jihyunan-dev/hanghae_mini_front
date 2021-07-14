@@ -5,10 +5,18 @@ import { IoAdd, IoAppsSharp, IoLogOutOutline } from "react-icons/io5";
 import { onlyMobile } from "../mixin/displayNone";
 
 import Button from "../elements/Button";
+import { useSelector, useDispatch } from "react-redux";
+import { actionCreators as userAction } from "../redux/modules/user";
+import { deleteCookie, getCookie } from "../shared/Cookie";
+import { history } from "../redux/configureStore";
 import logo from "../assets/mini_logo.svg";
 import { container } from "../mixin/container";
 
 const Header = (props) => {
+  const dispatch = useDispatch();
+  const is_login = useSelector((state) => state.user.is_login);
+  console.log(is_login);
+
   return (
     <Container>
       <Content>
@@ -18,18 +26,48 @@ const Header = (props) => {
           </h1>
         </Link>
         <Info>
-          <IconBtn>
+          <IconBtn
+            onClick={() => {
+              history.push("/upload");
+            }}
+          >
             <IoAdd />
           </IconBtn>
-          <Button btnName="header" text="메뉴 추천하기" />
-          <IconBtn>
+          <Button
+            _onClick={() => {
+              history.push("/upload");
+            }}
+            btnName="header"
+            text="메뉴 추천하기"
+          />
+          <IconBtn
+            onClick={() => {
+              history.push("/mypost");
+            }}
+          >
             <IoAppsSharp />
           </IconBtn>
-          <Button btnName="header" text="내 게시물" />
-          <IconBtn>
+          <Button
+            _onClick={() => {
+              history.push("/mypost");
+            }}
+            btnName="header"
+            text="내 게시물"
+          />
+          <IconBtn
+            onClick={() => {
+              dispatch(userAction.logOutDB());
+            }}
+          >
             <IoLogOutOutline />
           </IconBtn>
-          <Button btnName="header" text="로그아웃" />
+          <Button
+            _onClick={() => {
+              dispatch(userAction.logOutDB());
+            }}
+            btnName="header"
+            text="로그아웃"
+          />
         </Info>
       </Content>
     </Container>

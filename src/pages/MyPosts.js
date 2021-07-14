@@ -1,46 +1,45 @@
 import React from "react";
 import styled from "styled-components";
 import { Button } from "../elements";
+import { history } from "../redux/configureStore";
+import { useSelector, useDispatch } from "react-redux";
+import { actionCreators as PostActions } from "../redux/modules/user";
+import { actionCreators as userAction } from "../redux/modules/user";
 import Image from "../elements/Image";
 
 const MyPost = (props) => {
-  const myPostList = [
-    {
-      postId: 1,
-      imgUrl:
-        "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
-      description: "맛있어요!",
-    },
-    {
-      postid: 2,
-      imgUrl:
-        "https://images.unsplash.com/photo-1432139509613-5c4255815697?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1232&q=80",
-      description: "오늘 또 먹으러 갑니다:)",
-    },
-    {
-      postid: 3,
-      imgUrl:
-        "https://images.unsplash.com/photo-1625860633266-8707a63d6671?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-      description: "오늘 또 먹으러 갑니다:)",
-    },
-    {
-      postid: 4,
-      imgUrl:
-        "https://images.unsplash.com/photo-1625860633266-8707a63d6671?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-      description: "오늘 또 먹으러 갑니다:)",
-    },
-  ];
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    dispatch(userAction.getUserListDB());
+  }, []);
+
+  // 유저가 작성한 게시글 리스트 불러오기
+  const user_info = useSelector((state) => state.user.user);
+  console.log(user_info.postList);
+
+  const myPostList = user_info.postList || [];
+  // 삭제 기능
+  const deleteMenu = () => {
+    dispatch(PostActions.deleteMenuDB());
+  };
 
   return (
     <Container>
       {myPostList.map((item) => (
         <Card key={item.postId}>
-          <Image imgUrl={item.imgUrl} />
+          <Image imgUrl={item.img} />
           <div>
             <p>{item.description}</p>
+            <p>{item.like}</p>
             <div>
-              <Button text="수정" />
-              <Button text="삭제" />
+              <Button
+                _onClick={() => {
+                  history.push(`/upload/${item.id}`);
+                }}
+                text="수정"
+              />
+              <Button _onClick={deleteMenu} text="삭제" />
             </div>
           </div>
         </Card>

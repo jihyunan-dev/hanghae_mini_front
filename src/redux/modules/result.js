@@ -107,7 +107,6 @@ export default handleActions(
       produce(state, (draft) => {
         draft.randomList.push(action.payload.newMenu);
       }),
-
     [GET_RANK]: (state, action) =>
       produce(state, (draft) => {
         draft.rankList.push(action.payload.menu_like);

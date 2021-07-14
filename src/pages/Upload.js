@@ -1,16 +1,27 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CategoryBtns from "../components/CategoryBtns";
 import { Button, Input } from "../elements";
 import { actionCreators as resultActions } from "../redux/modules/result";
+import { actionCreators as userActiocs } from "../redux/modules/user";
 
-const Upload = () => {
+const Upload = (props) => {
   const dispatch = useDispatch();
-  const [editMode, setEditMode] = useState(false);
+  const my_list = useSelector((state) => state.user.user.postList);
 
-  const [menuName, setMenuName] = useState("");
+  const post_id = props.match.params.id;
+  const is_edit = post_id ? true : false;
+
+  let _post = is_edit ? my_list.find((p) => String(p.id) === post_id) : null;
+
+  const [editMode, setEditMode] = useState(_post ? _post.editMode : "");
+
+  const [menuName, setMenuName] = useState(_post ? _post.name : "");
   const [img, setImg] = useState(null);
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState(
+    _post ? _post.description : ""
+  );
+
   const [category, setCategory] = useState({
     category1: null,
     category2: null,
@@ -40,9 +51,13 @@ const Upload = () => {
     dispatch(resultActions.addMenuDB(dataObj));
   };
 
+  const editPost = () => {
+    dispatch(userActiocs.editMenuDB());
+  };
+
   return (
     <>
-      <h2>{editMode ? "추천 메뉴 수정" : "추천 메뉴 등록"}</h2>
+      <h2>{is_edit ? "추천 메뉴 수정" : "추천 메뉴 등록"}</h2>
       <form encType="multipart/form-data" onSubmit={handleSubmit}>
         <CategoryBtns setCategory={setCategory} />
         <div>
@@ -73,11 +88,11 @@ const Upload = () => {
             onChange={(e) => setDescription(e.target.value)}
           ></textarea>
         </div>
-
-        <Button
-          text={editMode ? "Menu 수정" : "Menu 업로드"}
-          _onSubmit={handleSubmit}
-        />
+        {is_edit ? (
+          <Button text="Menu 수정" _onClick={editPost} />
+        ) : (
+          <Button text="Menu 업로드" _onSubmit={handleSubmit} />
+        )}
       </form>
     </>
   );

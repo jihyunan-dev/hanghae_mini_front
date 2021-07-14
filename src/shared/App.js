@@ -11,6 +11,8 @@ import theme from "./theme";
 
 import GlobalStyles from "./GlobalStyles";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { ConnectedRouter } from "connected-react-router";
+import { history } from "../redux/configureStore";
 import { useDispatch } from "react-redux";
 import { actionCreators as resultActions } from "../redux/modules/result";
 
@@ -23,18 +25,16 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
-      <BrowserRouter>
+      <ConnectedRouter history={history}>
         <Header />
-        <Switch>
-          <Route path="/" exact component={Main} />
-          <Route path="/register" component={Register} />
-          <Route path="/login" component={Login} />
-          <Route path="/upload" component={Upload} />
-          {/* <Route path="/edit/:postId" component={Edit}/> */}
-          <Route path="/posts/:userId" component={MyPosts} />
-          {/* <Route component={ErrorPage} /> */}
-        </Switch>
-      </BrowserRouter>
+        <Route path="/" exact component={Main} />
+        <Route path="/register" exact component={Register} />
+        <Route path="/login" exact component={Login} />
+        <Route path="/upload" exact component={Upload} />
+        <Route path="/upload/:id" exact component={Upload} />
+        <Route path="/mypost" exact component={MyPosts} />
+        {/* <Route component={ErrorPage} /> */}
+      </ConnectedRouter>
     </ThemeProvider>
   );
 };

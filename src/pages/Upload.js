@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import CategoryBtns from "../components/CategoryBtns";
-import { Button, Input } from "../elements";
+import { Button, Input, Title } from "../elements";
 import { actionCreators as resultActions } from "../redux/modules/result";
 import { actionCreators as userActiocs } from "../redux/modules/user";
+import { container } from "../mixin/container";
 
 const Upload = (props) => {
   const dispatch = useDispatch();
@@ -56,46 +58,77 @@ const Upload = (props) => {
   };
 
   return (
-    <>
-      <h2>{is_edit ? "추천 메뉴 수정" : "추천 메뉴 등록"}</h2>
+    <Container>
+      <Title>{is_edit ? "추천 메뉴 수정" : "추천 메뉴 등록"}</Title>
       <form encType="multipart/form-data" onSubmit={handleSubmit}>
         <CategoryBtns setCategory={setCategory} />
-        <div>
-          <span>추천 메뉴 이름</span>
+        <RowBox>
+          <Subtitle>추천 메뉴 이름</Subtitle>
           <Input
             value={menuName}
             _onChange={(e) => setMenuName(e.target.value)}
           />
-        </div>
-        <div>
-          <span>추천 메뉴 이미지 업로드</span>
+        </RowBox>
+        <RowBox>
+          <Subtitle>추천 메뉴 이미지 업로드</Subtitle>
           <input
             type="file"
             accept="image/*"
             onChange={(e) => setImg(e.target.files[0])}
           />
-        </div>
+        </RowBox>
         {/* 
         <div>
           <span>미리보기</span>
           <img src="" alt="" />
         </div> */}
 
-        <div>
-          <span>메뉴 추천 이유</span>
-          <textarea
+        <RowBox>
+          <Subtitle>메뉴 추천 이유</Subtitle>
+          <Description
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-          ></textarea>
-        </div>
+          ></Description>
+        </RowBox>
         {is_edit ? (
-          <Button text="Menu 수정" _onClick={editPost} />
+          <Button btnName="submit" text="Menu 수정" _onClick={editPost} />
         ) : (
-          <Button text="Menu 업로드" _onSubmit={handleSubmit} />
+          <Button
+            btnName="submit"
+            text="Menu 업로드"
+            _onSubmit={handleSubmit}
+          />
         )}
       </form>
-    </>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  ${container};
+
+  ${({ theme }) => theme.device.tablet} {
+    margin-top: 20px;
+  }
+`;
+
+const Subtitle = styled.h4`
+  margin-bottom: 10px;
+  font-size: ${({ theme }) => theme.fontSizes.md};
+  font-weight: 600;
+`;
+
+const RowBox = styled.div`
+  margin-top: 30px;
+  margin-bottom: 20px;
+`;
+
+const Description = styled.textarea`
+  width: 100%;
+  height: 100px;
+  padding: 10px;
+  border: 1px solid ${({ theme }) => theme.colors.mainBlue};
+  resize: none;
+`;
 
 export default Upload;

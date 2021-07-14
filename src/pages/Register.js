@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { Input, Button } from "../elements";
+import { Input, Button, Title } from "../elements";
 
 import { useDispatch } from "react-redux";
 import { actionCreators as resiterAction } from "../redux/modules/user";
 
 const Register = (props) => {
+  const { history } = props;
   const dispatch = useDispatch();
-  const [id, setId] = React.useState("");
-  const [nickname, setNickName] = React.useState("");
-  const [pwd, setPwd] = React.useState("");
-  const [pwd_check, setPwdCheck] = React.useState("");
+  const [id, setId] = useState("");
+  const [nickname, setNickName] = useState("");
+  const [pwd, setPwd] = useState("");
+  const [pwd_check, setPwdCheck] = useState("");
 
   const signUp = () => {
     if (id === "" || pwd === "" || nickname === "") {
@@ -27,40 +28,56 @@ const Register = (props) => {
   return (
     <>
       <Container>
-        <Input
-          label="아이디"
-          placeholder="아이디를 입력해주세요"
-          _onChange={(e) => {
-            setId(e.target.value);
-          }}
-        ></Input>
-        <Input
-          label="닉네임"
-          placeholder="닉네임을 입력해주세요"
-          _onChange={(e) => {
-            setNickName(e.target.value);
-          }}
-        ></Input>
-        <Input
-          type="password"
-          label="비밀번호"
-          placeholder="비밀번호를 입력해주세요"
-          _onChange={(e) => {
-            setPwd(e.target.value);
-          }}
-        ></Input>
-        <Input
-          type="password"
-          label="비밀번호 확인"
-          placeholder="비밀번호를 확인해주세요"
-          _onChange={(e) => {
-            setPwdCheck(e.target.value);
-          }}
-        ></Input>
-        <BTN>
-          <Button _onClick={signUp} width="auto" text="회원가입하기"></Button>
-          <Button width="auto" text="로그인"></Button>
-        </BTN>
+        <Title>회원가입</Title>
+        <InputBox>
+          <Subtitle>아이디</Subtitle>
+          <Input
+            _onChange={(e) => {
+              setId(e.target.value);
+            }}
+          />
+        </InputBox>
+        <InputBox>
+          <Subtitle>닉네임</Subtitle>
+
+          <Input
+            label="닉네임"
+            _onChange={(e) => {
+              setNickName(e.target.value);
+            }}
+          />
+        </InputBox>
+        <InputBox>
+          <Subtitle>비밀번호</Subtitle>
+
+          <Input
+            type="password"
+            _onChange={(e) => {
+              setPwd(e.target.value);
+            }}
+          />
+        </InputBox>
+        <InputBox>
+          <Subtitle>비밀번호 확인</Subtitle>
+          <Input
+            type="password"
+            _onChange={(e) => {
+              setPwdCheck(e.target.value);
+            }}
+          />
+        </InputBox>
+        <Btns>
+          <Button
+            btnName="submit"
+            _onClick={signUp}
+            text="회원가입하기"
+          ></Button>
+          <Button
+            btnName="cancle"
+            text="로그인"
+            _onClick={() => history.push("/login")}
+          ></Button>
+        </Btns>
       </Container>
     </>
   );
@@ -76,13 +93,31 @@ const Container = styled.div`
   padding: 20px;
 `;
 
-const BTN = styled.div`
-  width: 100%;
-  height: auto;
+const InputBox = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
-  padding: 10px; ;
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: ${({ theme }) => theme.paddings.sm};
+`;
+
+const Subtitle = styled.p`
+  flex-shrink: 0;
+  min-width: 100px;
+  margin-right: 10px;
+  text-align: center;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
+  font-weight: 600;
+`;
+
+const Btns = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin: 10px 0;
+  width: 100%;
+  max-width: 400px;
 `;
 
 export default Register;

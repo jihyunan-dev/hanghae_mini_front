@@ -68,9 +68,18 @@ const ElButton = styled.button`
         border: 1px solid ${colors.mainBlue};
         color: ${colors.white};
         background-color: ${colors.mainBlue};
-        font-size: ${fontSizes.md};
+        font-size: ${fontSizes.sm};
         box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
           rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+      `;
+    } else if (btnName === "cancle") {
+      return css`
+        padding: 10px;
+        border: 1px solid #eee;
+        color: ${colors.black};
+        background-color: #eee;
+        font-size: ${fontSizes.sm};
+        opacity: 80%;
       `;
     }
   }}

@@ -81,6 +81,9 @@ const Container = styled.div`
   width: 100%;
   height: 50px;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  background-color: ${({ theme }) => theme.colors.white};
+  z-index: 10;
+
   ${({ theme }) => theme.device.tablet} {
     height: 70px;
   }
@@ -95,8 +98,6 @@ const Content = styled.div`
       display: flex;
       justify-content: space-between;
       align-items: center;
-
-      background-color: ${colors.white};
 
       ${device.desktop} {
         max-width: 1000px;

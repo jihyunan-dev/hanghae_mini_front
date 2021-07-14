@@ -207,10 +207,6 @@ const deleteMenuDB =
 const editMenuDB =
   (menuId) =>
   (dispatch, getState, { history }) => {
-    if (!menuId) {
-      console.log("게시글 정보가 없습니다!");
-      return;
-    }
     const menuId = getState().user.postList;
     console.log(menuId);
   };

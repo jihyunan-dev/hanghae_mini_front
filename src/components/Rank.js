@@ -3,11 +3,17 @@ import styled from "styled-components";
 import { Button } from "../elements";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as reloadAction } from "../redux/modules/result";
+import { actionCreators as resultAction } from "../redux/modules/result";
 import { IoReload } from "react-icons/io5";
 
 const Rank = (props) => {
   const dispatch = useDispatch();
   const rankList = useSelector((state) => state.result.rankList) || [];
+  console.log(rankList);
+  React.useEffect(() => {
+    dispatch(resultAction.getRankDB());
+  }, []);
+
   const reload = () => {
     dispatch(reloadAction.getRankDB());
   };
@@ -38,7 +44,6 @@ const Rank = (props) => {
         {rankList.map((reload, idx) => {
           return (
             <div key={idx}>
-              <img src={reload.img} alt={reload.name} />
               <p>{reload.name}</p>
             </div>
           );

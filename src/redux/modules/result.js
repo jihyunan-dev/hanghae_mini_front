@@ -82,7 +82,12 @@ const addMenuDB =
 
 const getRankDB =
   () =>
-  (dispatch, getState, { history }) => {};
+  async (dispatch, getState, { history }) => {
+    await api.get("/menu").then((res) => {
+      console.log(res.data);
+      dispatch(getRank(res.data));
+    });
+  };
 
 const likeMenuDB =
   (menuId) =>
@@ -109,7 +114,7 @@ export default handleActions(
       }),
     [GET_RANK]: (state, action) =>
       produce(state, (draft) => {
-        draft.rankList.push(action.payload.menu_like);
+        draft.rankList = action.payload.menu_like;
       }),
     [UPDATE_RANK]: (state, action) => produce(state, (draft) => {}),
   },
@@ -121,6 +126,7 @@ const actionCreators = {
   addMenu,
   updateRank,
   getRank,
+  getRankDB,
   getMenuDB,
   getDetailDB,
   addMenuDB,

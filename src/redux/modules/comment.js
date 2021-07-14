@@ -31,7 +31,7 @@ const deleteComment = createAction(DELETE_COMMENT, (menuId, commentId) => ({
 const getCommentDB =
   (menuId) =>
   async (dispatch, getState, { history }) => {
-    const { data } = await api.get(`/comments?menuId=${menuId}`);
+    const data = await api.get(`/comments/comments?menuId=${menuId}`);
     dispatch(setComment(data));
   };
 

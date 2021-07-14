@@ -55,24 +55,14 @@ const addMenuDB =
     }
 
     try {
-      // 서버가 있을 때는 주석 풀기
-      // const {
-      //   data: {
-      //     result: { id: menuId, img, description },
-      //   },
-      // } = await api.post("/menu", formData, {
-      //   headers: { "Content-Type": "multipart/form-data" },
-      // });
-      // const stateObj = { ...newObj, img, menuId, description };
-
-      // 가짜 데이터🙋🏻‍♀️
-      const stateObj = {
-        menuId: 5,
-        img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRk8TgzcEGvR9rAOG8unUUaLnKWwyzRgIl5ew&usqp=CAU",
-        description: "하하하",
-        name: "비빔밥",
-        userId,
-      };
+      const {
+        data: {
+          result: { id: menuId, img, description },
+        },
+      } = await api.post("/menu", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      const stateObj = { ...newObj, img, menuId, description };
 
       dispatch(addMenu(stateObj));
     } catch (err) {
@@ -82,10 +72,10 @@ const addMenuDB =
 
 const getRankDB =
   () =>
-  async (dispatch, getState, { history }) => {
-    await api.get("/menu").then((res) => {
-      console.log(res.data);
-      dispatch(getRank(res.data));
+  (dispatch, getState, { history }) => {
+    api.get("/menu/like").then((res) => {
+      console.log(res.data.result);
+      dispatch(getRank(res.data.result));
     });
   };
 

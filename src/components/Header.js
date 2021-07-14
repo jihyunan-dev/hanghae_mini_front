@@ -37,28 +37,32 @@ const Header = (props) => {
 };
 
 const Container = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
+  height: 50px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  ${({ theme }) => theme.device.tablet} {
+    height: 70px;
+  }
 `;
 
 const Content = styled.div`
   ${container}
   ${({ theme }) => {
-    const { colors, paddings, device } = theme;
+    const { colors, device } = theme;
     return css`
-      position: fixed;
-      top: 0;
-      left: 0;
       width: 100%;
-      height: 50px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px,
-        rgba(0, 0, 0, 0.24) 0px 1px 2px;
+
       background-color: ${colors.white};
 
-      ${device.tablet} {
-        height: 70px;
+      ${device.desktop} {
+        max-width: 1000px;
+        margin: 0 auto;
       }
     `;
   }}
@@ -70,12 +74,16 @@ const Info = styled.div`
 `;
 
 const Logo = styled.img`
-  height: 20px;
+  height: 16px;
+
+  ${({ theme }) => theme.device.tablet} {
+    height: 20px;
+  }
 `;
 
 const IconBtn = styled.button`
   ${onlyMobile}
-  font-size: 24px;
+  font-size: 20px;
   padding: ${({ theme }) => theme.paddings.sm};
 `;
 

@@ -5,6 +5,7 @@ const device = {
 
 const colors = {
   mainBlue: "#5b86e5",
+  lightBlue: "#DCE5F9",
   white: "#FFFFFF",
   black: "#000000",
 };

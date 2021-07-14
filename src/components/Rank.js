@@ -69,7 +69,7 @@ const Title = styled.h3`
   padding-bottom: 5px;
   border-bottom: 3px solid ${({ theme }) => theme.colors.mainBlue};
   color: ${({ theme }) => theme.colors.mainBlue};
-  font-size: ${({ theme }) => theme.fontSizes.lg};
+  font-size: ${({ theme }) => theme.fontSizes.md};
   font-weight: 600;
 `;
 

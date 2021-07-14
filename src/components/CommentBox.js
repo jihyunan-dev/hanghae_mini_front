@@ -1,6 +1,6 @@
 import React, { useState } from "react";
+import styled, { css } from "styled-components";
 import { useDispatch } from "react-redux";
-import { Button } from "../elements";
 import { actionCreator as commentActions } from "../redux/modules/comment";
 import TextForm from "./TextForm";
 
@@ -32,28 +32,77 @@ const CommentBox = (props) => {
 
   if (editMode) {
     return (
-      <article>
+      <Box>
         <TextForm
-          btnName="저장"
+          btn={false}
           value={newComment}
           _onChange={(e) => setNewComment(e.target.value)}
           _onSubmit={editComment}
         />
-        <Button text="취소" _onClick={convertEditMode} />
-      </article>
+        <Btns>
+          <TextBtn onClick={convertEditMode}>취소</TextBtn>
+          <TextBtn onClick={editComment}>완료</TextBtn>
+        </Btns>
+      </Box>
     );
   }
 
   return (
-    <article>
-      <h6>{nickname}</h6>
-      <p>{text}</p>
+    <Box>
+      <Content>
+        <Nickname>{nickname}</Nickname>
+        <Text>{text}</Text>
+      </Content>
       {/* 본인이 쓴 댓글인 경우에만 수정, 삭제 */}
 
-      <Button text="수정" _onClick={convertEditMode} />
-      <Button text="삭제" _onClick={deleteComment} />
-    </article>
+      <Btns>
+        <TextBtn onClick={convertEditMode}>수정</TextBtn>
+        <TextBtn onClick={deleteComment}>삭제</TextBtn>
+      </Btns>
+    </Box>
   );
 };
+
+const Box = styled.article`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #eee;
+  border-top: none;
+`;
+
+const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+`;
+
+const fontSB = css`
+  font-size: ${({ theme }) => theme.fontSizes.sm};
+  font-weight: 600;
+`;
+
+const Nickname = styled.h6`
+  ${fontSB};
+  margin-bottom: 7px;
+  color: gray;
+`;
+
+const Text = styled.p`
+  ${fontSB};
+  padding: 5px;
+  padding-left: 10px;
+`;
+
+const Btns = styled.div`
+  flex-shrink: 0;
+`;
+
+const TextBtn = styled.button`
+  ${fontSB};
+  height: 100%;
+  padding: 10px;
+`;
 
 export default CommentBox;

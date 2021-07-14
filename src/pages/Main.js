@@ -35,7 +35,7 @@ const Main = () => {
       <Div>
         <Title>{user.name}님의 오늘 점심 추천</Title>
         <CategoryBtns setCategory={setCategory} />
-        <Button width="40%" _onClick={getResults} text="메뉴 추천받기" />
+        <Button btnName="submit" _onClick={getResults} text="메뉴 추천받기" />
         <Result category={category} />
       </Div>
     </Container>
@@ -44,6 +44,10 @@ const Main = () => {
 
 const Container = styled.div`
   ${container};
+  margin-top: 50px;
+  ${({ theme }) => theme.device.desktop} {
+    max-width: 1000px;
+  }
 `;
 
 // 이름 바꿔야함..

@@ -24,8 +24,8 @@ Input.defaultProps = {
 
 const ElInput = styled.input`
   width: 100%;
-  padding: 12px 4px;
-  border: 1px solid #eee;
+  padding: 12px 120px 12px 10px;
+  border: 1px solid ${({ theme }) => theme.colors.mainBlue};
 `;
 
 export default Input;

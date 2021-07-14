@@ -13,8 +13,8 @@ const GlobalStyles = createGlobalStyle`
 
   * {
     font-family: 'GmarketSansLight', sans-serif;
-    box-sizing: border-box;
     font-weight: 600;
+    box-sizing: border-box;
   }
 
   body { 

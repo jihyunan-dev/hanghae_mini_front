@@ -74,7 +74,6 @@ const getRankDB =
   () =>
   (dispatch, getState, { history }) => {
     api.get("/menu/like").then((res) => {
-      console.log(res.data.result);
       dispatch(getRank(res.data.result));
     });
   };

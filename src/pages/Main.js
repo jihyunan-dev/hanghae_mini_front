@@ -11,11 +11,10 @@ import { container } from "../mixin/container";
 
 const Main = () => {
   const dispatch = useDispatch();
-  const is_login = useSelector((state) => state.user.is_login);
 
   // user name 받아오기
   const user = useSelector((state) => state.user.user);
-
+  console.log(user.name);
   const [category, setCategory] = useState({
     category1: "채식",
     category2: "식사",
@@ -32,24 +31,10 @@ const Main = () => {
     dispatch(resultAction.getMenuDB(category));
   };
 
-  if (is_login) {
-    return (
-      <Container>
-        <Rank />
-        <Div>
-          <Title center={true}>{user.nickname}님의 오늘 점심 추천</Title>
-          <CategoryBtns setCategory={setCategory} />
-          <Button btnName="submit" _onClick={getResults} text="메뉴 추천받기" />
-          <Result category={category} />
-        </Div>
-      </Container>
-    );
-  }
   return (
     <Container>
       <Rank />
       <Div>
-        {/* 로그인 아닐때 user.name이 공란인 것에 대한 멘트 생각 */}
         <Title center={true}>{user.name}님의 오늘 점심 추천</Title>
         <CategoryBtns setCategory={setCategory} />
         <Button btnName="submit" _onClick={getResults} text="메뉴 추천받기" />

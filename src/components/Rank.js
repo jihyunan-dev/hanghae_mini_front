@@ -9,7 +9,6 @@ import { IoReload } from "react-icons/io5";
 const Rank = (props) => {
   const dispatch = useDispatch();
   const rankList = useSelector((state) => state.result.rankList) || [];
-  console.log(rankList);
   React.useEffect(() => {
     dispatch(resultAction.getRankDB());
   }, []);

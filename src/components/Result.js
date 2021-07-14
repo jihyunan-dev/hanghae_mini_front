@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as ResultActions } from "../redux/modules/result";
@@ -27,7 +27,7 @@ const Result = (props) => {
         })}
       </BtnBox>
       {menu && <Detail menu={menu} />}
-      <Comment />
+      {/* <Comment /> */}
     </Container>
   );
 };

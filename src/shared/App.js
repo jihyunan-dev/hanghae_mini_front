@@ -13,10 +13,14 @@ import GlobalStyles from "./GlobalStyles";
 import { Route } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
 import { history } from "../redux/configureStore";
-import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { actionCreators as loginActions } from "../redux/modules/user";
 
 const App = () => {
-  const is_login = useSelector((state) => state.user.is_login);
+  const dispatch = useDispatch();
+  React.useEffect(() => {
+    dispatch(loginActions.loginCheckDB());
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>

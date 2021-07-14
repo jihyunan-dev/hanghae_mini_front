@@ -8,10 +8,15 @@ export const api = axios.create({
   headers: {
     "content-type": "application/json;charset=UTF-8",
     accept: "application/json,",
-    "X-AUTH-TOKEN": `${accessToken}`,
+    authorization: `${accessToken}`,
   },
 });
 
 export const api_token = axios.create({
-  baseURL: "http://52.78.47.49/token",
+  baseURL: "http://52.78.47.49/user/token",
+  headers: {
+    "content-type": "application/json;charset=UTF-8",
+    accept: "application/json,",
+    authorization: `${accessToken}`,
+  },
 });

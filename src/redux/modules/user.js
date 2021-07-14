@@ -46,7 +46,7 @@ const loginDB =
             userId: user.data.result.user.userId,
           })
         );
-        const accessToken = user.data.token;
+        const accessToken = "Bearer " + user.data.token;
         console.log(accessToken);
 
         setCookie("is_login", `${accessToken}`);
@@ -84,13 +84,13 @@ const loginCheckDB =
     await api_token
       .get(`/`)
       .then((res) => {
-        console.log(res.data);
+        console.log(res);
         dispatch(
           setUser({
-            token: "",
-            id: res.data.id,
-            userId: res.data.userId,
-            nickname: res.data.nickname,
+            token: token,
+            id: res.data.user.id,
+            userId: res.data.user.userId,
+            nickname: res.data.user.nickname,
             postList: [
               {
                 menuId: "",
@@ -111,23 +111,9 @@ const loginCheckDB =
 const getUserListDB =
   () =>
   (dispatch, getState, { history }) => {
-    api.get(`/entries`).then((res) => {
+    api.get(`/user/entries`).then((res) => {
       console.log(res);
-      dispatch(
-        getMyList([
-          {
-            category1: "sss",
-            category2: "aaa",
-            category3: "ccc",
-            description: "qwer",
-            id: 5,
-            img: "https://images.unsplash.com/photo-1625860633266-8707a63d6671?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-            like: 2,
-            name: "짜장면",
-            userId: 1,
-          },
-        ])
-      );
+      dispatch(getMyList(res.data.entries));
     });
   };
 

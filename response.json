@@ -170,6 +170,13 @@
       "menuId": 3,
       "comment": "다음에 저랑 같이먹어요!",
       "nickname": "요기요"
+    },
+    {
+      "comment": "ㅠㅠ",
+      "menuId": 1,
+      "nickname": "jihyun",
+      "userId": 3,
+      "id": 4
     }
   ]
 }

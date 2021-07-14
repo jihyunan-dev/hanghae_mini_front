@@ -7,16 +7,12 @@ import { actionCreators as userActiocs } from "../redux/modules/user";
 
 const Upload = (props) => {
   const dispatch = useDispatch();
-  console.log(props);
   const my_list = useSelector((state) => state.user.user.postList);
 
   const post_id = props.match.params.id;
-  console.log(post_id);
   const is_edit = post_id ? true : false;
-  console.log(is_edit);
 
   let _post = is_edit ? my_list.find((p) => String(p.id) === post_id) : null;
-  console.log(_post);
 
   const [editMode, setEditMode] = useState(_post ? _post.editMode : "");
 

@@ -9,6 +9,11 @@ import Image from "../elements/Image";
 
 const MyPost = (props) => {
   const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    dispatch(userAction.getUserListDB());
+  }, []);
+
   // 유저가 작성한 게시글 리스트 불러오기
   const user_info = useSelector((state) => state.user.user);
   console.log(user_info.postList);
@@ -29,7 +34,6 @@ const MyPost = (props) => {
             <p>{item.like}</p>
             <div>
               <Button
-                param={dispatch(userAction.getUserListDB())}
                 _onClick={() => {
                   history.push(`/upload/${item.id}`);
                 }}

@@ -17,48 +17,6 @@ const Header = (props) => {
   const is_login = useSelector((state) => state.user.is_login);
   console.log(is_login);
 
-  if (is_login) {
-    return (
-      <>
-        <Container>
-          <Link to="/">
-            <Logo src={logo} alt="오늘 점심 뭐 먹냐?" />
-          </Link>
-          <Info>
-            <IconBtn>
-              <IoAdd />
-            </IconBtn>
-            <Button
-              _onClick={() => {
-                history.push("/upload");
-              }}
-              btnName="header"
-              text="메뉴 추천하기"
-            />
-            <Button
-              btnName="header"
-              width="auto"
-              text="내 게시물"
-              _onClick={() => {
-                dispatch(userAction.getUserListDB());
-                history.push("/mypost");
-              }}
-            >
-              내 게시물
-            </Button>
-            <Button
-              btnName="header"
-              _onClick={() => {
-                dispatch(userAction.logOutDB());
-              }}
-              width="auto"
-              text="로그아웃"
-            ></Button>
-          </Info>
-        </Container>
-      </>
-    );
-  }
   return (
     <Container>
       <Content>
@@ -68,25 +26,47 @@ const Header = (props) => {
           </h1>
         </Link>
         <Info>
-          <IconBtn>
+          <IconBtn
+            onClick={() => {
+              history.push("/upload");
+            }}
+          >
+            <IoAdd />
+          </IconBtn>
+          <Button
+            _onClick={() => {
+              history.push("/upload");
+            }}
+            btnName="header"
+            text="메뉴 추천하기"
+          />
+          <IconBtn
+            onClick={() => {
+              history.push("/mypost");
+            }}
+          >
             <IoAppsSharp />
           </IconBtn>
           <Button
             _onClick={() => {
-              history.push("/register");
+              history.push("/mypost");
             }}
             btnName="header"
-            text="회원가입"
+            text="내 게시물"
           />
-          <IconBtn>
+          <IconBtn
+            onClick={() => {
+              dispatch(userAction.logOutDB());
+            }}
+          >
             <IoLogOutOutline />
           </IconBtn>
           <Button
             _onClick={() => {
-              history.push("/login");
+              dispatch(userAction.logOutDB());
             }}
             btnName="header"
-            text="로그인"
+            text="로그아웃"
           />
         </Info>
       </Content>

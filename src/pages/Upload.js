@@ -9,17 +9,13 @@ import { container } from "../mixin/container";
 
 const Upload = (props) => {
   const dispatch = useDispatch();
-  const my_list = useSelector((state) => state.user.user.postList);
-
+  const my_list = useSelector((state) => state.user.postList);
   const post_id = props.match.params.id;
   const is_edit = post_id ? true : false;
 
   let _post = is_edit ? my_list.find((p) => String(p.id) === post_id) : null;
-
-  const [editMode, setEditMode] = useState(_post ? _post.editMode : "");
-
   const [menuName, setMenuName] = useState(_post ? _post.name : "");
-  const [img, setImg] = useState(null);
+  const [img, setImg] = useState(_post ? _post.img : "");
   const [description, setDescription] = useState(
     _post ? _post.description : ""
   );

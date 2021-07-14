@@ -15,8 +15,8 @@ const setUser = createAction(SET_USER, (user) => ({ user }));
 const logOut = createAction(LOG_OUT, (user) => ({ user }));
 const getMyList = createAction(GET_MYLIST, (postList) => ({ postList }));
 // 내 게시글 page
-const editMenu = createAction(EDIT_MENU, (menuId) => ({ menuId }));
-const deleteMenu = createAction(DELETE_MENU, (menuId) => ({ menuId }));
+const editMenu = createAction(EDIT_MENU, (id) => ({ id }));
+const deleteMenu = createAction(DELETE_MENU, (id) => ({ id }));
 
 // initialState
 const initialState = {
@@ -124,15 +124,20 @@ const deleteMenuDB =
   (dispatch, getState, { history }) => {
     api
       .delete(`/menu/${id}`)
-      .then((res) => dispatch(deleteMenu(id)))
+      .then((res) => {
+        dispatch(deleteMenu(id));
+        console.log(res);
+      })
       .catch((err) => console.log("게시글 삭제 실패!", err));
   };
 
 const editMenuDB =
-  (menuId) =>
+  (id) =>
   (dispatch, getState, { history }) => {
-    const menuId = getState().user.postList;
-    console.log(menuId);
+    api.patch(`/menu/${id}`).then((res) => {
+      console.log(res);
+      // dispatch()
+    });
   };
 
 // reducer
@@ -158,9 +163,10 @@ export default handleActions(
 
     [DELETE_MENU]: (state, action) =>
       produce(state, (draft) => {
-        console.log(action.payload);
-        const menuId = action.payload;
-        console.log(menuId);
+        let idx = draft.postList.findIndex((p) => p.id === action.payload.id);
+        if (idx !== -1) {
+          draft.postList.splice(idx, 1);
+        }
       }),
   },
   initialState

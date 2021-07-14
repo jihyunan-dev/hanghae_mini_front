@@ -21,8 +21,8 @@ const MyPost = (props) => {
   console.log(myPostList);
 
   // 삭제 기능
-  const deleteMenu = () => {
-    dispatch(PostActions.deleteMenuDB());
+  const deleteMenu = (id) => {
+    dispatch(PostActions.deleteMenuDB(id));
   };
 
   return (
@@ -41,7 +41,12 @@ const MyPost = (props) => {
                   }}
                   text="수정"
                 />
-                <Button _onClick={deleteMenu} text="삭제" />
+                <Button
+                  _onClick={() => {
+                    deleteMenu(item.id);
+                  }}
+                  text="삭제"
+                />
               </Btns>
             </TextBox>
           </Card>

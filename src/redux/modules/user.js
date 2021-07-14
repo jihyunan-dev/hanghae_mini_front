@@ -132,8 +132,16 @@ const deleteMenuDB =
   };
 
 const editMenuDB =
-  (id) =>
+  (dataObj, id) =>
   (dispatch, getState, { history }) => {
+    const userId = getState().user.user.userId;
+    const newObj = { id: userId, ...dataObj };
+
+    const formData = new FormData();
+    for (let entry of Object.entries(newObj)) {
+      formData.append(entry[0], entry[1]);
+    }
+
     api.patch(`/menu/${id}`).then((res) => {
       console.log(res);
       // dispatch()

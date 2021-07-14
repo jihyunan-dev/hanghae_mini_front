@@ -14,6 +14,7 @@ const Upload = (props) => {
   const is_edit = post_id ? true : false;
 
   let _post = is_edit ? my_list.find((p) => String(p.id) === post_id) : null;
+  console.log(_post);
   const [menuName, setMenuName] = useState(_post ? _post.name : "");
   const [img, setImg] = useState(_post ? _post.img : "");
   const [description, setDescription] = useState(
@@ -49,8 +50,8 @@ const Upload = (props) => {
     dispatch(resultActions.addMenuDB(dataObj));
   };
 
-  const editPost = () => {
-    dispatch(userActiocs.editMenuDB());
+  const editPost = (id) => {
+    dispatch(userActiocs.editMenuDB(id));
   };
 
   return (
@@ -87,7 +88,13 @@ const Upload = (props) => {
           ></Description>
         </RowBox>
         {is_edit ? (
-          <Button btnName="submit" text="메뉴 수정" _onClick={editPost} />
+          <Button
+            btnName="submit"
+            text="메뉴 수정"
+            _onClick={() => {
+              editPost(_post.id);
+            }}
+          />
         ) : (
           <Button
             btnName="submit"

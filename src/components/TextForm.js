@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Button, Input } from "../elements";
 
 const TextForm = (props) => {
-  const { value, placeholder, btnName, _onSubmit, _onChange } = props;
+  const { value, placeholder, btn, btnName, _onSubmit, _onChange } = props;
 
   return (
     <Form onSubmit={_onSubmit}>
@@ -13,7 +13,14 @@ const TextForm = (props) => {
         value={value}
         _onChange={_onChange}
       />
-      <Button margin="10px" width="30%" text={btnName} />
+      {btn ? (
+        <Button
+          btnName="submit"
+          position="absolute"
+          text={btnName}
+          width="100px"
+        />
+      ) : null}
     </Form>
   );
 };
@@ -24,16 +31,17 @@ TextForm.defaultProps = {
   value: "",
   placeholder: "",
   btnName: "제출",
+  btn: true,
 };
 
 const Form = styled.form`
+  position: relative;
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 10px;
 `;
 
 export default TextForm;

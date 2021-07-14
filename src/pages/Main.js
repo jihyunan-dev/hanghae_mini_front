@@ -7,6 +7,7 @@ import { Button } from "../elements";
 import Rank from "../components/Rank";
 import CategoryBtns from "../components/CategoryBtns";
 import Result from "../components/Result";
+import { container } from "../mixin/container";
 
 const Main = () => {
   const dispatch = useDispatch();
@@ -51,36 +52,39 @@ const Main = () => {
   }
   return (
     <Container>
+      <Rank />
       <Div>
-        {/* 적당한 멘트 추가 바람 */}
-        <p>로그인해주세요</p>
+        {/* 로그인 아닐때 user.name이 공란인 것에 대한 멘트 생각 */}
+        <Title>{user.name}님의 오늘 점심 추천</Title>
         <CategoryBtns setCategory={setCategory} />
-        <Button width="40%" _onClick={getResults} text="메뉴 추천받기" />
+        <Button btnName="submit" _onClick={getResults} text="메뉴 추천받기" />
         <Result category={category} />
       </Div>
-      <div>
-        <Rank />
-      </div>
     </Container>
   );
 };
 
 const Container = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding: 10px;
+  ${container};
+  margin-top: 50px;
+  ${({ theme }) => theme.device.desktop} {
+    max-width: 1000px;
+  }
 `;
 
 // 이름 바꿔야함..
 const Div = styled.div`
-  width: 50%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+`;
+
+const Title = styled.p`
+  margin-bottom: ${({ theme }) => theme.paddings.md};
+  color: ${({ theme }) => theme.colors.black};
+  font-size: ${({ theme }) => theme.fontSizes.lg};
+  font-weight: 600;
 `;
 
 export default Main;

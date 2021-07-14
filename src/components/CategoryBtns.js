@@ -24,7 +24,7 @@ const CategoryBtns = (props) => {
       <Categorys>
         {btns1.map((item, idx) => (
           <Button
-            width="40%"
+            btnName="category"
             key={idx}
             text={item}
             _onClick={() => setCategory1(item)}
@@ -34,7 +34,7 @@ const CategoryBtns = (props) => {
       <Categorys>
         {btns2.map((item, idx) => (
           <Button
-            width="40%"
+            btnName="category"
             key={idx}
             text={item}
             _onClick={() => setCategory2(item)}
@@ -44,7 +44,7 @@ const CategoryBtns = (props) => {
       <Categorys>
         {btns3.map((item, idx) => (
           <Button
-            width="15%"
+            btnName="category"
             key={idx}
             text={item}
             _onClick={() => setCategory3(item)}
@@ -58,14 +58,13 @@ const CategoryBtns = (props) => {
 const Container = styled.div`
   width: 100%;
   height: 100%;
+  margin-bottom: ${({ theme }) => theme.paddings.sm};
 `;
 
 const Categorys = styled.div`
+  display: flex;
   width: 100%;
   height: 100%;
-  display: flex;
-  justify-content: space-around;
-  padding: 10px;
 `;
 
 export default CategoryBtns;

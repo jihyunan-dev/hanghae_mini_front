@@ -14,12 +14,13 @@ const Upload = (props) => {
   const is_edit = post_id ? true : false;
 
   let _post = is_edit ? my_list.find((p) => String(p.id) === post_id) : null;
-
+  console.log(_post);
   const [editMode, setEditMode] = useState(_post ? _post.editMode : "");
 
   const [menuName, setMenuName] = useState("");
   const [img, setImg] = useState(null);
   const [description, setDescription] = useState("");
+
   const [category, setCategory] = useState({
     category1: null,
     category2: null,

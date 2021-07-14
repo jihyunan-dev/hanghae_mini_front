@@ -170,6 +170,20 @@
       "menuId": 3,
       "comment": "다음에 저랑 같이먹어요!",
       "nickname": "요기요"
+    },
+    {
+      "comment": "asdasd",
+      "menuId": 1,
+      "nickname": "펭귄",
+      "userId": 12,
+      "id": 4
+    },
+    {
+      "comment": "asdsd",
+      "menuId": 1,
+      "nickname": "펭귄",
+      "userId": 12,
+      "id": 5
     }
   ]
 }

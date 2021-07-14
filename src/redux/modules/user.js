@@ -42,12 +42,10 @@ const loginDB =
         console.log(user);
         dispatch(
           setUser({
-            nickname: user.data.nickname,
-            userId: user.data.userId,
-            id: user.data.id,
+            nickname: user.data.result.user.nickname,
+            userId: user.data.result.user.userId,
           })
         );
-        console.log(setUser());
         const accessToken = user.data.token;
         console.log(accessToken);
 
@@ -63,7 +61,7 @@ const loginDB =
 const registerDB =
   (setId, setPwd, setNickName, setPwdCheck) =>
   async (dispatch, getState, { history }) => {
-    const regist_user = await api
+    await api
       .post(`/user/register`, {
         userId: setId,
         password: setPwd,
@@ -71,24 +69,7 @@ const registerDB =
         nickname: setNickName,
       })
       .then((res) => {
-        dispatch(
-          setUser({
-            token: "",
-            id: res.data.id,
-            userId: res.data.userId,
-            nickname: res.data.nickname,
-            postList: [
-              {
-                menuId: "",
-                name: "",
-                description: "",
-                imgUrl: "",
-                like: "",
-              },
-            ],
-          })
-        );
-        window.alert(`${res.data.userId}님 환영합니다`);
+        window.alert("환영합니다");
       })
       .catch((err) => {
         console.log(err);

@@ -17,31 +17,20 @@ import { useSelector } from "react-redux";
 
 const App = () => {
   const is_login = useSelector((state) => state.user.is_login);
-  useEffect(() => {
-    // 여기서 인기 점심 메뉴를 한 번 불러오기
-  }, []);
 
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
-      {!is_login ? (
-        <ConnectedRouter history={history}>
-          <Header />
-          <Route path="/login" exact component={Login} />
-          <Route path="/register" exact component={Register} />
-        </ConnectedRouter>
-      ) : (
-        <ConnectedRouter history={history}>
-          <Header />
-          <Route path="/" exact component={Main} />
-          <Route path="/register" exact component={Register} />
-          <Route path="/login" exact component={Login} />
-          <Route path="/upload" exact component={Upload} />
-          <Route path="/upload/:id" exact component={Upload} />
-          <Route path="/mypost" exact component={MyPosts} />
-          {/* <Route component={ErrorPage} /> */}
-        </ConnectedRouter>
-      )}
+      <ConnectedRouter history={history}>
+        <Header />
+        <Route path="/" exact component={Main} />
+        <Route path="/register" exact component={Register} />
+        <Route path="/login" exact component={Login} />
+        <Route path="/upload" exact component={Upload} />
+        <Route path="/upload/:id" exact component={Upload} />
+        <Route path="/mypost" exact component={MyPosts} />
+        {/* <Route component={ErrorPage} /> */}
+      </ConnectedRouter>
     </ThemeProvider>
   );
 };

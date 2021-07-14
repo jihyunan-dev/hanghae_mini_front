@@ -14,7 +14,7 @@ const Main = () => {
 
   // user name 받아오기
   const user = useSelector((state) => state.user.user);
-  console.log(user.name);
+  console.log(user);
   const [category, setCategory] = useState({
     category1: "채식",
     category2: "식사",
@@ -35,7 +35,7 @@ const Main = () => {
     <Container>
       <Rank />
       <Div>
-        <Title center={true}>{user.name}님의 오늘 점심 추천</Title>
+        <Title center={true}>{user.nickname}님의 오늘 점심 추천</Title>
         <CategoryBtns setCategory={setCategory} />
         <Button btnName="submit" _onClick={getResults} text="메뉴 추천받기" />
         <Result category={category} />

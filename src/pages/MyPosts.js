@@ -18,8 +18,9 @@ const MyPost = (props) => {
 
   // 유저가 작성한 게시글 리스트 불러오기
   const user_info = useSelector((state) => state.user.user);
-
-  const myPostList = user_info.postList || [];
+  const user_list = useSelector((state) => state.user.postList);
+  console.log(user_list);
+  const myPostList = user_info.user_list || [];
   // 삭제 기능
   const deleteMenu = () => {
     dispatch(PostActions.deleteMenuDB());

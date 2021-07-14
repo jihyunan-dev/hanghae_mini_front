@@ -13,7 +13,7 @@ const DELETE_MENU = "DELETE_MENU";
 // action creat function
 const setUser = createAction(SET_USER, (user) => ({ user }));
 const logOut = createAction(LOG_OUT, (user) => ({ user }));
-const getMyList = createAction(GET_MYLIST, (myList) => ({ myList }));
+const getMyList = createAction(GET_MYLIST, (postList) => ({ postList }));
 // 내 게시글 page
 const editMenu = createAction(EDIT_MENU, (menuId) => ({ menuId }));
 const deleteMenu = createAction(DELETE_MENU, (menuId) => ({ menuId }));
@@ -24,8 +24,9 @@ const initialState = {
     userId: 1, // 서버에서 받아온 ID(DB에서 사용)
     loginId: "", // 유저가 가입할 때 사용한 아이디
     nickname: "",
-    postList: [], // 내 게시물에 보여질 포스트
+    // postList: [], // 내 게시물에 보여질 포스트
   },
+  postList: [],
   is_login: false,
 };
 
@@ -91,15 +92,6 @@ const loginCheckDB =
             id: res.data.user.id,
             userId: res.data.user.userId,
             nickname: res.data.user.nickname,
-            postList: [
-              {
-                menuId: "",
-                name: "",
-                description: "",
-                imgUrl: "",
-                like: "",
-              },
-            ],
           })
         );
       })
@@ -114,6 +106,7 @@ const getUserListDB =
     api.get(`/user/entries`).then((res) => {
       console.log(res);
       dispatch(getMyList(res.data.entries));
+      console.log(getMyList(res.data.entries));
     });
   };
 
@@ -150,7 +143,7 @@ export default handleActions(
       }),
     [GET_MYLIST]: (state, action) =>
       produce(state, (draft) => {
-        draft.user.postList = action.payload.myList;
+        draft.user.postList = action.payload.postList;
         draft.is_login = true;
       }),
     [LOG_OUT]: (state, action) =>

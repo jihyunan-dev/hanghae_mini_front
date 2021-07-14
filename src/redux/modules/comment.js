@@ -32,7 +32,8 @@ const getCommentDB =
   (menuId) =>
   async (dispatch, getState, { history }) => {
     const { data } = await api.get(`/comments?menuId=${menuId}`);
-    dispatch(setComment(data));
+
+    // dispatch(setComment(data));
   };
 
 const addCommentDB =

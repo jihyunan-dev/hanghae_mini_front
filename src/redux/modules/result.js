@@ -82,10 +82,9 @@ const addMenuDB =
 
 const getRankDB =
   () =>
-  async (dispatch, getState, { history }) => {
-    await api.get("/menu").then((res) => {
-      console.log(res.data);
-      dispatch(getRank(res.data));
+  (dispatch, getState, { history }) => {
+    api.get("/menu/like").then((res) => {
+      dispatch(getRank(res.data.result));
     });
   };
 

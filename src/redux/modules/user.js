@@ -21,43 +21,10 @@ const deleteMenu = createAction(DELETE_MENU, (menuId) => ({ menuId }));
 // initialState
 const initialState = {
   user: {
-    userId: 3, // 서버에서 받아온 ID(DB에서 사용)
-    loginId: "hwiyu25", // 유저가 가입할 때 사용한 아이디
-    nickname: "jihyun",
-    postList: [
-      {
-        menuId: 1,
-        imgUrl:
-          "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
-        description: "맛있어요!",
-        name: "",
-        like: "3",
-      },
-      {
-        menuId: 2,
-        imgUrl:
-          "https://images.unsplash.com/photo-1432139509613-5c4255815697?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1232&q=80",
-        description: "오늘 또 먹으러 갑니다:)",
-        name: "",
-        like: "2",
-      },
-      {
-        menuId: 3,
-        imgUrl:
-          "https://images.unsplash.com/photo-1625860633266-8707a63d6671?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-        description: "오늘 또 먹으러 갑니다:)",
-        name: "",
-        like: "4",
-      },
-      {
-        menuId: 4,
-        imgUrl:
-          "https://images.unsplash.com/photo-1625860633266-8707a63d6671?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-        description: "오늘 또 먹으러 갑니다:)",
-        name: "",
-        like: "1",
-      },
-    ], // 내 게시물에 보여질 포스트
+    userId: 1, // 서버에서 받아온 ID(DB에서 사용)
+    loginId: "", // 유저가 가입할 때 사용한 아이디
+    nickname: "",
+    postList: [], // 내 게시물에 보여질 포스트
   },
   is_login: false,
 };
@@ -67,24 +34,20 @@ const loginDB =
   (id, pwd) =>
   async (dispatch, getState, { history }) => {
     await api
-      .post(`/login`, {
-        id: id,
-        pwd: pwd,
+      .post(`/user/login`, {
+        userId: id,
+        password: pwd,
       })
       .then((user) => {
         console.log(user);
         dispatch(
           setUser({
-            token: user.data.token,
-            id: 2,
-            userId: 12,
-            nickname: "펭귄",
-            // 서버 받으면 주석 해제
-            // nickname: user.data.nickname,
-            // userId: user.data.userId,
-            // id: user.data.id,
+            nickname: user.data.nickname,
+            userId: user.data.userId,
+            id: user.data.id,
           })
         );
+        console.log(setUser());
         const accessToken = user.data.token;
         console.log(accessToken);
 
@@ -98,16 +61,15 @@ const loginDB =
 
 // const getUserDB =
 const registerDB =
-  (id, pwd, nickname) =>
+  (setId, setPwd, setNickName, setPwdCheck) =>
   async (dispatch, getState, { history }) => {
-    const regist_user = await api.post(`/register`, {
-      userId: id,
-      pwd: pwd,
-      pwdConfirm: pwd,
-      nickname: nickname,
-    });
-    console
-      .log(regist_user)
+    const regist_user = await api
+      .post(`/user/register`, {
+        userId: setId,
+        password: setPwd,
+        passwordConfirm: setPwdCheck,
+        nickname: setNickName,
+      })
       .then((res) => {
         dispatch(
           setUser({
@@ -191,7 +153,7 @@ const getUserListDB =
 const logOutDB = () => {
   return function (dispatch, getState, { history }) {
     dispatch(logOut());
-    history.replace("/");
+    history.replace("/login");
   };
 };
 

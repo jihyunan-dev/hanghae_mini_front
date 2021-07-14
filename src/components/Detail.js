@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import Image from "../elements/Image";
 import { IoIosHeartEmpty, IoIosHeart } from "react-icons/io";
 import { actionCreators as ResultActions } from "../redux/modules/result";
+import Comment from "./Comment";
 
 const Detail = (props) => {
   const { menu } = props;
@@ -39,27 +40,30 @@ const Detail = (props) => {
   console.log(img);
 
   return (
-    <Card>
-      <CardSection>
-        <Image imgUrl={`http://52.78.47.49${img}`} />
-      </CardSection>
-      <TextSection>
-        {/* category 라벨들 만들어주기*/}
-        <Title>{name}</Title>
-        <Author>작성자: {nickname}</Author>
-        <p>{description}</p>
-        <LikeBox>
-          <HeartBtn isLike={isLike}>
-            {isLike ? (
-              <IoIosHeart />
-            ) : (
-              <IoIosHeartEmpty onClick={() => clickLike(menuId)} />
-            )}
-          </HeartBtn>
-          <HeartNum>{currentLike}</HeartNum>
-        </LikeBox>
-      </TextSection>
-    </Card>
+    <>
+      <Card>
+        <CardSection>
+          <Image imgUrl={`http://52.78.47.49${img}`} />
+        </CardSection>
+        <TextSection>
+          {/* category 라벨들 만들어주기*/}
+          <Title>{name}</Title>
+          <Author>작성자: {nickname}</Author>
+          <p>{description}</p>
+          <LikeBox>
+            <HeartBtn isLike={isLike}>
+              {isLike ? (
+                <IoIosHeart />
+              ) : (
+                <IoIosHeartEmpty onClick={() => clickLike(menuId)} />
+              )}
+            </HeartBtn>
+            <HeartNum>{currentLike}</HeartNum>
+          </LikeBox>
+        </TextSection>
+      </Card>
+      <Comment menuId={menuId} />
+    </>
   );
 };
 

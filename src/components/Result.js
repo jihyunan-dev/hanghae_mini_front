@@ -27,7 +27,6 @@ const Result = (props) => {
         })}
       </BtnBox>
       {menu && <Detail menu={menu} />}
-      {/* <Comment /> */}
     </Container>
   );
 };

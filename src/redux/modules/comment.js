@@ -13,6 +13,7 @@ const DELETE_COMMENT = "comment/DELETE_COMMENT";
 const setComment = createAction(SET_COMMENT, (comments) => ({
   comments,
 }));
+
 const addComment = createAction(ADD_COMMENT, (comment) => ({ comment }));
 const editComment = createAction(
   EDIT_COMMENT,
@@ -32,17 +33,19 @@ const getCommentDB =
   (menuId) =>
   async (dispatch, getState, { history }) => {
     const data = await api.get(`/comments/comments?menuId=${menuId}`);
+    console.log(data);
     dispatch(setComment(data));
   };
 
 const addCommentDB =
   (comment) =>
   async (dispatch, getState, { history }) => {
-    const { nickname, userId } = getState().user.user;
+    const { nickname, id: userId } = getState().user.user;
     const body = { ...comment, nickname, userId };
-    const { data: result } = await api.post("/comments", body);
+    const { data } = await api.post("/comments/comments", body);
+    console.log(data);
 
-    dispatch(addComment({ ...body, commentId: result.id }));
+    // dispatch(addComment({ ...body, commentId: id }));
   };
 
 const editCommentDB =
@@ -51,7 +54,7 @@ const editCommentDB =
     const { id: userId } = getState().user.user;
     const obj = { description: newComment, userId };
     api
-      .put(`comments/${commentId}`, obj) // json-server-에서는 patch로 작동. api 요청은 put이므로 put으로 전달
+      .put(`comments/comments/${commentId}`, obj) // json-server-에서는 patch로 작동. api 요청은 put이므로 put으로 전달
       .then((res) => {
         dispatch(editComment(menuId, commentId, newComment));
       })
@@ -62,7 +65,7 @@ const deleteCommentDB =
   (menuId, commentId) =>
   (dispatch, getState, { history }) => {
     api
-      .delete(`/comments/${commentId}`)
+      .delete(`/comments/comments/${commentId}`)
       .then((res) => dispatch(deleteComment(menuId, commentId)))
       .catch((err) => console.log("댓글 삭제 실패", err));
   };

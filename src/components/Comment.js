@@ -6,13 +6,12 @@ import TextForm from "./TextForm";
 import CommentList from "./CommentList";
 
 const Comment = (props) => {
+  const { menuId } = props;
   const dispatch = useDispatch();
 
-  // menuId에 따라서 comment로드, 저장이 달라짐
-  const [menuId, setMenuId] = useState(1);
   const [currentComment, setCurrentComment] = useState("");
 
-  useEffect(() => dispatch(commentActions.getCommentDB(menuId)), []);
+  useEffect(() => dispatch(commentActions.getCommentDB(menuId)), [menuId]);
 
   const commentList = useSelector((state) => state.comment.list[menuId]) || [];
 

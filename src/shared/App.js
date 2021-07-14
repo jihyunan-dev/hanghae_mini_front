@@ -28,11 +28,11 @@ const App = () => {
       <ConnectedRouter history={history}>
         <Header />
         <Route path="/" exact component={Main} />
-        <Route path="/register" component={Register} />
-        <Route path="/login" component={Login} />
-        <Route path="/upload" component={Upload} />
-        <Route path="/upload/:id" component={Upload} />
-        <Route path="/mypost" component={MyPosts} />
+        <Route path="/register" exact component={Register} />
+        <Route path="/login" exact component={Login} />
+        <Route path="/upload" exact component={Upload} />
+        <Route path="/upload/:id" exact component={Upload} />
+        <Route path="/mypost" exact component={MyPosts} />
         {/* <Route component={ErrorPage} /> */}
       </ConnectedRouter>
     </ThemeProvider>

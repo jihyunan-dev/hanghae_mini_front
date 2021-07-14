@@ -7,19 +7,24 @@ import { actionCreators as userActiocs } from "../redux/modules/user";
 
 const Upload = (props) => {
   const dispatch = useDispatch();
-
+  console.log(props);
   const my_list = useSelector((state) => state.user.user.postList);
 
   const post_id = props.match.params.id;
+  console.log(post_id);
   const is_edit = post_id ? true : false;
+  console.log(is_edit);
 
   let _post = is_edit ? my_list.find((p) => String(p.id) === post_id) : null;
   console.log(_post);
+
   const [editMode, setEditMode] = useState(_post ? _post.editMode : "");
 
-  const [menuName, setMenuName] = useState("");
+  const [menuName, setMenuName] = useState(_post ? _post.name : "");
   const [img, setImg] = useState(null);
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState(
+    _post ? _post.description : ""
+  );
 
   const [category, setCategory] = useState({
     category1: null,
@@ -56,7 +61,7 @@ const Upload = (props) => {
 
   return (
     <>
-      <h2>{setEditMode ? "추천 메뉴 수정" : "추천 메뉴 등록"}</h2>
+      <h2>{is_edit ? "추천 메뉴 수정" : "추천 메뉴 등록"}</h2>
       <form encType="multipart/form-data" onSubmit={handleSubmit}>
         <CategoryBtns setCategory={setCategory} />
         <div>
@@ -71,7 +76,6 @@ const Upload = (props) => {
           <input
             type="file"
             accept="image/*"
-            value={editMode}
             onChange={(e) => setImg(e.target.files[0])}
           />
         </div>
@@ -88,7 +92,7 @@ const Upload = (props) => {
             onChange={(e) => setDescription(e.target.value)}
           ></textarea>
         </div>
-        {setEditMode ? (
+        {is_edit ? (
           <Button text="Menu 수정" _onClick={editPost} />
         ) : (
           <Button text="Menu 업로드" _onSubmit={handleSubmit} />

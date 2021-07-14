@@ -22,7 +22,7 @@ const Header = (props) => {
       <>
         <Container>
           <Link to="/">
-            <h1>오늘 점심 뭐먹냐?</h1>
+            <Logo src={logo} alt="오늘 점심 뭐 먹냐?" />
           </Link>
           <Info>
             <IconBtn>

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Input, Button, Title } from "../elements";
 
 import { useDispatch } from "react-redux";
-import { actionCreators as resiterAction } from "../redux/modules/user";
+import { actionCreators as registerAction } from "../redux/modules/user";
 
 const Register = (props) => {
   const { history } = props;
@@ -22,7 +22,7 @@ const Register = (props) => {
       window.alert("패스워드와 패스워드 확인이 일치하지 않습니다!");
       return;
     }
-    dispatch(resiterAction.registerDB(id, pwd, nickname));
+    dispatch(registerAction.registerDB(id, pwd, nickname));
   };
 
   return (

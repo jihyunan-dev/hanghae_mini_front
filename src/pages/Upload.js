@@ -10,15 +10,10 @@ import { container } from "../mixin/container";
 const Upload = (props) => {
   const dispatch = useDispatch();
   const my_list = useSelector((state) => state.user.postList);
-  console.log(my_list);
   const post_id = props.match.params.id;
-  console.log(post_id);
   const is_edit = post_id ? true : false;
-  console.log(is_edit);
 
   let _post = is_edit ? my_list.find((p) => String(p.id) === post_id) : null;
-  console.log(_post);
-  console.log(_post.id);
   const [menuName, setMenuName] = useState(_post ? _post.name : "");
   const [img, setImg] = useState(_post ? _post.img : "");
   const [description, setDescription] = useState(
@@ -113,7 +108,7 @@ const Upload = (props) => {
                 type="file"
                 accept="image/*"
                 onChange={(e) => setImg(e.target.files[0])}
-              />
+              />{" "}
             </>
           )}
         </RowBox>
@@ -135,7 +130,7 @@ const Upload = (props) => {
             btnName="submit"
             text="메뉴 수정"
             _onClick={() => {
-              editPost(_post.userId);
+              editPost(_post.id);
             }}
           />
         ) : (

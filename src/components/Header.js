@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo, useMemo } from "react";
 import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 import {
@@ -21,6 +21,7 @@ import { container } from "../mixin/container";
 const Header = (props) => {
   const dispatch = useDispatch();
   const is_login = useSelector((state) => state.user.is_login);
+  console.log(is_login);
 
   if (!is_login) {
     return (
@@ -141,7 +142,7 @@ const Container = styled.div`
 const Content = styled.div`
   ${container}
   ${({ theme }) => {
-    const { colors, device } = theme;
+    const { device } = theme;
     return css`
       width: 100%;
       display: flex;
@@ -175,4 +176,4 @@ const IconBtn = styled.button`
   padding: ${({ theme }) => theme.paddings.sm};
 `;
 
-export default Header;
+export default memo(Header);

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreator as commentActions } from "../redux/modules/comment";
 
@@ -47,4 +47,4 @@ const Comment = (props) => {
   );
 };
 
-export default Comment;
+export default memo(Comment);

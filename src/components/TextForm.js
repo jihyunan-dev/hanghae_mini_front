@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import styled from "styled-components";
 import { Button, Input } from "../elements";
 
@@ -44,4 +44,4 @@ const Form = styled.form`
   align-items: center;
 `;
 
-export default TextForm;
+export default memo(TextForm);

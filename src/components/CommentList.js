@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import CommentBox from "./CommentBox";
 
 const CommentList = (props) => {
@@ -17,4 +17,4 @@ CommentList.defaultProps = {
   list: [],
 };
 
-export default CommentList;
+export default memo(CommentList);

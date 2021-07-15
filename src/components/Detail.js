@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import Image from "../elements/Image";
@@ -143,4 +143,4 @@ const HeartNum = styled.div`
   }
 `;
 
-export default Detail;
+export default memo(Detail);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import styled, { css } from "styled-components";
 import { useDispatch } from "react-redux";
 import { actionCreator as commentActions } from "../redux/modules/comment";
@@ -105,4 +105,4 @@ const TextBtn = styled.button`
   padding: 10px;
 `;
 
-export default CommentBox;
+export default memo(CommentBox);

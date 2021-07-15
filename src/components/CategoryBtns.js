@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import styled from "styled-components";
 import { Button } from "../elements";
 
@@ -81,4 +81,4 @@ const Categorys = styled.div`
   height: 100%;
 `;
 
-export default CategoryBtns;
+export default memo(CategoryBtns);

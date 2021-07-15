@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as ResultActions } from "../redux/modules/result";
@@ -61,4 +61,4 @@ const MenuBtn = styled.div`
   cursor: pointer;
 `;
 
-export default Result;
+export default memo(Result);

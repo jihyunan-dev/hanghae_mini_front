@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { Button } from "../elements";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as reloadAction } from "../redux/modules/result";
 import { actionCreators as resultAction } from "../redux/modules/result";
@@ -16,19 +15,6 @@ const Rank = (props) => {
   const reload = () => {
     dispatch(reloadAction.getRankDB());
   };
-
-  // const rankList = [
-  //   "짜장면",
-  //   "햄버거",
-  //   "마라탕",
-  //   "순대국밥",
-  //   "김치찌개",
-  //   "샐러드",
-  //   "백반",
-  //   "냉면",
-  //   "찜닭",
-  //   "갈비탕",
-  // ];
 
   return (
     <Container>

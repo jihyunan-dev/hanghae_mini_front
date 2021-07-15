@@ -3,13 +3,13 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as ResultActions } from "../redux/modules/result";
 
-import Comment from "./Comment";
 import Detail from "./Detail";
 
 const Result = (props) => {
   const dispatch = useDispatch();
   const menu = useSelector((state) => state.result.currentMenu);
-  const randomList = useSelector((state) => state.result.randomList) || [];
+  const randomList =
+    useSelector((state) => state.result.randomList).slice(0, 3) || [];
 
   const selectMenu = async (menuId) => {
     dispatch(ResultActions.getDetailDB(menuId));
@@ -56,7 +56,6 @@ const MenuBtn = styled.div`
   margin-bottom: 10px;
   border: 2px solid ${({ theme }) => theme.colors.lightBlue};
   border-radius: 10px;
-  /* background-color: ${({ theme }) => theme.colors.lightBlue}; */
   font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: 600;
   cursor: pointer;

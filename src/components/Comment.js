@@ -21,6 +21,11 @@ const Comment = (props) => {
   const submitComment = (e) => {
     e.preventDefault();
 
+    if (currentComment.trim() === "") {
+      window.alert("공백을 제외하고 한 글자 이상 입력해주세요.");
+      return;
+    }
+
     const commentObj = {
       comment: currentComment,
       menuId: menuId,

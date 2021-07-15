@@ -65,7 +65,6 @@ const Register = (props) => {
             type="password"
             _onChange={(e) => {
               setPwdCheck(e.target.value);
-              console.log(e.target.value);
             }}
           />
         </InputBox>

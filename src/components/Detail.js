@@ -30,14 +30,9 @@ const Detail = (props) => {
     img,
     name,
     id: menuId,
-    category1,
-    category2,
-    category3,
-    like,
-    User: { id: userId, nickname },
+    User: { id: nickname },
     description,
   } = menu;
-  console.log(img);
 
   return (
     <>
@@ -46,10 +41,9 @@ const Detail = (props) => {
           <Image imgUrl={`http://3.36.91.31${img}`} />
         </CardSection>
         <TextSection>
-          {/* category 라벨들 만들어주기*/}
           <Title>{name}</Title>
           <Author>작성자: {nickname}</Author>
-          <p>{description}</p>
+          <Description>{description}</Description>
           <LikeBox>
             <HeartBtn isLike={isLike}>
               {isLike ? (
@@ -110,6 +104,11 @@ const Author = styled.p`
   font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: 600;
   margin-bottom: 20px;
+`;
+
+const Description = styled.p`
+  margin-top: 10px;
+  font-weight: 600;
 `;
 
 const LikeBox = styled.div`

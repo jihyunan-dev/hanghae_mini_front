@@ -109,6 +109,7 @@ const Title = styled.h3`
 const Author = styled.p`
   font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: 600;
+  margin-bottom: 20px;
 `;
 
 const LikeBox = styled.div`

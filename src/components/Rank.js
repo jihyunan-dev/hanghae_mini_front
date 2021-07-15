@@ -42,9 +42,11 @@ const Rank = (props) => {
       <div>
         {rankList.map((reload, idx) => {
           return (
-            <div key={idx}>
-              <p>{reload.name}</p>
-            </div>
+            <RankItem key={idx}>
+              <p>
+                {idx + 1}. {reload.name}
+              </p>
+            </RankItem>
           );
         })}
       </div>
@@ -56,20 +58,31 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
-  margin: 0 auto;
+  width: 250px;
+  height: 100%;
+  margin: 70px 0 0 50px;
   margin-bottom: ${({ theme }) => theme.paddings.lg};
+  border: 2px solid ${({ theme }) => theme.colors.border};
+  border-radius: 15px;
+  padding: 10px;
+  position: relative;
+
+  ${({ theme }) => theme.device.desktop} {
+    margin-top: 75px;
+  }
 `;
 
 const TitleBox = styled.div`
   display: flex;
   align-items: center;
+  flex-direction: column;
 `;
 
 const Title = styled.h3`
   position: relative;
   display: inline-block;
   margin: 0 auto;
+  padding-top: 5px;
   padding-bottom: 5px;
   border-bottom: 3px solid ${({ theme }) => theme.colors.mainBlue};
   color: ${({ theme }) => theme.colors.mainBlue};
@@ -78,11 +91,23 @@ const Title = styled.h3`
 `;
 
 const ReloadBtn = styled.button`
+  position: absolute;
+  top: 8px;
+  right: 10px;
   height: 30px;
   padding: 5px;
   margin-left: 5px;
   margin-bottom: 5px;
   font-size: ${({ theme }) => theme.fontSizes.lg};
+`;
+
+const RankItem = styled.div`
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  margin: 10px;
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors.border};
 `;
 
 export default Rank;

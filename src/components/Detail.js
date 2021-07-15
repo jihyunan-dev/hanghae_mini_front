@@ -43,7 +43,7 @@ const Detail = (props) => {
     <>
       <Card>
         <CardSection>
-          <Image imgUrl={`http://52.78.47.49${img}`} />
+          <Image imgUrl={`http://3.36.91.31${img}`} />
         </CardSection>
         <TextSection>
           {/* category 라벨들 만들어주기*/}

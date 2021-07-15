@@ -4,7 +4,7 @@ const accessToken = document.cookie.split("=")[1];
 console.log(accessToken);
 
 export const api = axios.create({
-  baseURL: "http://52.78.47.49/",
+  baseURL: "http://3.36.91.31/",
   headers: {
     "content-type": "application/json;charset=UTF-8",
     accept: "application/json,",
@@ -13,7 +13,7 @@ export const api = axios.create({
 });
 
 export const api_token = axios.create({
-  baseURL: "http://52.78.47.49/user/token",
+  baseURL: "http://3.36.91.31/user/token",
   headers: {
     "content-type": "application/json;charset=UTF-8",
     accept: "application/json,",

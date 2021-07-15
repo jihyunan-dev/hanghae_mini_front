@@ -30,7 +30,7 @@ const MyPost = (props) => {
       <Grid>
         {myPostList.map((item) => (
           <Card key={item.postId}>
-            <Image imgUrl={`http://3.36.91.31${item.img}`} />
+            <Image imgUrl={`http://52.78.47.49${item.img}`} />
             <TextBox>
               <p>{item.description}</p>
               <p>{item.like}</p>

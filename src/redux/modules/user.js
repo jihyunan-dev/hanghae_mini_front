@@ -35,7 +35,6 @@ const loginDB =
         password: pwd,
       })
       .then((user) => {
-        console.log(user);
         dispatch(
           setUser({
             nickname: user.data.result.user.nickname,
@@ -44,7 +43,6 @@ const loginDB =
           })
         );
         const accessToken = "Bearer " + user.data.token;
-        console.log(accessToken);
 
         setCookie("is_login", `${accessToken}`);
         history.replace("/");
@@ -100,7 +98,6 @@ const getUserListDB =
   () =>
   (dispatch, getState, { history }) => {
     const accessToken = document.cookie.split("=")[1];
-    console.log(accessToken);
     api
       .get(`/user/entries`, {
         headers: {
@@ -139,9 +136,7 @@ const editMenuDB =
   (dataObj, id) =>
   (dispatch, getState, { history }) => {
     const userId = getState().user.user.id;
-    console.log(userId);
     const newObj = { id: userId, ...dataObj };
-    console.log(newObj);
 
     const formData = new FormData();
     for (let entry of Object.entries(newObj)) {
@@ -151,7 +146,6 @@ const editMenuDB =
     api
       .patch(`/menu/${id}`, newObj)
       .then((res) => {
-        console.log(res);
         // dispatch(editMenu(newObj, id));
         history.replace("/mypost");
       })
@@ -181,7 +175,6 @@ export default handleActions(
 
     [DELETE_MENU]: (state, action) =>
       produce(state, (draft) => {
-        console.log(action.payload.id);
         let idx = draft.postList.findIndex((p) => p.id === action.payload.id);
         if (idx !== -1) {
           draft.postList.splice(idx, 1);

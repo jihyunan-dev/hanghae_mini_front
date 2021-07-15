@@ -37,7 +37,6 @@ const Detail = (props) => {
     User: { id: userId, nickname },
     description,
   } = menu;
-  console.log(img);
 
   return (
     <>

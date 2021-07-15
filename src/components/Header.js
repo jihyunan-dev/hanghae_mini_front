@@ -160,6 +160,10 @@ const Content = styled.div`
 const Info = styled.div`
   display: flex;
   height: 100%;
+
+  & > button:last-child {
+    padding-top: 7px;
+  }
 `;
 
 const Logo = styled.img`

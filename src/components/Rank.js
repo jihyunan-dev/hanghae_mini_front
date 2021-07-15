@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as reloadAction } from "../redux/modules/result";
 import { actionCreators as resultAction } from "../redux/modules/result";
 import { IoReload } from "react-icons/io5";
-import { hiddenMobile } from "../mixin/displayNone";
+import { onlyMobile, hiddenMobile } from "../mixin/displayNone";
 
 const Rank = (props) => {
   const dispatch = useDispatch();
@@ -57,7 +57,8 @@ const Container = styled.div`
   ${({ theme }) => theme.device.desktop} {
     margin-top: 75px;
   }
-  ${hiddenMobile}
+  ${({ theme }) => theme.device.mobileLg} {
+  }
 `;
 
 const TitleBox = styled.div`

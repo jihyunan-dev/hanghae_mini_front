@@ -9,7 +9,10 @@ const colors = {
   lightBlue: "#DCE5F9",
   white: "#FFFFFF",
   black: "#000000",
-  border: "#434656",
+  // border: "#B0A8B9",
+  border: "#919191",
+  // border: "#C6C6C6",
+  // border: "#CFCFCF",
 };
 
 const paddings = {

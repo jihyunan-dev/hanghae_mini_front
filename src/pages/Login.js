@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { Input, Button, Title } from "../elements";
 
-import { history } from "../redux/configureStore";
 import { useDispatch } from "react-redux";
 import { actionCreators as loginAction } from "../redux/modules/user";
 

@@ -57,8 +57,8 @@ const Container = styled.div`
   ${({ theme }) => theme.device.desktop} {
     margin-top: 75px;
   }
-  ${({ theme }) => theme.device.mobileLg} {
-  }
+
+  ${hiddenMobile}
 `;
 
 const TitleBox = styled.div`

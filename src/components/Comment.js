@@ -11,10 +11,12 @@ const Comment = (props) => {
 
   const [currentComment, setCurrentComment] = useState("");
 
-  useEffect(() => dispatch(commentActions.getCommentDB(menuId)), [menuId]);
+  useEffect(() => dispatch(commentActions.getCommentDB(menuId)), []);
 
-  const commentList = useSelector((state) => state.comment.list[menuId]) || [];
-  console.log(commentList);
+  const totalComments = useSelector((state) => state.comment.list) || [];
+  const commentList = totalComments.filter(
+    (comment) => comment.menuId === menuId
+  );
 
   const submitComment = (e) => {
     e.preventDefault();

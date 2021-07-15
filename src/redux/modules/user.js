@@ -20,12 +20,7 @@ const deleteMenu = createAction(DELETE_MENU, (id) => ({ id }));
 
 // initialState
 const initialState = {
-  user: {
-    userId: 1, // 서버에서 받아온 ID(DB에서 사용)
-    loginId: "", // 유저가 가입할 때 사용한 아이디
-    nickname: "",
-    // postList: [], // 내 게시물에 보여질 포스트
-  },
+  user: {},
   postList: [],
   is_login: false,
 };
@@ -83,7 +78,6 @@ const loginCheckDB =
   () =>
   async (dispatch, getState, { history }) => {
     const token = getCookie("is_login");
-    console.log(token);
     await api_token
       .get(`/`)
       .then((res) => {
@@ -115,6 +109,7 @@ const getUserListDB =
 const logOutDB = () => {
   return function (dispatch, getState, { history }) {
     dispatch(logOut());
+    window.alert("로그아웃 되었습니다.");
     history.replace("/login");
   };
 };

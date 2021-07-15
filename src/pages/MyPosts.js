@@ -1,7 +1,7 @@
 // myPosts.js
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { Button, Title } from "../elements";
+import { Button } from "../elements";
 import { history } from "../redux/configureStore";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as PostActions } from "../redux/modules/user";
@@ -29,7 +29,7 @@ const MyPost = (props) => {
     <Container>
       <Grid>
         {myPostList.map((item) => (
-          <Card key={item.postId}>
+          <Card key={item.id}>
             <Image imgUrl={`http://3.36.91.31${item.img}`} />
             <TextBox>
               <Description>

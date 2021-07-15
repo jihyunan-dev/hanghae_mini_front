@@ -11,7 +11,6 @@ import { container } from "../mixin/container";
 
 const Main = () => {
   const dispatch = useDispatch();
-  const is_login = useSelector((state) => state.user.is_login);
 
   // user name 받아오기
   const user = useSelector((state) => state.user.user);

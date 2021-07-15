@@ -56,7 +56,6 @@ const MenuBtn = styled.div`
   margin-bottom: 10px;
   border: 2px solid ${({ theme }) => theme.colors.lightBlue};
   border-radius: 10px;
-  /* background-color: ${({ theme }) => theme.colors.lightBlue}; */
   font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: 600;
   cursor: pointer;

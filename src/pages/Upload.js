@@ -50,7 +50,22 @@ const Upload = (props) => {
   };
 
   const editPost = (id) => {
-    dispatch(userActiocs.editMenuDB(id));
+    if (
+      !menuName ||
+      !description ||
+      !img ||
+      !category.category1 ||
+      !category.category2 ||
+      !category.category3
+    )
+      return;
+
+    const dataObj = {
+      ...category,
+      name: menuName,
+      description,
+    };
+    dispatch(userActiocs.editMenuDB(dataObj, id));
   };
 
   return (
@@ -60,18 +75,28 @@ const Upload = (props) => {
         <CategoryBtns setCategory={setCategory} />
         <RowBox>
           <Subtitle>추천 메뉴 이름</Subtitle>
-          <Input
-            value={menuName}
-            _onChange={(e) => setMenuName(e.target.value)}
-          />
+          {is_edit ? (
+            <Input value={menuName} />
+          ) : (
+            <Input
+              value={menuName}
+              _onChange={(e) => setMenuName(e.target.value)}
+            />
+          )}
         </RowBox>
         <RowBox>
-          <Subtitle>추천 메뉴 이미지 업로드</Subtitle>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) => setImg(e.target.files[0])}
-          />
+          {is_edit ? (
+            ""
+          ) : (
+            <>
+              <Subtitle>추천 메뉴 이미지 업로드</Subtitle>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => setImg(e.target.files[0])}
+              />{" "}
+            </>
+          )}
         </RowBox>
         {/* 
         <div>

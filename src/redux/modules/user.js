@@ -148,10 +148,13 @@ const editMenuDB =
       formData.append(entry[0], entry[1]);
     }
 
-    api.patch(`/menu/${id}`).then((res) => {
-      console.log(res);
-      // dispatch()
-    });
+    api
+      .patch(`/menu/${id}`, newObj)
+      .then((res) => {
+        console.log(res);
+        dispatch(editMenu(newObj, id));
+      })
+      .catch((err) => console.log("게시글 수정 실패", err));
   };
 
 // reducer

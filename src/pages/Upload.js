@@ -19,6 +19,7 @@ const Upload = (props) => {
   const [description, setDescription] = useState(
     _post ? _post.description : ""
   );
+  console.log(_post);
 
   const [category, setCategory] = useState({
     category1: null,

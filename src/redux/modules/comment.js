@@ -31,19 +31,22 @@ const deleteComment = createAction(DELETE_COMMENT, (menuId, commentId) => ({
 // thunk
 const getCommentDB =
   (menuId) =>
-  async (dispatch, getState, { history }) => {
-    const data = await api.get(`/comments/comments?menuId=${menuId}`);
-    console.log(data);
-    dispatch(setComment(data));
+  (dispatch, getState, { history }) => {
+    api
+      .get(`/comments/comments?menuId=${menuId}`)
+      .then((res) => dispatch(setComment(res.data.result)))
+      .catch((err) => console.log(err));
   };
 
 const addCommentDB =
   (comment) =>
-  async (dispatch, getState, { history }) => {
+  (dispatch, getState, { history }) => {
     const { nickname, id: userId } = getState().user.user;
     const body = { ...comment, nickname, userId };
-    const { data } = await api.post("/comments/comments", body);
-    console.log(data);
+    api.post("/comments/comments", body).then((res) => {
+      const id = res.result.id;
+      dispatch(addComment({ ...body, commentId: id }));
+    });
 
     // dispatch(addComment({ ...body, commentId: id }));
   };
@@ -80,8 +83,10 @@ export default handleActions(
   {
     [SET_COMMENT]: (state, action) =>
       produce(state, (draft) => {
-        action.payload.comments.forEach((item) => {
-          const menuId = item.menuId;
+        console.log(action.payload.comments);
+        action.payload.comments.map((item) => {
+          const menuId = item.id;
+          console.log(`menuId: ${menuId}`);
           draft.list[menuId]
             ? draft.list[menuId].push(item)
             : (draft.list[menuId] = [item]);

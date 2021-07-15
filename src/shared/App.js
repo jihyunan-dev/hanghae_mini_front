@@ -10,17 +10,33 @@ import MyPosts from "../pages/MyPosts";
 import theme from "./theme";
 
 import GlobalStyles from "./GlobalStyles";
-import { Route } from "react-router-dom";
+import { Redirect, Route } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
 import { history } from "../redux/configureStore";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as loginActions } from "../redux/modules/user";
 
 const App = () => {
   const dispatch = useDispatch();
+
+  const is_login = useSelector((state) => state.user.is_login);
   React.useEffect(() => {
     dispatch(loginActions.loginCheckDB());
   }, []);
+
+  if (!is_login) {
+    return (
+      <ThemeProvider theme={theme}>
+        <GlobalStyles />
+        <ConnectedRouter history={history}>
+          <Header />
+          <Route path="/register" exact component={Register} />
+          <Route path="/login" exact component={Login} />
+          <Redirect to="/login" />
+        </ConnectedRouter>
+      </ThemeProvider>
+    );
+  }
 
   return (
     <ThemeProvider theme={theme}>

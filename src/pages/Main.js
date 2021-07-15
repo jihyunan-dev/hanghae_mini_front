@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as resultAction } from "../redux/modules/result";
@@ -21,6 +21,10 @@ const Main = () => {
     category3: "한식",
   });
 
+  useEffect(() => {
+    return dispatch(resultAction.resetCurrentMenu());
+  }, []);
+
   // 메뉴 추천받기!
   const getResults = () => {
     const { category1, category2, category3 } = category;
@@ -35,11 +39,9 @@ const Main = () => {
     <Container>
       <Rank />
       <Div>
-        {/* <Title center={true}>
-          {user.nickname
-            ? `${user.nickname}님의 오늘 점심 추천`
-            : "오늘 점심 추천"}
-        </Title> */}
+        <Title center={true}>
+          {user ? `${user.nickname}님의 오늘 점심 추천` : "오늘 점심 추천"}
+        </Title>
         <CategoryBtns setCategory={setCategory} />
         <Button btnName="submit" _onClick={getResults} text="메뉴 추천받기" />
         <Result category={category} />

@@ -6,7 +6,11 @@ import TextForm from "./TextForm";
 
 const CommentBox = (props) => {
   const dispatch = useDispatch();
-  const { nickname, comment: text, id } = props.comment;
+  const {
+    comment: text,
+    User: { nickname },
+  } = props.comment;
+  console.log(props.comment);
   const commentId = props.comment.id || props.comment.commentId;
 
   const [editMode, setEditMode] = useState(false);

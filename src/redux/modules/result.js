@@ -8,6 +8,7 @@ const GET_DETAIL = "GET_DETAIL";
 const ADD_MENU = "ADD_MENU";
 const GET_RANK = "GET_RANK";
 const UPDATE_RANK = "UPDATE_RANK";
+const RESET_CURRENT_MENU = "RESET_CURRENT_MENU";
 
 // action create function
 const getMenu = createAction(GET_MENU, (randomList) => ({ randomList }));
@@ -15,6 +16,7 @@ const getDetail = createAction(GET_DETAIL, (menu) => ({ menu }));
 const addMenu = createAction(ADD_MENU, (newMenu) => ({ newMenu }));
 const getRank = createAction(GET_RANK, (menu_like) => ({ menu_like }));
 const updateRank = createAction(UPDATE_RANK, () => ({}));
+const resetCurrentMenu = createAction(RESET_CURRENT_MENU);
 
 // initialState
 
@@ -114,6 +116,11 @@ export default handleActions(
         draft.rankList = action.payload.menu_like;
       }),
     [UPDATE_RANK]: (state, action) => produce(state, (draft) => {}),
+    [RESET_CURRENT_MENU]: (state, action) =>
+      produce(state, (draft) => {
+        draft.randomList = [];
+        draft.currentMenu = null;
+      }),
   },
   initialState
 );
@@ -128,6 +135,7 @@ const actionCreators = {
   getDetailDB,
   addMenuDB,
   likeMenuDB,
+  resetCurrentMenu,
 };
 
 export { actionCreators };

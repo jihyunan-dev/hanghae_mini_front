@@ -20,12 +20,7 @@ const deleteMenu = createAction(DELETE_MENU, (id) => ({ id }));
 
 // initialState
 const initialState = {
-  user: {
-    userId: 1, // 서버에서 받아온 ID(DB에서 사용)
-    loginId: "", // 유저가 가입할 때 사용한 아이디
-    nickname: "",
-    // postList: [], // 내 게시물에 보여질 포스트
-  },
+  user: {},
   postList: [],
   is_login: false,
 };
@@ -83,7 +78,6 @@ const loginCheckDB =
   () =>
   async (dispatch, getState, { history }) => {
     const token = getCookie("is_login");
-    console.log(token);
     await api_token
       .get(`/`)
       .then((res) => {
@@ -105,16 +99,26 @@ const loginCheckDB =
 const getUserListDB =
   () =>
   (dispatch, getState, { history }) => {
-    api.get(`/user/entries`).then((res) => {
-      console.log(res);
-      dispatch(getMyList(res.data.entries));
-      console.log(getMyList(res.data.entries));
-    });
+    const accessToken = document.cookie.split("=")[1];
+    console.log(accessToken);
+    api
+      .get(`/user/entries`, {
+        headers: {
+          "content-type": "application/json;charset=UTF-8",
+          accept: "application/json,",
+          authorization: `${accessToken}`,
+        },
+      })
+      .then((res) => {
+        dispatch(getMyList(res.data.entries));
+        console.log(getMyList(res.data.entries));
+      });
   };
 
 const logOutDB = () => {
   return function (dispatch, getState, { history }) {
     dispatch(logOut());
+    window.alert("로그아웃 되었습니다.");
     history.replace("/login");
   };
 };
@@ -164,7 +168,7 @@ export default handleActions(
     [LOG_OUT]: (state, action) =>
       produce(state, (draft) => {
         deleteCookie("is_login");
-        draft.user = null;
+        draft.user = {};
         draft.is_login = false;
       }),
     [EDIT_MENU]: (state, action) => produce(state, (draft) => {}),

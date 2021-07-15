@@ -4,6 +4,7 @@ import { hiddenMobile } from "../mixin/displayNone";
 
 const Button = (props) => {
   const {
+    type,
     text,
     width,
     margin,
@@ -15,6 +16,7 @@ const Button = (props) => {
   } = props;
 
   const styles = {
+    type,
     width,
     margin,
     padding,

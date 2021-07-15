@@ -45,6 +45,7 @@ const loginDB =
           setUser({
             nickname: user.data.result.user.nickname,
             userId: user.data.result.user.userId,
+            id: user.data.result.user.id,
           })
         );
         const accessToken = "Bearer " + user.data.token;
@@ -86,7 +87,6 @@ const loginCheckDB =
     await api_token
       .get(`/`)
       .then((res) => {
-        console.log(res);
         dispatch(
           setUser({
             token: token,

@@ -24,6 +24,7 @@ const CategoryBtns = (props) => {
       <Categorys>
         {btns1.map((item, idx) => (
           <Button
+            type="button"
             btnName="category"
             key={idx}
             text={item}
@@ -35,6 +36,7 @@ const CategoryBtns = (props) => {
       <Categorys>
         {btns2.map((item, idx) => (
           <Button
+            type="button"
             btnName="category"
             key={idx}
             text={item}
@@ -46,6 +48,7 @@ const CategoryBtns = (props) => {
       <Categorys>
         {btns3.map((item, idx) => (
           <Button
+            type="button"
             btnName="category"
             key={idx}
             text={item}

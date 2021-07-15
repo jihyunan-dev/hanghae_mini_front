@@ -64,7 +64,6 @@ const Upload = (props) => {
       ...category,
       name: menuName,
       description,
-      img,
     };
     dispatch(userActiocs.editMenuDB(dataObj, id));
   };
@@ -76,10 +75,14 @@ const Upload = (props) => {
         <CategoryBtns setCategory={setCategory} />
         <RowBox>
           <Subtitle>추천 메뉴 이름</Subtitle>
-          <Input
-            value={menuName}
-            _onChange={(e) => setMenuName(e.target.value)}
-          />
+          {is_edit ? (
+            <Input value={menuName} />
+          ) : (
+            <Input
+              value={menuName}
+              _onChange={(e) => setMenuName(e.target.value)}
+            />
+          )}
         </RowBox>
         <RowBox>
           {is_edit ? (

@@ -135,10 +135,8 @@ const editMenuDB =
   (dataObj, id) =>
   (dispatch, getState, { history }) => {
     const userId = getState().user.user.id;
-    console.log(userId);
     const newObj = { id: userId, ...dataObj };
-    console.log(newObj);
-
+    console.log(id);
     const formData = new FormData();
     for (let entry of Object.entries(newObj)) {
       formData.append(entry[0], entry[1]);

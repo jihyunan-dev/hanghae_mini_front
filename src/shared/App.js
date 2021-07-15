@@ -15,6 +15,7 @@ import { ConnectedRouter } from "connected-react-router";
 import { history } from "../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as loginActions } from "../redux/modules/user";
+import Info from "../pages/Info";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -30,9 +31,10 @@ const App = () => {
         <GlobalStyles />
         <ConnectedRouter history={history}>
           <Header />
+          <Route path="/info" exact component={Info} />
           <Route path="/register" exact component={Register} />
           <Route path="/login" exact component={Login} />
-          <Redirect to="/login" />
+          <Redirect to="/info" />
         </ConnectedRouter>
       </ThemeProvider>
     );

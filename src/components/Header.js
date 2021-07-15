@@ -20,13 +20,12 @@ import { container } from "../mixin/container";
 const Header = (props) => {
   const dispatch = useDispatch();
   const is_login = useSelector((state) => state.user.is_login);
-  
 
   if (!is_login) {
     return (
       <Container>
         <Content>
-          <Link to="/login">
+          <Link to="/info">
             <h1>
               <Logo src={logo} alt="오늘 점심 뭐 먹냐?" />
             </h1>

@@ -99,11 +99,20 @@ const loginCheckDB =
 const getUserListDB =
   () =>
   (dispatch, getState, { history }) => {
-    api.get(`/user/entries`).then((res) => {
-      console.log(res);
-      dispatch(getMyList(res.data.entries));
-      console.log(getMyList(res.data.entries));
-    });
+    const accessToken = document.cookie.split("=")[1];
+    console.log(accessToken);
+    api
+      .get(`/user/entries`, {
+        headers: {
+          "content-type": "application/json;charset=UTF-8",
+          accept: "application/json,",
+          authorization: `${accessToken}`,
+        },
+      })
+      .then((res) => {
+        dispatch(getMyList(res.data.entries));
+        console.log(getMyList(res.data.entries));
+      });
   };
 
 const logOutDB = () => {
@@ -159,7 +168,7 @@ export default handleActions(
     [LOG_OUT]: (state, action) =>
       produce(state, (draft) => {
         deleteCookie("is_login");
-        draft.user = null;
+        draft.user = {};
         draft.is_login = false;
       }),
     [EDIT_MENU]: (state, action) => produce(state, (draft) => {}),

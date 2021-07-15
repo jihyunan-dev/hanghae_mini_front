@@ -1,7 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
-import { IoAdd, IoAppsSharp, IoLogOutOutline } from "react-icons/io5";
+import {
+  IoAdd,
+  IoAppsSharp,
+  IoLogOutOutline,
+  IoLogInOutline,
+  IoPersonAddOutline,
+} from "react-icons/io5";
 import { onlyMobile } from "../mixin/displayNone";
 
 import Button from "../elements/Button";
@@ -16,6 +22,50 @@ const Header = (props) => {
   const dispatch = useDispatch();
   const is_login = useSelector((state) => state.user.is_login);
   console.log(is_login);
+
+  if (!is_login) {
+    return (
+      <Container>
+        <Content>
+          <Link to="/login">
+            <h1>
+              <Logo src={logo} alt="오늘 점심 뭐 먹냐?" />
+            </h1>
+          </Link>
+          <Info>
+            <IconBtn
+              onClick={() => {
+                history.push("/login");
+              }}
+            >
+              <IoLogInOutline />
+            </IconBtn>
+            <Button
+              _onClick={() => {
+                history.push("/login");
+              }}
+              btnName="header"
+              text="로그인"
+            />
+            <IconBtn
+              onClick={() => {
+                history.push("/register");
+              }}
+            >
+              <IoPersonAddOutline />
+            </IconBtn>
+            <Button
+              _onClick={() => {
+                history.push("/register");
+              }}
+              btnName="header"
+              text="회원가입"
+            />
+          </Info>
+        </Content>
+      </Container>
+    );
+  }
 
   return (
     <Container>

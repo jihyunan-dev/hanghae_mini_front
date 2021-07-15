@@ -34,7 +34,9 @@ const getCommentDB =
   (dispatch, getState, { history }) => {
     api
       .get(`/comments/comments?menuId=${menuId}`)
-      .then((res) => dispatch(setComment(res.data.result)))
+      .then((res) => {
+        dispatch(setComment(res.data.result));
+      })
       .catch((err) => console.log(err));
   };
 
@@ -44,20 +46,18 @@ const addCommentDB =
     const { nickname, id: userId } = getState().user.user;
     const body = { ...comment, nickname, userId };
     api.post("/comments/comments", body).then((res) => {
-      const id = res.result.id;
-      dispatch(addComment({ ...body, commentId: id }));
+      const id = res.data.result.id;
+      dispatch(addComment({ ...body, commentId: id, nickname }));
     });
-
-    // dispatch(addComment({ ...body, commentId: id }));
   };
 
 const editCommentDB =
   (menuId, commentId, newComment) =>
   (dispatch, getState, { history }) => {
-    const { id: userId } = getState().user.user;
-    const obj = { description: newComment, userId };
+    const { id } = getState().user.user;
+    const obj = { description: newComment, userId: id };
     api
-      .put(`comments/comments/${commentId}`, obj) // json-server-에서는 patch로 작동. api 요청은 put이므로 put으로 전달
+      .put(`comments/comments/${commentId}`, obj)
       .then((res) => {
         dispatch(editComment(menuId, commentId, newComment));
       })
@@ -75,7 +75,7 @@ const deleteCommentDB =
 
 // initialState
 const initialState = {
-  list: {},
+  list: [],
 };
 
 // reducer
@@ -83,38 +83,39 @@ export default handleActions(
   {
     [SET_COMMENT]: (state, action) =>
       produce(state, (draft) => {
-        console.log(action.payload.comments);
-        action.payload.comments.map((item) => {
-          const menuId = item.id;
-          console.log(`menuId: ${menuId}`);
-          draft.list[menuId]
-            ? draft.list[menuId].push(item)
-            : (draft.list[menuId] = [item]);
+        const newList = action.payload.comments.map((item) => {
+          const {
+            id: commentId,
+            menuId,
+            comment,
+            User: { nickname },
+          } = item;
+
+          const commentObj = {
+            commentId,
+            menuId,
+            comment,
+            nickname,
+          };
+          return commentObj;
         });
+        draft.list = newList;
       }),
     [ADD_COMMENT]: (state, action) =>
       produce(state, (draft) => {
-        const { menuId } = action.payload.comment;
-        draft.list[menuId]
-          ? draft.list[menuId].push(action.payload.comment)
-          : (draft.list[menuId] = [action.payload.comment]);
+        draft.list.push(action.payload.comment);
       }),
     [EDIT_COMMENT]: (state, action) =>
       produce(state, (draft) => {
-        const { menuId, commentId, newComment } = action.payload;
-        draft.list[menuId] = draft.list[menuId].map((comment) =>
-          comment.id === commentId
-            ? { ...comment, comment: newComment }
-            : comment
+        const { commentId, newComment } = action.payload;
+        draft.list = draft.list.map((item) =>
+          item.commentId === commentId ? { ...item, comment: newComment } : item
         );
       }),
     [DELETE_COMMENT]: (state, action) =>
       produce(state, (draft) => {
-        console.log(action.payload);
-        const { menuId, commentId } = action.payload;
-        draft.list[menuId] = draft.list[menuId].filter(
-          (comment) => comment.id !== commentId
-        );
+        const { commentId } = action.payload;
+        draft.list = draft.list.filter((item) => item.commentId !== commentId);
       }),
   },
   initialState

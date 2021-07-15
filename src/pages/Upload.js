@@ -19,7 +19,6 @@ const Upload = (props) => {
   const [description, setDescription] = useState(
     _post ? _post.description : ""
   );
-  console.log(_post);
 
   const [category, setCategory] = useState({
     category1: null,
@@ -51,7 +50,23 @@ const Upload = (props) => {
   };
 
   const editPost = (id) => {
-    dispatch(userActiocs.editMenuDB(id));
+    if (
+      !menuName ||
+      !description ||
+      !img ||
+      !category.category1 ||
+      !category.category2 ||
+      !category.category3
+    )
+      return;
+
+    const dataObj = {
+      ...category,
+      name: menuName,
+      description,
+      img,
+    };
+    dispatch(userActiocs.editMenuDB(dataObj, id));
   };
 
   return (
@@ -67,12 +82,18 @@ const Upload = (props) => {
           />
         </RowBox>
         <RowBox>
-          <Subtitle>추천 메뉴 이미지 업로드</Subtitle>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) => setImg(e.target.files[0])}
-          />
+          {is_edit ? (
+            ""
+          ) : (
+            <>
+              <Subtitle>추천 메뉴 이미지 업로드</Subtitle>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => setImg(e.target.files[0])}
+              />{" "}
+            </>
+          )}
         </RowBox>
         {/* 
         <div>

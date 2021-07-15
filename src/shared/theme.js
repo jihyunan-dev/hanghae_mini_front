@@ -8,6 +8,7 @@ const colors = {
   lightBlue: "#DCE5F9",
   white: "#FFFFFF",
   black: "#000000",
+  border: "#434656",
 };
 
 const paddings = {

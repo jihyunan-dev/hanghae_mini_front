@@ -11,7 +11,6 @@ import { container } from "../mixin/container";
 
 const Main = () => {
   const dispatch = useDispatch();
-  const is_login = useSelector((state) => state.user.is_login);
 
   // user name 받아오기
   const user = useSelector((state) => state.user.user);
@@ -37,7 +36,6 @@ const Main = () => {
 
   return (
     <Container>
-      <Rank />
       <Div>
         <Title center={true}>
           {user ? `${user.nickname}님의 오늘 점심 추천` : "오늘 점심 추천"}
@@ -46,6 +44,7 @@ const Main = () => {
         <Button btnName="submit" _onClick={getResults} text="메뉴 추천받기" />
         <Result category={category} />
       </Div>
+      <Rank />
     </Container>
   );
 };
@@ -60,11 +59,16 @@ const Container = styled.div`
 
   ${({ theme }) => theme.device.desktop} {
     max-width: 1000px;
+    margin: 50 auto;
   }
+  display: flex;
+  justify-content: space-around;
 `;
 
 // 이름 바꿔야함..
 const Div = styled.div`
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;

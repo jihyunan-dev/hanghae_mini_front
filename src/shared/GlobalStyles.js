@@ -19,6 +19,7 @@ const GlobalStyles = createGlobalStyle`
 
   body { 
     padding-top: 70px;
+    padding-bottom: 50px;
     font-family: 'GmarketSansLight', sans-serif;
   }
 

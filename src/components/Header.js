@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo, useMemo } from "react";
 import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 import {
@@ -13,7 +13,6 @@ import { onlyMobile } from "../mixin/displayNone";
 import Button from "../elements/Button";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as userAction } from "../redux/modules/user";
-import { deleteCookie, getCookie } from "../shared/Cookie";
 import { history } from "../redux/configureStore";
 import logo from "../assets/mini_logo.svg";
 import { container } from "../mixin/container";
@@ -142,7 +141,7 @@ const Container = styled.div`
 const Content = styled.div`
   ${container}
   ${({ theme }) => {
-    const { colors, device } = theme;
+    const { device } = theme;
     return css`
       width: 100%;
       display: flex;
@@ -160,6 +159,10 @@ const Content = styled.div`
 const Info = styled.div`
   display: flex;
   height: 100%;
+
+  & > button:last-child {
+    padding-top: 7px;
+  }
 `;
 
 const Logo = styled.img`
@@ -176,4 +179,4 @@ const IconBtn = styled.button`
   padding: ${({ theme }) => theme.paddings.sm};
 `;
 
-export default Header;
+export default memo(Header);

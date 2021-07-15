@@ -76,13 +76,32 @@ const Upload = (props) => {
     <Container>
       <Title>{is_edit ? "추천 메뉴 수정" : "추천 메뉴 등록"}</Title>
       <form encType="multipart/form-data" onSubmit={handleSubmit}>
-        <CategoryBtns setCategory={setCategory} />
+        <CategoryBtns
+          initial={
+            is_edit
+              ? {
+                  first: _post.category1,
+                  second: _post.category2,
+                  third: _post.category3,
+                }
+              : {
+                  first: "채식",
+                  second: "식사",
+                  third: "한식",
+                }
+          }
+          setCategory={setCategory}
+        />
         <RowBox>
           <Subtitle>추천 메뉴 이름</Subtitle>
-          <Input
-            value={menuName}
-            _onChange={(e) => setMenuName(e.target.value)}
-          />
+          {is_edit ? (
+            <Input value={menuName} />
+          ) : (
+            <Input
+              value={menuName}
+              _onChange={(e) => setMenuName(e.target.value)}
+            />
+          )}
         </RowBox>
         <RowBox>
           {is_edit ? (

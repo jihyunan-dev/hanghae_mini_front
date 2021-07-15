@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import { Button } from "../elements";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as reloadAction } from "../redux/modules/result";
 import { actionCreators as resultAction } from "../redux/modules/result";
 import { IoReload } from "react-icons/io5";
+import { hiddenMobile } from "../mixin/displayNone";
 
 const Rank = (props) => {
   const dispatch = useDispatch();
@@ -16,19 +16,6 @@ const Rank = (props) => {
   const reload = () => {
     dispatch(reloadAction.getRankDB());
   };
-
-  // const rankList = [
-  //   "짜장면",
-  //   "햄버거",
-  //   "마라탕",
-  //   "순대국밥",
-  //   "김치찌개",
-  //   "샐러드",
-  //   "백반",
-  //   "냉면",
-  //   "찜닭",
-  //   "갈비탕",
-  // ];
 
   return (
     <Container>
@@ -42,9 +29,11 @@ const Rank = (props) => {
       <div>
         {rankList.map((reload, idx) => {
           return (
-            <div key={idx}>
-              <p>{reload.name}</p>
-            </div>
+            <RankItem key={idx}>
+              <p>
+                {idx + 1}. {reload.name}
+              </p>
+            </RankItem>
           );
         })}
       </div>
@@ -56,20 +45,32 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
-  margin: 0 auto;
+  width: 250px;
+  height: 100%;
+  margin: 70px 0 0 50px;
   margin-bottom: ${({ theme }) => theme.paddings.lg};
+  border: 2px solid ${({ theme }) => theme.colors.border};
+  border-radius: 15px;
+  padding: 10px;
+  position: relative;
+
+  ${({ theme }) => theme.device.desktop} {
+    margin-top: 75px;
+  }
+  ${hiddenMobile}
 `;
 
 const TitleBox = styled.div`
   display: flex;
   align-items: center;
+  flex-direction: column;
 `;
 
 const Title = styled.h3`
   position: relative;
   display: inline-block;
   margin: 0 auto;
+  padding-top: 5px;
   padding-bottom: 5px;
   border-bottom: 3px solid ${({ theme }) => theme.colors.mainBlue};
   color: ${({ theme }) => theme.colors.mainBlue};
@@ -78,11 +79,23 @@ const Title = styled.h3`
 `;
 
 const ReloadBtn = styled.button`
+  position: absolute;
+  top: 8px;
+  right: 10px;
   height: 30px;
   padding: 5px;
   margin-left: 5px;
   margin-bottom: 5px;
   font-size: ${({ theme }) => theme.fontSizes.lg};
+`;
+
+const RankItem = styled.div`
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  margin: 10px;
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors.border};
 `;
 
 export default Rank;

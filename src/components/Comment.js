@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreator as commentActions } from "../redux/modules/comment";
 
@@ -21,6 +21,11 @@ const Comment = (props) => {
   const submitComment = (e) => {
     e.preventDefault();
 
+    if (currentComment.trim() === "") {
+      window.alert("공백을 제외하고 한 글자 이상 입력해주세요.");
+      return;
+    }
+
     const commentObj = {
       comment: currentComment,
       menuId: menuId,
@@ -42,4 +47,4 @@ const Comment = (props) => {
   );
 };
 
-export default Comment;
+export default memo(Comment);

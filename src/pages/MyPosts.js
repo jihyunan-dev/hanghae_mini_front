@@ -8,6 +8,7 @@ import { actionCreators as PostActions } from "../redux/modules/user";
 import { actionCreators as userAction } from "../redux/modules/user";
 import Image from "../elements/Image";
 import { container } from "../mixin/container";
+import { IoIosHeart } from "react-icons/io";
 
 const MyPost = (props) => {
   const dispatch = useDispatch();
@@ -31,8 +32,16 @@ const MyPost = (props) => {
           <Card key={item.postId}>
             <Image imgUrl={`http://3.36.91.31${item.img}`} />
             <TextBox>
-              <p>{item.description}</p>
-              <p>{item.like}</p>
+              <Description>
+                {item.description.length > 100
+                  ? item.description.substr(0, 50)
+                  : item.description}
+              </Description>
+              <HeartBox>
+                <IoIosHeart />
+                <p>{item.like}</p>
+              </HeartBox>
+
               <Btns>
                 <Button
                   _onClick={() => {
@@ -68,7 +77,15 @@ const Grid = styled.div`
   margin-top: 50px;
   display: grid;
   gap: 20px;
-  grid-template-columns: repeat(3, minmax(250px, 1fr));
+  grid-template-columns: minmax(250px, 1fr);
+
+  ${({ theme }) => theme.device.mobileLg} {
+    grid-template-columns: repeat(2, minmax(250px, 1fr));
+  }
+
+  ${({ theme }) => theme.device.desktop} {
+    grid-template-columns: repeat(3, minmax(250px, 1fr));
+  }
 `;
 
 const Card = styled.article`
@@ -82,6 +99,35 @@ const TextBox = styled.div`
   width: 100%;
   height: calc(300px - (250px * 0.75));
   padding: ${({ theme }) => theme.paddings.sm};
+
+  ${({ theme }) => theme.device.mobileLg} {
+    padding: 20px;
+  }
+`;
+
+const Description = styled.p`
+  height: 50px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
+
+  ${({ theme }) => theme.device.mobileLg} {
+    font-size: ${({ theme }) => theme.fontSizes.md};
+  }
+`;
+
+const HeartBox = styled.div`
+  position: absolute;
+  bottom: 40px;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #ea2027;
+  font-weight: 600;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
+
+  ${({ theme }) => theme.device.mobileLg} {
+    right: 20px;
+  }
 `;
 
 const Btns = styled.div`

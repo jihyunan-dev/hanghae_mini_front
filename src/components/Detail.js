@@ -48,7 +48,7 @@ const Detail = (props) => {
           {/* category 라벨들 만들어주기*/}
           <Title>{name}</Title>
           <Author>작성자: {nickname}</Author>
-          <p>{description}</p>
+          <Description>{description}</Description>
           <LikeBox>
             <HeartBtn isLike={isLike}>
               {isLike ? (
@@ -108,6 +108,10 @@ const Title = styled.h3`
 const Author = styled.p`
   font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: 600;
+`;
+
+const Description = styled.p`
+  margin-top: 10px;
 `;
 
 const LikeBox = styled.div`

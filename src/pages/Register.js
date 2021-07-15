@@ -14,6 +14,11 @@ const Register = (props) => {
   const [passwordConfirm, setPwdCheck] = useState("");
 
   const signUp = () => {
+    if (id === nickname) {
+      window.alert("아이디와 닉네임이 중복되지않게 입력해주세요!");
+      return;
+    }
+
     if (id === "" || password === "" || nickname === "") {
       window.alert("아이디, 패스워드, 닉네임을 모두 입력해주세요!");
       return;

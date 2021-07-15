@@ -13,7 +13,6 @@ import { onlyMobile } from "../mixin/displayNone";
 import Button from "../elements/Button";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as userAction } from "../redux/modules/user";
-import { deleteCookie, getCookie } from "../shared/Cookie";
 import { history } from "../redux/configureStore";
 import logo from "../assets/mini_logo.svg";
 import { container } from "../mixin/container";

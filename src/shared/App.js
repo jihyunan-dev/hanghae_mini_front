@@ -49,7 +49,6 @@ const App = () => {
         <Route path="/upload" exact component={Upload} />
         <Route path="/upload/:id" exact component={Upload} />
         <Route path="/mypost" exact component={MyPosts} />
-        {/* <Route component={ErrorPage} /> */}
       </ConnectedRouter>
     </ThemeProvider>
   );

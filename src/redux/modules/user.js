@@ -87,7 +87,6 @@ const loginCheckDB =
     await api_token
       .get(`/`)
       .then((res) => {
-        console.log(res);
         dispatch(
           setUser({
             token: token,

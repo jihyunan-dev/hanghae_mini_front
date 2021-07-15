@@ -14,7 +14,6 @@ const Upload = (props) => {
   const is_edit = post_id ? true : false;
 
   let _post = is_edit ? my_list.find((p) => String(p.id) === post_id) : null;
-  console.log(_post);
   const [menuName, setMenuName] = useState(_post ? _post.name : "");
   const [img, setImg] = useState(_post ? _post.img : "");
   const [description, setDescription] = useState(

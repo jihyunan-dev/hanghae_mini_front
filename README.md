@@ -58,7 +58,7 @@ https://www.notion.so/15-4b8716eaebb240b7a4748baaa53ed338
 
 ## 3. 실행화면
 
-Youtube Link : https://youtu.be/VAf98TNt9TA
+Youtube Link : https://www.youtube.com/watch?v=fabT4AZYzsE
 
 <br>
 

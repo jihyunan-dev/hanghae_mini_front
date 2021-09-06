@@ -4,8 +4,8 @@
 <img src="https://github.com/jihyunan-dev/hanghae_mini_front/blob/development/public/og-image-lunch.jpg?raw=true" width="500px">
 </center>
 
-오늘은 또 뭐먹어야하나...  
-이제는 음악, 운동, 요리, 먹방 등 **카테고리별로 나누어 관리하세요!**
+오늘은 또 뭐 먹어야 하나...  
+이제는 키워드만 선택해서 점심 추천을 받고, 마음에 드는 메뉴는 저장해두세요😁
 
 **Link**  
 http://lunch-menu.shop

@@ -8,8 +8,8 @@
 이제는 음악, 운동, 요리, 먹방 등 **카테고리별로 나누어 관리하세요!**
 
 **Link**  
-http://lunch-menu
-http://lunch-menu.shop.s3-website.ap-northeast-2.amazonaws.com/
+http://lunch-menu.shop
+
 
 **Notion**  
 https://www.notion.so/15-4b8716eaebb240b7a4748baaa53ed338
@@ -30,23 +30,24 @@ https://www.notion.so/15-4b8716eaebb240b7a4748baaa53ed338
 **BACK END**
 
 - 이현수 : 회원가입 / 로그인 / 유저 토큰 인증
-- 이대성 : 메뉴 등록,수정,삭제,추천
-- 장상현 : 댓글 등록,수정,삭제
+- 이대성 : 메뉴 등록 / 수정 / 삭제 /추천
+- 장상현 : 댓글 등록 / 수정 /삭제
 
 <br>
 
 ## 2. 사용 기술
+`Front-end`
+
+- React
+- Redux
+- styled-components
+
 
 `Back-end`
 
 - Node.js
 - SQL with sequelize
 
-`Front-end`
-
-- React
-- Redux
-- styled-components
 
 `deploy`
 
